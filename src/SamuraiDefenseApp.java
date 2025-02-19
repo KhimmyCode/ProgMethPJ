@@ -123,6 +123,7 @@ public class SamuraiDefenseApp extends Application {
         unitImages.put("Samurai", new Image("https://upload.wikimedia.org/wikipedia/commons/6/6e/Samurai_in_armor.jpg"));
         unitImages.put("Archer", new Image("https://upload.wikimedia.org/wikipedia/commons/8/8e/Yabusame_archer_2.jpg"));
         unitImages.put("Monk", new Image("https://upload.wikimedia.org/wikipedia/commons/1/1c/Japanese_Monk.jpg"));
+        System.out.println("eiei");
     }
 
     /** SPAWN ENEMY (MOVEMENT) **/
