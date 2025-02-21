@@ -1,5 +1,5 @@
 package entity.interfaces;
 
 public interface Attackable {
-	void attack();
+	void attack(Object e);
 }

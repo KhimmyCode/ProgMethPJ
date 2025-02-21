@@ -1,23 +1,25 @@
 package entity.interfaces;
 
 public abstract class Unit {
-	//fields & variables
 	private String name;
 	private int health;
 	private int maxHealth;
 	private int attackPower;
-	private int speed;
-	private int range;
+	private double speed;
+	private double range;
 	private boolean isAlley;
 	private int accuracy;
 	private int evasion;
-	private int pos;
-	private int cooldown;
-	//pos -> this field tell us that where the unit located : if unit is alley -> start at 0 , else start at 100
-	//alley walk from o to 100 , enemy walk from 100 to 0 ; they will found each other at the same position(logic will think later)
-	
-	// Constructors
-	public Unit(String name, int health, int attackPower, int speed, int range, boolean isAlley , int accuracy , int evasion) {
+	private double pos;
+	private double cooldown;
+	private Action status;
+	// pos -> this field tell us that where the unit located : if unit is alley ->
+	// start at 0 , else start at 100
+	// alley walk from o to 100 , enemy walk from 100 to 0 ; they will found each
+	// other at the same position(logic will think later)
+
+	public Unit(String name, int health, int attackPower, double speed, double range, boolean isAlley, int accuracy,
+			int evasion, double cooldown) {
 		this.setName(name);
 		this.setHealth(health);
 		this.setMaxHealth(health);
@@ -27,14 +29,26 @@ public abstract class Unit {
 		this.setAlley(isAlley);
 		this.setAccuracy(accuracy);
 		this.setEvasion(evasion);
+		this.setCooldown(cooldown);
+		this.setStatus(Action.WALK);
 	}
-	
-	public abstract void walk(); // abstract method 
-	
 
-	// Getters & Setters
+	public abstract void walk();
+
+	public void Dead() {
+		this.status = Action.DEATH;
+	}
+
 	public String getName() {
 		return name;
+	}
+
+	public Action getStatus() {
+		return status;
+	}
+
+	public void setStatus(Action status) {
+		this.status = status;
 	}
 
 	public void setName(String name) {
@@ -46,8 +60,13 @@ public abstract class Unit {
 	}
 
 	public void setHealth(int health) {
-		if(health <0) this.health = 0;
-		else this.health = health;
+		if (health < 0)
+			this.health = 0;
+		else
+			this.health = health;
+		if (this.health == 0) {
+			this.Dead();
+		}
 	}
 
 	public int getAttackPower() {
@@ -55,26 +74,32 @@ public abstract class Unit {
 	}
 
 	public void setAttackPower(int attackPower) {
-		if(attackPower <0) this.attackPower = 0;
-		else this.attackPower = attackPower;
+		if (attackPower < 0)
+			this.attackPower = 0;
+		else
+			this.attackPower = attackPower;
 	}
 
-	public int getSpeed() {
+	public double getSpeed() {
 		return speed;
 	}
 
-	public void setSpeed(int speed) {
-		if(speed <0) this.speed = 0;
-		else this.speed = speed;
+	public void setSpeed(double speed) {
+		if (speed < 0)
+			this.speed = 0;
+		else
+			this.speed = speed;
 	}
 
-	public int getRange() {
+	public double getRange() {
 		return range;
 	}
 
-	public void setRange(int range) {
-		if(range < 0) this.range = 0; 
-		else this.range = range;
+	public void setRange(double range) {
+		if (range < 0)
+			this.range = 0;
+		else
+			this.range = range;
 	}
 
 	public boolean isAlley() {
@@ -90,8 +115,10 @@ public abstract class Unit {
 	}
 
 	public void setMaxHealth(int maxHealth) {
-		if(maxHealth <0) this.maxHealth = 0;
-		this.maxHealth = maxHealth;
+		if (maxHealth < 0)
+			this.maxHealth = 0;
+		else
+			this.maxHealth = maxHealth;
 	}
 
 	public int getAccuracy() {
@@ -110,22 +137,20 @@ public abstract class Unit {
 		this.evasion = evasion;
 	}
 
-	public int getPos() {
+	public double getPos() {
 		return pos;
 	}
 
-	public void setPos(int pos) {
+	public void setPos(double pos) {
 		this.pos = pos;
 	}
 
-	public int getCooldown() {
+	public double getCooldown() {
 		return cooldown;
 	}
 
-	public void setCooldown(int cooldown) {
+	public void setCooldown(double cooldown) {
 		this.cooldown = cooldown;
 	}
-	
-	
 
 }
