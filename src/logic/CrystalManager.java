@@ -50,6 +50,7 @@ public class CrystalManager {
 		if (crystalCount >= archerCost) {
 			crystalCount -= archerCost;
 			heroList.add(archer);
+			GameLogic.getInstance().addUnitToOurTeam(archer);
 			updateCrystalText();
 			System.out.println("Spawned an Archer! Remaining crystals: " + crystalCount);
 		} else {
@@ -64,6 +65,7 @@ public class CrystalManager {
 		if (crystalCount >= priestCost) {
 			crystalCount -= priestCost;
 			heroList.add(priest);
+			GameLogic.getInstance().addUnitToOurTeam(priest);
 			updateCrystalText();
 			System.out.println("Spawned a Priest! Remaining crystals: " + crystalCount);
 		} else {
@@ -78,6 +80,7 @@ public class CrystalManager {
 		if (crystalCount >= wizardCost) {
 			crystalCount -= wizardCost;
 			heroList.add(wizard);
+			GameLogic.getInstance().addUnitToOurTeam(wizard);
 			updateCrystalText();
 			System.out.println("Spawned a Wizard! Remaining crystals: " + crystalCount);
 		} else {
@@ -92,6 +95,7 @@ public class CrystalManager {
 		if (crystalCount >= lancerCost) {
 			crystalCount -= lancerCost;
 			heroList.add(lancer);
+			GameLogic.getInstance().addUnitToOurTeam(lancer);
 			updateCrystalText();
 			System.out.println("Spawned a Lancer! Remaining crystals: " + crystalCount);
 		} else {
@@ -137,6 +141,12 @@ public class CrystalManager {
 			crystalText.setText("Crystals: " + crystalCount + " | Upgrade Level: " + upgradeLevel + " | Upgrade Cost: "
 					+ upgradeCost);
 		});
+	}
+
+	public int getCrystalCount() {
+		// TODO Auto-generated method stub
+		
+		return crystalCount;
 	}
 
 }

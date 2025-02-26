@@ -16,7 +16,7 @@ public class Knight extends Heros implements Attackable {
 
 	public Knight() {
 		// Name, hp , atk , spd , range , team , acc , eva , cool , cost , deploytime
-		super("Knight", 100, 10, 1, 1, true, 100, 15, 5, 80, 5);
+		super("Knight", 100, 10, 1, 1, true, 100, 15, 1, 80, 5);
 		this.knightFrames = new Image[8];
 		this.currentFrame = 0;
 		this.lastFrameTime = System.currentTimeMillis();

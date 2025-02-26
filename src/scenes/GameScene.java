@@ -50,7 +50,7 @@ public class GameScene {
         // Crystal manager
         Text crystalText = new Text();
         crystalManager = new CrystalManager(100, crystalText);
-        crystalManager.startCrystalCount();  // Start crystal generation every second
+        crystalManager.startCrystalCount(); // Start crystal generation every second
 
         // Button panel
         HBox buttonPanel = new HBox(10);
@@ -58,21 +58,20 @@ public class GameScene {
         // Button for Knight
         Button knightButton = new Button("Spawn Knight");
         knightButton.setOnAction(e -> {
-            if (!knightOnCooldown) {
+            if (!knightOnCooldown && crystalManager.getCrystalCount() >= knight.getCost()) {
                 crystalManager.spawnKnight();
                 knightOnCooldown = true;
                 knightButton.setDisable(true); // Disable the button
-                knight.setCooldown(5); // Reset the cooldown to 5 seconds for knight
                 System.out.println("Add Knight");
 
-                // Start cooldown countdown for Knight
+                // Start deploy countdown for Knight
                 new Thread(() -> {
-                    while (knight.getCooldown() > 0) {
+                    while (knight.getDeployTime() > 0) {
                         try {
                             Thread.sleep(1000); // Wait for 1 second
-                            knight.setCooldown(knight.getCooldown() - 1); // Decrease cooldown
+                            knight.setDeployTime(knight.getDeployTime() - 1); // Decrease deploy time
                             Platform.runLater(() -> {
-                                knightButton.setText("Knight (" + knight.getCooldown() + "s)"); // Update button text
+                                knightButton.setText("Knight (" + knight.getDeployTime() + "s)"); // Update button text
                             });
                         } catch (InterruptedException ex) {
                             ex.printStackTrace();
@@ -84,6 +83,8 @@ public class GameScene {
                         knightButton.setText("Spawn Knight"); // Reset button text
                     });
                 }).start();
+            } else if (crystalManager.getCrystalCount() < knight.getCost()) {
+                System.out.println("Not enough crystals for Knight");
             }
         });
         buttonPanel.getChildren().add(knightButton);
@@ -91,21 +92,20 @@ public class GameScene {
         // Button for Archer
         Button archerButton = new Button("Spawn Archer");
         archerButton.setOnAction(e -> {
-            if (!archerOnCooldown) {
+            if (!archerOnCooldown && crystalManager.getCrystalCount() >= archer.getCost()) {
                 crystalManager.spawnArcher();
                 archerOnCooldown = true;
                 archerButton.setDisable(true); // Disable the button
-                archer.setCooldown(6); // Reset the cooldown to 6 seconds for archer
                 System.out.println("Add Archer");
 
-                // Start cooldown countdown for Archer
+                // Start deploy countdown for Archer
                 new Thread(() -> {
-                    while (archer.getCooldown() > 0) {
+                    while (archer.getDeployTime() > 0) {
                         try {
                             Thread.sleep(1000); // Wait for 1 second
-                            archer.setCooldown(archer.getCooldown() - 1); // Decrease cooldown
+                            archer.setDeployTime(archer.getDeployTime() - 1); // Decrease deploy time
                             Platform.runLater(() -> {
-                                archerButton.setText("Archer (" + archer.getCooldown() + "s)"); // Update button text
+                                archerButton.setText("Archer (" + archer.getDeployTime() + "s)"); // Update button text
                             });
                         } catch (InterruptedException ex) {
                             ex.printStackTrace();
@@ -117,6 +117,8 @@ public class GameScene {
                         archerButton.setText("Spawn Archer"); // Reset button text
                     });
                 }).start();
+            } else if (crystalManager.getCrystalCount() < archer.getCost()) {
+                System.out.println("Not enough crystals for Archer");
             }
         });
         buttonPanel.getChildren().add(archerButton);
@@ -124,21 +126,20 @@ public class GameScene {
         // Button for Priest
         Button priestButton = new Button("Spawn Priest");
         priestButton.setOnAction(e -> {
-            if (!priestOnCooldown) {
+            if (!priestOnCooldown && crystalManager.getCrystalCount() >= priest.getCost()) {
                 crystalManager.spawnPriest();
                 priestOnCooldown = true;
                 priestButton.setDisable(true); // Disable the button
-                priest.setCooldown(7); // Reset the cooldown to 7 seconds for priest
                 System.out.println("Add Priest");
 
-                // Start cooldown countdown for Priest
+                // Start deploy countdown for Priest
                 new Thread(() -> {
-                    while (priest.getCooldown() > 0) {
+                    while (priest.getDeployTime() > 0) {
                         try {
                             Thread.sleep(1000); // Wait for 1 second
-                            priest.setCooldown(priest.getCooldown() - 1); // Decrease cooldown
+                            priest.setDeployTime(priest.getDeployTime() - 1); // Decrease deploy time
                             Platform.runLater(() -> {
-                                priestButton.setText("Priest (" + priest.getCooldown() + "s)"); // Update button text
+                                priestButton.setText("Priest (" + priest.getDeployTime() + "s)"); // Update button text
                             });
                         } catch (InterruptedException ex) {
                             ex.printStackTrace();
@@ -150,6 +151,8 @@ public class GameScene {
                         priestButton.setText("Spawn Priest"); // Reset button text
                     });
                 }).start();
+            } else if (crystalManager.getCrystalCount() < priest.getCost()) {
+                System.out.println("Not enough crystals for Priest");
             }
         });
         buttonPanel.getChildren().add(priestButton);
@@ -157,21 +160,20 @@ public class GameScene {
         // Button for Wizard
         Button wizardButton = new Button("Spawn Wizard");
         wizardButton.setOnAction(e -> {
-            if (!wizardOnCooldown) {
+            if (!wizardOnCooldown && crystalManager.getCrystalCount() >= wizard.getCost()) {
                 crystalManager.spawnWizard();
                 wizardOnCooldown = true;
                 wizardButton.setDisable(true); // Disable the button
-                wizard.setCooldown(8); // Reset the cooldown to 8 seconds for wizard
                 System.out.println("Add Wizard");
 
-                // Start cooldown countdown for Wizard
+                // Start deploy countdown for Wizard
                 new Thread(() -> {
-                    while (wizard.getCooldown() > 0) {
+                    while (wizard.getDeployTime() > 0) {
                         try {
                             Thread.sleep(1000); // Wait for 1 second
-                            wizard.setCooldown(wizard.getCooldown() - 1); // Decrease cooldown
+                            wizard.setDeployTime(wizard.getDeployTime() - 1); // Decrease deploy time
                             Platform.runLater(() -> {
-                                wizardButton.setText("Wizard (" + wizard.getCooldown() + "s)"); // Update button text
+                                wizardButton.setText("Wizard (" + wizard.getDeployTime() + "s)"); // Update button text
                             });
                         } catch (InterruptedException ex) {
                             ex.printStackTrace();
@@ -183,6 +185,8 @@ public class GameScene {
                         wizardButton.setText("Spawn Wizard"); // Reset button text
                     });
                 }).start();
+            } else if (crystalManager.getCrystalCount() < wizard.getCost()) {
+                System.out.println("Not enough crystals for Wizard");
             }
         });
         buttonPanel.getChildren().add(wizardButton);
@@ -190,21 +194,20 @@ public class GameScene {
         // Button for Lancer
         Button lancerButton = new Button("Spawn Lancer");
         lancerButton.setOnAction(e -> {
-            if (!lancerOnCooldown) {
+            if (!lancerOnCooldown && crystalManager.getCrystalCount() >= lancer.getCost()) {
                 crystalManager.spawnLancer();
                 lancerOnCooldown = true;
                 lancerButton.setDisable(true); // Disable the button
-                lancer.setCooldown(9); // Reset the cooldown to 9 seconds for lancer
                 System.out.println("Add Lancer");
 
-                // Start cooldown countdown for Lancer
+                // Start deploy countdown for Lancer
                 new Thread(() -> {
-                    while (lancer.getCooldown() > 0) {
+                    while (lancer.getDeployTime() > 0) {
                         try {
                             Thread.sleep(1000); // Wait for 1 second
-                            lancer.setCooldown(lancer.getCooldown() - 1); // Decrease cooldown
+                            lancer.setDeployTime(lancer.getDeployTime() - 1); // Decrease deploy time
                             Platform.runLater(() -> {
-                                lancerButton.setText("Lancer (" + lancer.getCooldown() + "s)"); // Update button text
+                                lancerButton.setText("Lancer (" + lancer.getDeployTime() + "s)"); // Update button text
                             });
                         } catch (InterruptedException ex) {
                             ex.printStackTrace();
@@ -216,6 +219,8 @@ public class GameScene {
                         lancerButton.setText("Spawn Lancer"); // Reset button text
                     });
                 }).start();
+            } else if (crystalManager.getCrystalCount() < lancer.getCost()) {
+                System.out.println("Not enough crystals for Lancer");
             }
         });
         buttonPanel.getChildren().add(lancerButton);

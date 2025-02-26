@@ -19,9 +19,8 @@ public class SceneManager {
         // Load all scenes
         scenes.put("start", new StartScene().getScene());
         scenes.put("level", new LevelSelectScene().getScene());
-        scenes.put("game1", new GameScene(1).getScene());
-        scenes.put("game2", new GameScene(2).getScene());
-        scenes.put("game3", new GameScene(3).getScene());
+
+        // เราจะไม่สร้าง GameScene ทั้ง 3 ระดับนี้ที่นี่แล้ว แต่จะสร้างเมื่อเข้าไปในแต่ละ Level
     }
 
     public static void setScene(String sceneName) {
@@ -29,5 +28,13 @@ public class SceneManager {
             primaryStage.setScene(scenes.get(sceneName));
             primaryStage.show();
         }
+    }
+
+    public static void loadGameScene(int level) {
+        // สร้าง GameScene สำหรับระดับที่เลือก
+        GameScene gameScene = new GameScene(level); 
+        scenes.put("game" + level, gameScene.getScene()); // เก็บ Scene ที่ระดับนั้น
+        primaryStage.setScene(gameScene.getScene());
+        primaryStage.show();
     }
 }

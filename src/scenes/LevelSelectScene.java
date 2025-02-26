@@ -17,17 +17,26 @@ public class LevelSelectScene {
         Button easyButton = new Button("Easy");
         easyButton.setLayoutX(350);
         easyButton.setLayoutY(250);
-        easyButton.setOnAction(e -> SceneManager.setScene("game1"));
+        easyButton.setOnAction(e -> {
+            // เรียกใช้ SceneManager เพื่อเริ่ม GameScene ระดับ 1
+            SceneManager.loadGameScene(1);
+        });
 
         Button mediumButton = new Button("Medium");
         mediumButton.setLayoutX(350);
         mediumButton.setLayoutY(300);
-        mediumButton.setOnAction(e -> SceneManager.setScene("game2"));
+        mediumButton.setOnAction(e -> {
+            // เรียกใช้ SceneManager เพื่อเริ่ม GameScene ระดับ 2
+            SceneManager.loadGameScene(2);
+        });
 
         Button hardButton = new Button("Hard");
         hardButton.setLayoutX(350);
         hardButton.setLayoutY(350);
-        hardButton.setOnAction(e -> SceneManager.setScene("game3"));
+        hardButton.setOnAction(e -> {
+            // เรียกใช้ SceneManager เพื่อเริ่ม GameScene ระดับ 3
+            SceneManager.loadGameScene(3);
+        });
 
         root.getChildren().addAll(title, easyButton, mediumButton, hardButton);
         scene = new Scene(root, 800, 600);

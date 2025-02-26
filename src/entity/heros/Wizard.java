@@ -6,8 +6,14 @@ import entity.interfaces.Attackable;
 import entity.interfaces.Buffable;
 import entity.interfaces.Enemies;
 import entity.interfaces.Heros;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 
 public class Wizard extends Heros implements Attackable, Buffable {
+	
+	private Image[] wizardFrames;
+	private int currentFrame;
+	private long lastFrameTime;
 	private int buffPower;
 	public Wizard(String name, int health, int attackPower,int buffPower, double speed, double range, boolean isAlley, int accuracy,int evasion, double cooldown, int cost, double deployTime) {
 		super(name, health, attackPower, speed, range, isAlley, accuracy, evasion, cooldown, cost, deployTime);
@@ -17,7 +23,37 @@ public class Wizard extends Heros implements Attackable, Buffable {
 	public Wizard() {
 		this("Wizard",75,6,1,1,5,true,200,0,0.85,110,15);
 	  //super(name,health,atkPower,spd,range,isAlley,accuacy,evasion,cooldown,cost,deploytime)
+		this.wizardFrames = new Image[8];
+		this.currentFrame = 0;
+		this.lastFrameTime = System.currentTimeMillis();
+
+        for (int i = 0; i < 8; i++) {
+        	wizardFrames[i] = new Image("file:res/wizard/wizard-walk/wizard-walk" + i + ".png");
+        }
 	}
+	
+	
+	
+	
+	
+	@Override
+	public void walk() {
+		this.setPos(this.getPos() + this.getSpeed());
+
+		long currentTime = System.currentTimeMillis();
+		if (currentTime - lastFrameTime > 100) {
+			currentFrame = (currentFrame + 1) % 8;
+			lastFrameTime = currentTime;
+		}
+
+	}
+	
+	public void render(GraphicsContext gc) {
+//		System.out.println("Rendering Knight at position: (" + this.getPos() + ")");
+
+		gc.drawImage(wizardFrames[currentFrame], this.getPos(), 0, 200, 300);
+	}
+
 
 	@Override
 	public void buff(ArrayList<Object> unitList) {
