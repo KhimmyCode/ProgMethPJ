@@ -6,20 +6,22 @@ import entity.interfaces.Attackable;
 import entity.interfaces.Enemies;
 import entity.interfaces.Heros;
 
-public class Knight extends Heros implements Attackable {
+public class Archer extends Heros implements Attackable {
 
-	public Knight(String name, int health, int attackPower, double speed, double range, boolean isAlley, int accuracy,
+	public Archer(String name, int health, int attackPower, double speed, double range, boolean isAlley, int accuracy,
 			int evasion, double cooldown, int cost, double deployTime) {
 		super(name, health, attackPower, speed, range, isAlley, accuracy, evasion, cooldown, cost, deployTime);
+		// TODO Auto-generated constructor stub
 	}
 
-	public Knight() {
-		super("Knight", 100, 10, 1, 1, true, 100, 15, 1, 80, 5);
+	public Archer() {
+		super("Archer", 75, 15, 1, 3, true, 80, 5, 0.85, 90, 10);
+		// super(name,health,atkPower,spd,range,isAlley,accuacy,evasion,cooldown,cost,deploytime)
 	}
 
 	@Override
 	public void attack(ArrayList<Object> unitList) {
-		for(Object e : unitList) {
+		for (Object e : unitList) {
 			if (e instanceof Enemies) {
 				Enemies enemy = (Enemies) e;
 
@@ -40,7 +42,7 @@ public class Knight extends Heros implements Attackable {
 				}
 			}
 		}
-		
+
 	}
 
 }

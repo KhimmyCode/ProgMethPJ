@@ -6,20 +6,20 @@ import entity.interfaces.Attackable;
 import entity.interfaces.Enemies;
 import entity.interfaces.Heros;
 
-public class Knight extends Heros implements Attackable {
+public class Lancer extends Heros implements Attackable {
 
-	public Knight(String name, int health, int attackPower, double speed, double range, boolean isAlley, int accuracy,
+	public Lancer(String name, int health, int attackPower, double speed, double range, boolean isAlley, int accuracy,
 			int evasion, double cooldown, int cost, double deployTime) {
 		super(name, health, attackPower, speed, range, isAlley, accuracy, evasion, cooldown, cost, deployTime);
 	}
 
-	public Knight() {
-		super("Knight", 100, 10, 1, 1, true, 100, 15, 1, 80, 5);
+	public Lancer() {
+		this("Lancer", 200, 20, 2, 1, true, 150, 15, 3, 200, 15);
 	}
 
 	@Override
 	public void attack(ArrayList<Object> unitList) {
-		for(Object e : unitList) {
+		for (Object e : unitList) {
 			if (e instanceof Enemies) {
 				Enemies enemy = (Enemies) e;
 
@@ -40,7 +40,6 @@ public class Knight extends Heros implements Attackable {
 				}
 			}
 		}
-		
-	}
 
+	}
 }

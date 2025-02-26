@@ -1,5 +1,8 @@
 package entity.enemies;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 import entity.interfaces.Attackable;
 import entity.interfaces.Enemies;
 import entity.interfaces.Heros;
@@ -27,23 +30,25 @@ public class Slime extends Enemies implements Attackable, Regenable {
 	}
 
 	@Override
-	public void attack(Object e) {
-		if (e instanceof Heros) {
-			Heros hero = (Heros) e;
+	public void attack(ArrayList<Object> unitList) {
+		for (Object e : unitList) {
+			if (e instanceof Heros) {
+				Heros hero = (Heros) e;
 
-			int hitChance = this.getAccuracy() - hero.getEvasion();
-			double successRate = hitChance / 100.0;
+				int hitChance = this.getAccuracy() - hero.getEvasion();
+				double successRate = hitChance / 100.0;
 
-			if (Math.random() < successRate) {
-				int takeDamage = hero.getHealth() - this.getAttackPower();
-				if (takeDamage < 0) {
-					hero.setHealth(0);
+				if (Math.random() < successRate) {
+					int takeDamage = hero.getHealth() - this.getAttackPower();
+					if (takeDamage < 0) {
+						hero.setHealth(0);
+					} else {
+						hero.setHealth(takeDamage);
+					}
+					System.out.println(this.getName() + " Attack " + hero.getName() + " remain hp = " + takeDamage);
 				} else {
-					hero.setHealth(takeDamage);
+					System.out.println(this.getName() + " Attack Miss!");
 				}
-				System.out.println(this.getName() + " Attack " + hero.getName() + " remain hp = " + takeDamage);
-			} else {
-				System.out.println(this.getName() + " Attack Miss!");
 			}
 		}
 

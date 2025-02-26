@@ -1,5 +1,7 @@
 package entity.interfaces;
 
+import java.util.ArrayList;
+
 public interface Buffable {
-	void buff();
+	void buff(ArrayList<Object> unitList);
 }
