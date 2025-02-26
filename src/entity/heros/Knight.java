@@ -5,21 +5,48 @@ import java.util.ArrayList;
 import entity.interfaces.Attackable;
 import entity.interfaces.Enemies;
 import entity.interfaces.Heros;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 
 public class Knight extends Heros implements Attackable {
 
-	public Knight(String name, int health, int attackPower, double speed, double range, boolean isAlley, int accuracy,
-			int evasion, double cooldown, int cost, double deployTime) {
-		super(name, health, attackPower, speed, range, isAlley, accuracy, evasion, cooldown, cost, deployTime);
-	}
+	private Image[] knightFrames;
+	private int currentFrame;
+	private long lastFrameTime;
 
 	public Knight() {
-		super("Knight", 100, 10, 1, 1, true, 100, 15, 1, 80, 5);
+		// Name, hp , atk , spd , range , team , acc , eva , cool , cost , deploytime
+		super("Knight", 100, 10, 1, 1, true, 100, 15, 5, 80, 5);
+		this.knightFrames = new Image[8];
+		this.currentFrame = 0;
+		this.lastFrameTime = System.currentTimeMillis();
+
+        for (int i = 0; i < 8; i++) {
+            knightFrames[i] = new Image("file:res/knight/knight-walk/knight-walk" + i + ".png");
+        }
+	}
+
+	@Override
+	public void walk() {
+		this.setPos(this.getPos() + this.getSpeed());
+
+		long currentTime = System.currentTimeMillis();
+		if (currentTime - lastFrameTime > 100) {
+			currentFrame = (currentFrame + 1) % 8;
+			lastFrameTime = currentTime;
+		}
+
+	}
+
+	public void render(GraphicsContext gc) {
+//		System.out.println("Rendering Knight at position: (" + this.getPos() + ")");
+
+		gc.drawImage(knightFrames[currentFrame], this.getPos(), 0, 200, 300);
 	}
 
 	@Override
 	public void attack(ArrayList<Object> unitList) {
-		for(Object e : unitList) {
+		for (Object e : unitList) {
 			if (e instanceof Enemies) {
 				Enemies enemy = (Enemies) e;
 
@@ -40,7 +67,7 @@ public class Knight extends Heros implements Attackable {
 				}
 			}
 		}
-		
+
 	}
 
 }
