@@ -12,6 +12,7 @@ public abstract class Unit {
 	private int evasion;
 	private double pos;
 	private double cooldown;
+	private double initialDeployTime;
 	private Action status;
 	// pos -> this field tell us that where the unit located : if unit is alley ->
 	// start at 0 , else start at 100
@@ -152,5 +153,17 @@ public abstract class Unit {
 	public void setCooldown(double cooldown) {
 		this.cooldown = cooldown;
 	}
+
+	public double getInitialDeployTime() {
+		return initialDeployTime;
+	}
+
+	public void setInitialDeployTime(double initialDeployTime) {
+		this.initialDeployTime = initialDeployTime;
+	}
+	
+	
+	
+	
 
 }

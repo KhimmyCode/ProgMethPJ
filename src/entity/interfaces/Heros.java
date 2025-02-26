@@ -9,6 +9,7 @@ public abstract class Heros extends Unit {
 		super(name, health, attackPower, speed, range, isAlley, accuracy, evasion , cooldown);
 		this.setCost(cost);
 		this.setDeployTime(deployTime);
+		this.setInitialDeployTime(deployTime);
 	}
 
 	@Override
