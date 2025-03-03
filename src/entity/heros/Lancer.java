@@ -26,7 +26,7 @@ public class Lancer extends Heros implements Attackable {
 		this.lastFrameTime = System.currentTimeMillis();
 
         for (int i = 0; i < 8; i++) {
-            lancerFrames[i] = new Image("file:res/lancer/lancer-walk/lancer-walk" + i + ".png");
+            lancerFrames[i] = new Image("/lancer/lancer-walk/lancer-walk" + i + ".png");
         }
 	}
 	

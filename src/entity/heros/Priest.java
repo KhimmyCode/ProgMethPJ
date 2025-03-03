@@ -27,7 +27,7 @@ public class Priest extends Heros implements Buffable {
 		this.lastFrameTime = System.currentTimeMillis();
 
         for (int i = 0; i < 8; i++) {
-        	priestFrames[i] = new Image("file:res/priest/priest-walk/priest-walk" + i + ".png");
+        	priestFrames[i] = new Image("/priest/priest-walk/priest-walk" + i + ".png");
         }
 	}
 	

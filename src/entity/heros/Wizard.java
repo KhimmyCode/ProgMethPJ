@@ -28,7 +28,7 @@ public class Wizard extends Heros implements Attackable, Buffable {
 		this.lastFrameTime = System.currentTimeMillis();
 
         for (int i = 0; i < 8; i++) {
-        	wizardFrames[i] = new Image("file:res/wizard/wizard-walk/wizard-walk" + i + ".png");
+        	wizardFrames[i] = new Image("/wizard/wizard-walk/wizard-walk" + i + ".png");
         }
 	}
 	

@@ -1,11 +1,13 @@
 package application;
 
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import scenes.GameScene;
 import scenes.LevelSelectScene;
 import scenes.StartScene;
 
+import java.io.InputStream;
 import java.util.HashMap;
 
 public class SceneManager {
@@ -36,5 +38,16 @@ public class SceneManager {
         scenes.put("game" + level, gameScene.getScene()); // เก็บ Scene ที่ระดับนั้น
         primaryStage.setScene(gameScene.getScene());
         primaryStage.show();
+    }
+    
+    public  Font loadFont(String path, double size) {
+        try (InputStream is = getClass().getResourceAsStream(path)) {
+            if (is != null) {
+                return Font.loadFont(is, size);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Font.font("Arial", size); // Fallback font
     }
 }

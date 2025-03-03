@@ -21,7 +21,7 @@ public class Archer extends Heros implements Attackable {
 		this.lastFrameTime = System.currentTimeMillis();
 
         for (int i = 0; i < 8; i++) {
-            archerFrames[i] = new Image("file:res/archer/archer-walk/archer-walk" + i + ".png");
+            archerFrames[i] = new Image("/archer/archer-walk/archer-walk" + i + ".png");
         }
 		
 	}
