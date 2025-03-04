@@ -3,6 +3,7 @@ package application;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import logic.GameLogic;
 import scenes.GameScene;
 import scenes.LevelSelectScene;
 import scenes.StartScene;
@@ -33,6 +34,7 @@ public class SceneManager {
     }
 
     public static void loadGameScene(int level) {
+    	GameLogic.getInstance().resetGameState();
         // สร้าง GameScene สำหรับระดับที่เลือก
         GameScene gameScene = new GameScene(level); 
         scenes.put("game" + level, gameScene.getScene()); // เก็บ Scene ที่ระดับนั้น

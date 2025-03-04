@@ -116,6 +116,12 @@ public class GameLogic {
 
 		return targets;
 	}
+	public void resetGameState() {
+	    ourTeamUnits.clear(); // ล้างทีมของเรา
+	    enemyTeamUnits.clear(); // ล้างทีมศัตรู
+	    isEnd = false; // รีเซ็ตสถานะเกม
+	}
+
 
 	
 	
