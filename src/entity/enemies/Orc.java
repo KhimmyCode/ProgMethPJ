@@ -5,8 +5,13 @@ import java.util.ArrayList;
 import entity.interfaces.Attackable;
 import entity.interfaces.Enemies;
 import entity.interfaces.Heros;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 
 public class Orc extends Enemies implements Attackable {
+	private Image[] orcFrames;
+	private int currentFrame;
+	private long lastFrameTime;
 
 	public Orc(String name, int health, int attackPower, double speed, double range, boolean isAlley, int accuracy,
 			int evasion, double cooldown) {
@@ -15,6 +20,31 @@ public class Orc extends Enemies implements Attackable {
 	
 	public Orc() {
 		super("Orc", 100, 15, 1.2, 2, false, 110, 15, 1);
+		this.orcFrames = new Image[6];
+		this.currentFrame = 0;
+		this.lastFrameTime = System.currentTimeMillis();
+		
+        for (int i = 0; i < 6; i++) {
+            orcFrames[i] = new Image("file:res/orc/orc-walk/orc-walk" + i + ".png");
+        }
+	}
+	
+	@Override
+	public void walk() {
+		this.setPos(this.getPos() - this.getSpeed());
+
+		long currentTime = System.currentTimeMillis();
+		if (currentTime - lastFrameTime > 100) {
+			currentFrame = (currentFrame + 1) % 6;
+			lastFrameTime = currentTime;
+		}
+
+	}
+	
+	public void render(GraphicsContext gc) {
+//		System.out.println("Rendering Knight at position: (" + this.getPos() + ")");
+
+		gc.drawImage(orcFrames[currentFrame], this.getPos(), 0, 200, 300);
 	}
 
 

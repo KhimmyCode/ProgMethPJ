@@ -7,9 +7,14 @@ import entity.interfaces.Attackable;
 import entity.interfaces.Enemies;
 import entity.interfaces.Heros;
 import entity.interfaces.Regenable;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 
 public class Slime extends Enemies implements Attackable, Regenable {
 	private int regenrate = 2;
+	private Image[] slimeFrames;
+	private int currentFrame;
+	private long lastFrameTime;
 
 	public Slime(String name, int health, int attackPower, double speed, double range, boolean isAlley, int accuracy,
 			int evasion, double cooldown) {
@@ -19,6 +24,32 @@ public class Slime extends Enemies implements Attackable, Regenable {
 
 	public Slime() {
 		super("Slime", 30, 10, 1, 1, false, 100, 5, 1);
+		this.slimeFrames = new Image[6];
+		this.currentFrame = 0;
+		this.lastFrameTime = System.currentTimeMillis();
+		
+        for (int i = 0; i < 6; i++) {
+            slimeFrames[i] = new Image("file:res/slime/slime-walk/slime-walk" + i + ".png");
+        }
+
+	}
+	
+	@Override
+	public void walk() {
+		this.setPos(this.getPos() - this.getSpeed());
+
+		long currentTime = System.currentTimeMillis();
+		if (currentTime - lastFrameTime > 100) {
+			currentFrame = (currentFrame + 1) % 6;
+			lastFrameTime = currentTime;
+		}
+
+	}
+	
+	public void render(GraphicsContext gc) {
+//		System.out.println("Rendering Knight at position: (" + this.getPos() + ")");
+
+		gc.drawImage(slimeFrames[currentFrame], this.getPos(), 0, 200, 300);
 	}
 
 	@Override

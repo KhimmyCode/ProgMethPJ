@@ -23,7 +23,7 @@ public abstract class Heros extends Unit {
 
 	public int getCost() {
 		return cost;
-	}
+	} 
 
 	public void setCost(int cost) {
 		if(cost < 0) {

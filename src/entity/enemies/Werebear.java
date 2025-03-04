@@ -6,9 +6,15 @@ import entity.interfaces.Attackable;
 import entity.interfaces.Buffable;
 import entity.interfaces.Enemies;
 import entity.interfaces.Heros;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 
 public class Werebear extends Enemies implements Attackable, Buffable {
 	private int buffPower;
+	private Image[] werebearFrames;
+	private int currentFrame;
+	private long lastFrameTime;
+	
 
 	public Werebear(String name, int health, int attackPower, int buffPower, double speed, double range,
 			boolean isAlley, int accuracy, int evasion, double cooldown) {
@@ -18,7 +24,33 @@ public class Werebear extends Enemies implements Attackable, Buffable {
 
 	public Werebear() {
 		super("WereBear", 150, 25, 2, 1, false, 100, 20, 1);
+		this.werebearFrames = new Image[6];
+		this.currentFrame = 0;
+		this.lastFrameTime = System.currentTimeMillis();
+		
+        for (int i = 0; i < 6; i++) {
+            werebearFrames[i] = new Image("file:res/werebear/werebear-walk/werebear-walk" + i + ".png");
+        }
 	}
+	
+	@Override
+	public void walk() {
+		this.setPos(this.getPos() - this.getSpeed());
+
+		long currentTime = System.currentTimeMillis();
+		if (currentTime - lastFrameTime > 100) {
+			currentFrame = (currentFrame + 1) % 6;
+			lastFrameTime = currentTime;
+		}
+
+	}
+	
+	public void render(GraphicsContext gc) {
+//		System.out.println("Rendering Knight at position: (" + this.getPos() + ")");
+
+		gc.drawImage(werebearFrames[currentFrame], this.getPos(), 0, 200, 300);
+	}
+
 
 	@Override
 	public void buff(ArrayList<Object> unitList) {

@@ -6,15 +6,22 @@ import javafx.scene.image.Image;
 public class Castle extends Based {
     private Image newCastle;
     private Image brokenCastle;
+    private Image currentFrame;
 
     public Castle(String name, int health, boolean isAlley) {
-        super(name, health, isAlley);
+        super(name, health, isAlley); 
+        this.currentFrame = newCastle; //เดี๋ยวค่อยมาแก้
         
     }
-    public Castle() {
-        this("Castle",250,true);
+    
+    public boolean checkDead(){
+    	if(this.getHealthBased() <= 0) {
+    		this.currentFrame = brokenCastle;
+    		return true;
+    	}else 
+    		return false;
+    	
     }
-    //ต้องสร้าง method เกี่ยวกับการทำรูปภาพ
-    //อันนี้แค่ของฝั่งเรา 
-    //ใส่ไว้ใน  entity.heros
+    
+    //หาภาพ newCastle , brokenCastle 
 }

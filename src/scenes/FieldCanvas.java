@@ -2,6 +2,9 @@ package scenes;
 
 import java.util.ArrayList;
 
+import entity.enemies.Orc;
+import entity.enemies.Slime;
+import entity.enemies.Werebear;
 import entity.heros.Archer;
 import entity.heros.Knight;
 import entity.heros.Lancer;
@@ -48,6 +51,9 @@ public class FieldCanvas extends Canvas {
 	                    Lancer l = null;
 	                    Priest p = null;
 	                    Wizard w = null;
+	                    Slime s = null ;
+	                    Orc o = null ;
+	                    Werebear wb = null ;
 
 	                    for (Unit u : GameLogic.getInstance().getOurTeamUnits()) {
 	                        if (u instanceof Knight) {
@@ -77,10 +83,21 @@ public class FieldCanvas extends Canvas {
 	                    }
 
 	                    // Draw and update enemy team's units
-//	                    for (Unit u : GameLogic.getInstance().getEnemyTeamUnits()) {
-//	                        u.walk();
-//	                        u.render(gc);  // Call render to draw the unit
-//	                    }
+	                    for (Unit e : GameLogic.getInstance().getEnemyTeamUnits()) {
+	                    	if(e instanceof Slime) {
+	                            s = (Slime) e;
+		                        s.walk();
+		                        s.render(gc);
+	                    	}else if(e instanceof Orc) {
+	                            o = (Orc) e;
+		                        o.walk();
+		                        o.render(gc);                    		
+	                    	}else if(e instanceof Werebear) {
+	                    		wb = (Werebear) e;
+	                    		wb.walk();
+	                    		wb.render(gc);
+	                    	}
+	                    }
 
 	                });
 

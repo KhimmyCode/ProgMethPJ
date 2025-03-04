@@ -4,6 +4,7 @@ public abstract class Enemies extends Unit{
 	
 	public Enemies(String name, int health, int attackPower, double speed, double range, boolean isAlley, int accuracy,int evasion , double cooldown) {
 		super(name, health, attackPower, speed, range, isAlley, accuracy, evasion , cooldown);
+		this.setPos(640);
 	}
 	
 	@Override
@@ -11,10 +12,7 @@ public abstract class Enemies extends Unit{
 		
 		//YOU MUST ADD COMMAND
 		
-//		this.setPos(); //Maybe
-//		if(this.getPos() + this.getRange() ) {
-//			
-//		}
+		this.setPos(this.getPos() - this.getSpeed()); //Maybe
 	}
 	
 }
