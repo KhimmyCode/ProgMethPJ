@@ -40,9 +40,9 @@ public class LevelSelectScene {
         Font pixelFont = s.loadFont("/fonts/pixel2.ttf", 35);
 
         // Create Buttons
-        Button easyButton = createButton("Easy", btnImage, pixelFont, 280, 250, 1);
-        Button mediumButton = createButton("Medium", btnImage, pixelFont, 280, 350, 2);
-        Button hardButton = createButton("Hard", btnImage, pixelFont, 280, 450, 3);
+        Button easyButton = createButton("Easy", btnImage, pixelFont, 250, 250, 1);
+        Button mediumButton = createButton("Medium", btnImage, pixelFont, 250, 350, 2);
+        Button hardButton = createButton("Hard", btnImage, pixelFont, 250, 450, 3);
 
         // Add elements to root
         root.getChildren().addAll(image, title, easyButton, mediumButton, hardButton);
