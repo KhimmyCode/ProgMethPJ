@@ -16,7 +16,7 @@ public class Wizard extends Heros implements Attackable, Buffable {
 	private int currentFrame;
 	private long lastFrameTime;
 	private int buffPower;
-	public Wizard(String name, int health, int attackPower,int buffPower, double speed, double range, boolean isAlley, int accuracy,int evasion, double cooldown, int cost, double deployTime) {
+	public Wizard(String name, int health, int attackPower,int buffPower, int speed, double range, boolean isAlley, int accuracy,int evasion, double cooldown, int cost, double deployTime) {
 		super(name, health, attackPower, speed, range, isAlley, accuracy, evasion, cooldown, cost, deployTime);
 		this.setBuffPower(buffPower);
 	}

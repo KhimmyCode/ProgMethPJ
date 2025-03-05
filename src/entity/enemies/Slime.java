@@ -18,8 +18,9 @@ public class Slime extends Enemies implements Attackable, Regenable {
 	private Image[] slimeFrames;
 	private int currentFrame;
 	private long lastFrameTime;
+	private boolean taking ;
 
-	public Slime(String name, int health, int attackPower, double speed, double range, boolean isAlley, int accuracy,
+	public Slime(String name, int health, int attackPower, int speed, double range, boolean isAlley, int accuracy,
 			int evasion, double cooldown) {
 		super(name, health, attackPower, speed, range, isAlley, accuracy, evasion, cooldown);
 
@@ -30,6 +31,7 @@ public class Slime extends Enemies implements Attackable, Regenable {
 		this.slimeFrames = new Image[6];
 		this.currentFrame = 0;
 		this.lastFrameTime = System.currentTimeMillis();
+		this.setTaking(false);
 		
         for (int i = 0; i < 6; i++) {
             slimeFrames[i] = new Image("file:res/slime/slime-walk/slime-walk" + i + ".png");
@@ -39,6 +41,7 @@ public class Slime extends Enemies implements Attackable, Regenable {
 	
 	@Override
 	public void walk() {
+//		System.out.println("Slime in " + this.getPos());
 		
 		if(!this.isTaking()) {
 		this.setPos(this.getPos() - this.getSpeed());
@@ -87,6 +90,14 @@ public class Slime extends Enemies implements Attackable, Regenable {
 			}
 		}
 	}
+	}
+
+	public boolean isTaking() {
+		return taking;
+	}
+
+	public void setTaking(boolean taking) {
+		this.taking = taking;
 	}
 
 

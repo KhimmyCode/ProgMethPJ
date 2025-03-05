@@ -15,7 +15,7 @@ public class Lancer extends Heros implements Attackable {
 	private int currentFrame;
 	private long lastFrameTime;
 
-	public Lancer(String name, int health, int attackPower, double speed, double range, boolean isAlley, int accuracy,
+	public Lancer(String name, int health, int attackPower, int speed, double range, boolean isAlley, int accuracy,
 			int evasion, double cooldown, int cost, double deployTime) {
 		super(name, health, attackPower, speed, range, isAlley, accuracy, evasion, cooldown, cost, deployTime);
 	}

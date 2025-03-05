@@ -5,22 +5,21 @@ public abstract class Unit {
 	private int health;
 	private int maxHealth;
 	private int attackPower;
-	private double speed;
+	private int speed;
 	private double range;
 	private boolean isAlley;
 	private int accuracy;
 	private int evasion;
-	private double pos;
+	private int pos;
 	private double cooldown;
 	private double initialDeployTime;
-	private boolean taking = false;
 	private Action status;
 	// pos -> this field tell us that where the unit located : if unit is alley ->
 	// start at 0 , else start at 100
 	// alley walk from o to 100 , enemy walk from 100 to 0 ; they will found each
 	// other at the same position(logic will think later)
 
-	public Unit(String name, int health, int attackPower, double speed, double range, boolean isAlley, int accuracy,
+	public Unit(String name, int health, int attackPower, int speed, double range, boolean isAlley, int accuracy,
 			int evasion, double cooldown) {
 		this.setName(name);
 		this.setHealth(health);
@@ -82,11 +81,11 @@ public abstract class Unit {
 			this.attackPower = attackPower;
 	}
 
-	public double getSpeed() {
+	public int getSpeed() {
 		return speed;
 	}
 
-	public void setSpeed(double speed) {
+	public void setSpeed(int speed) {
 		if (speed < 0)
 			this.speed = 0;
 		else
@@ -139,11 +138,11 @@ public abstract class Unit {
 		this.evasion = evasion;
 	}
 
-	public double getPos() {
+	public int getPos() {
 		return pos;
 	}
 
-	public void setPos(double pos) {
+	public void setPos(int pos) {
 		this.pos = pos;
 	}
 
@@ -163,14 +162,6 @@ public abstract class Unit {
 		this.initialDeployTime = initialDeployTime;
 	}
 
-	public boolean isTaking() {
-		return taking;
-	}
-
-	public void setTaking(boolean taking) {
-		this.taking = taking;
-	}
-	
 
 	
 	

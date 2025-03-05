@@ -88,24 +88,37 @@ public class FieldCanvas extends Canvas {
 
 	                    // Draw and update enemy team's units
 	                    for (Unit e : GameLogic.getInstance().getEnemyTeamUnits()) {
-	                    	if(e instanceof Slime) {
-	                            s = (Slime) e;
-		                        s.walk();
-		                        s.render(gc);
+//	                    	if(e instanceof Slime) {
+//	                            s = (Slime) e;
+//		                        s.walk();
+//		                        s.render(gc);
+//	                    	}else if(e instanceof Orc) {
+//	                            o = (Orc) e;
+//		                        o.walk();
+//		                        o.render(gc);                    		
+//	                    	}else if(e instanceof Werebear) {
+//	                    		wb = (Werebear) e;
+//	                    		wb.walk();
+//	                    		wb.render(gc);
+//	                    	}
+	                    	if(e instanceof Werebear) {
+	                            wb = (Werebear) e;
+		                        wb.walk();
+		                        wb.render(gc);
 	                    	}else if(e instanceof Orc) {
 	                            o = (Orc) e;
 		                        o.walk();
 		                        o.render(gc);                    		
-	                    	}else if(e instanceof Werebear) {
-	                    		wb = (Werebear) e;
-	                    		wb.walk();
-	                    		wb.render(gc);
+	                    	}else if(e instanceof Slime) {
+	                    		s = (Slime) e;
+	                    		s.walk();
+	                    		s.render(gc);
 	                    	}
 	                    }
 
 	                });
 
-	                Thread.sleep(30);
+	                Thread.sleep(50);
 	            } catch (InterruptedException e) {
 	                e.printStackTrace();
 	            }

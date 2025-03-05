@@ -7,7 +7,7 @@ public abstract class Heros extends Unit {
 	private int cost;
 	private double deployTime;
 
-	public Heros(String name, int health, int attackPower, double speed, double range, boolean isAlley, int accuracy, int evasion ,double cooldown ,int cost , double deployTime) {
+	public Heros(String name, int health, int attackPower, int speed, double range, boolean isAlley, int accuracy, int evasion ,double cooldown ,int cost , double deployTime) {
 		super(name, health, attackPower, speed, range, isAlley, accuracy, evasion , cooldown);
 		this.setCost(cost);
 		this.setDeployTime(deployTime);
@@ -17,7 +17,7 @@ public abstract class Heros extends Unit {
 	@Override
 	public void walk() {
 		//YOU MUST ADD THIS COMMAND
-		this.setPos(this.getPos() + this.getSpeed()); //Maybe
+//		this.setPos(this.getPos() + this.getSpeed()); //Maybe
 //		if(this.getPos() + this.getRange() ) {
 //			
 //		}

@@ -15,9 +15,10 @@ public class Werebear extends Enemies implements Attackable, Buffable {
 	private Image[] werebearFrames;
 	private int currentFrame;
 	private long lastFrameTime;
+	private boolean taking ;
 	
 
-	public Werebear(String name, int health, int attackPower, int buffPower, double speed, double range,
+	public Werebear(String name, int health, int attackPower, int buffPower, int speed, double range,
 			boolean isAlley, int accuracy, int evasion, double cooldown) {
 		super(name, health, attackPower, speed, range, isAlley, accuracy, evasion, cooldown);
 		this.setBuffPower(buffPower);
@@ -28,6 +29,7 @@ public class Werebear extends Enemies implements Attackable, Buffable {
 		this.werebearFrames = new Image[6];
 		this.currentFrame = 0;
 		this.lastFrameTime = System.currentTimeMillis();
+		this.setTaking(false);
 		
         for (int i = 0; i < 6; i++) {
             werebearFrames[i] = new Image("file:res/werebear/werebear-walk/werebear-walk" + i + ".png");
@@ -36,13 +38,16 @@ public class Werebear extends Enemies implements Attackable, Buffable {
 	
 	@Override
 	public void walk() {
+//		System.out.println("Slime in " + this.getPos());
+		
+		if(!this.isTaking()) {
 		this.setPos(this.getPos() - this.getSpeed());
 
 		long currentTime = System.currentTimeMillis();
 		if (currentTime - lastFrameTime > 100) {
 			currentFrame = (currentFrame + 1) % 6;
 			lastFrameTime = currentTime;
-		}
+		}}
 
 	}
 	
@@ -124,6 +129,14 @@ public class Werebear extends Enemies implements Attackable, Buffable {
 		if (buffPower < 0)
 			buffPower = 0;
 		this.buffPower = buffPower;
+	}
+
+	public boolean isTaking() {
+		return taking;
+	}
+
+	public void setTaking(boolean taking) {
+		this.taking = taking;
 	}
 
 

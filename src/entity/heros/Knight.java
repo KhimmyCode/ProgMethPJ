@@ -2,6 +2,9 @@ package entity.heros;
 
 import java.util.ArrayList;
 
+import entity.enemies.Orc;
+import entity.enemies.Slime;
+import entity.enemies.Werebear;
 import entity.interfaces.Attackable;
 import entity.interfaces.Enemies;
 import entity.interfaces.Heros;
@@ -60,15 +63,26 @@ public class Knight extends Heros implements Attackable {
 	@Override
 	public void attack(ArrayList<Unit> unitList) {
 		long currentTime = System.currentTimeMillis();
-		if (currentTime - lastFrameTime > 100) {
+		if (currentTime - lastFrameTime > 200) {
 			currentAttackingFrame = (currentAttackingFrame + 1) % 7;
 			lastAttackingFrameTime = currentTime;
 		}
 		
 		for (Object e : unitList) {
-			if (e instanceof Enemies) {
-				Enemies enemy = (Enemies) e;
-				((Enemies) e).setTaking(true);
+
+				
+				if (e instanceof Enemies && this.getPos() + this.getRange() == ((Enemies) e).getPos()) {
+					Enemies enemy = (Enemies) e;
+				if (enemy instanceof Slime) {
+					Slime s = (Slime) enemy;
+					s.setTaking(true);
+				} else if (enemy instanceof Orc) {
+					Orc o = (Orc) enemy;
+					o.setTaking(true);
+				} else if (enemy instanceof Werebear) {
+					Werebear wb = (Werebear) enemy;
+					wb.setTaking(true);
+				}
 				int hitChance = this.getAccuracy() - enemy.getEvasion();
 				double successRate = hitChance / 100.0;
 

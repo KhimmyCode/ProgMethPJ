@@ -13,17 +13,19 @@ public class Orc extends Enemies implements Attackable {
 	private Image[] orcFrames;
 	private int currentFrame;
 	private long lastFrameTime;
+	private boolean taking ;
 
-	public Orc(String name, int health, int attackPower, double speed, double range, boolean isAlley, int accuracy,
+	public Orc(String name, int health, int attackPower, int speed, double range, boolean isAlley, int accuracy,
 			int evasion, double cooldown) {
 		super(name, health, attackPower, speed, range, isAlley, accuracy, evasion, cooldown);
 	}
 	
 	public Orc() {
-		super("Orc", 100, 15, 1.2, 2, false, 110, 15, 1);
+		super("Orc", 100, 15, 1, 2, false, 110, 15, 1);
 		this.orcFrames = new Image[6];
 		this.currentFrame = 0;
 		this.lastFrameTime = System.currentTimeMillis();
+		this.setTaking(false);
 		
         for (int i = 0; i < 6; i++) {
             orcFrames[i] = new Image("file:res/orc/orc-walk/orc-walk" + i + ".png");
@@ -32,13 +34,16 @@ public class Orc extends Enemies implements Attackable {
 	
 	@Override
 	public void walk() {
+//		System.out.println("Slime in " + this.getPos());
+		
+		if(!this.isTaking()) {
 		this.setPos(this.getPos() - this.getSpeed());
 
 		long currentTime = System.currentTimeMillis();
 		if (currentTime - lastFrameTime > 100) {
 			currentFrame = (currentFrame + 1) % 6;
 			lastFrameTime = currentTime;
-		}
+		}}
 
 	}
 	
@@ -73,6 +78,14 @@ public class Orc extends Enemies implements Attackable {
 
 	
 		
+	}
+
+	public boolean isTaking() {
+		return taking;
+	}
+
+	public void setTaking(boolean taking) {
+		this.taking = taking;
 	}
 
 

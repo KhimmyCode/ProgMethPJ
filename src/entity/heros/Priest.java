@@ -14,7 +14,7 @@ public class Priest extends Heros implements Buffable {
 	private int currentFrame;
 	private long lastFrameTime;
 
-	public Priest(String name, int health, int attackPower, int buffHealth, double speed, double range, boolean isAlley,
+	public Priest(String name, int health, int attackPower, int buffHealth, int speed, double range, boolean isAlley,
 			int accuracy, int evasion, double cooldown, int cost, double deployTime) {
 		super(name, health, attackPower, speed, range, isAlley, accuracy, evasion, cooldown, cost, deployTime);
 		this.setBuffHealth(buffHealth);
