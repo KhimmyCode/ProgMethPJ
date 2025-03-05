@@ -59,7 +59,7 @@ public class FieldCanvas extends Canvas {
 	                        if (u instanceof Knight) {
 	                            k = (Knight) u;
 	                            if(k.isEnemyInRange((GameLogic.getInstance().getUnitInFiled()))) {
-	                            	k.attack(GameLogic.getInstance().getUnitInFiled()) ;
+	                            	
 	                            	k.renderAttacking(gc);
 	                            } else {
 	                            	k.walk();

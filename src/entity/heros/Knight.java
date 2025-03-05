@@ -53,25 +53,32 @@ public class Knight extends Heros implements Attackable {
 	
 
 	public void renderWalk(GraphicsContext gc) {
+		
 				gc.drawImage(knightFrames[currentFrame], this.getPos(), 0, 200, 300);
 	}
 	
 	public void renderAttacking(GraphicsContext gc) {
-		gc.drawImage(knightAttackingFrames[currentAttackingFrame], this.getPos(), 0, 200, 300);
-	}
-
-	@Override
-	public void attack(ArrayList<Unit> unitList) {
 		long currentTime = System.currentTimeMillis();
 		if (currentTime - lastFrameTime > 200) {
 			currentAttackingFrame = (currentAttackingFrame + 1) % 7;
 			lastAttackingFrameTime = currentTime;
 		}
+		if(currentAttackingFrame==2) {
+			attack(GameLogic.getInstance().getUnitInFiled());
+			System.out.println("attack");
+		}
+		System.out.println("frame ="+currentAttackingFrame);
+		gc.drawImage(knightAttackingFrames[currentAttackingFrame], this.getPos(), 0, 200, 300);
+	}
+
+	@Override
+	public void attack(ArrayList<Unit> unitList) {
+		
 		
 		for (Object e : unitList) {
 
 				
-				if (e instanceof Enemies && this.getPos() + this.getRange() == ((Enemies) e).getPos()) {
+				if (e instanceof Enemies && this.getPos() + this.getRange() >= ((Enemies) e).getPos()) {
 					Enemies enemy = (Enemies) e;
 				if (enemy instanceof Slime) {
 					Slime s = (Slime) enemy;

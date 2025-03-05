@@ -27,7 +27,7 @@ public abstract class Heros extends Unit {
 	    for (Object e : unitList) {
 	        if (e instanceof Enemies) {
 	            Enemies enemy = (Enemies) e;
-	            if (enemy.getPos()-this.getPos()< this.getRange()) {
+	            if (enemy.getPos()-this.getPos()< this.getRange()&&enemy.getPos()>this.getPos()-50) {
 	                return true;
 	            }
 	        }
