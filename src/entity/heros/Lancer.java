@@ -21,6 +21,7 @@ public class Lancer extends Heros implements Attackable {
     private Image[] lancerAttackingFrames;
     private int currentAttackingFrame;
     private long lastAttackingFrameTime;
+    private boolean isAttacking;
 
     public Lancer(String name, int health, int attackPower, int speed, double range, boolean isAlley, int accuracy,
             int evasion, double cooldown, int cost, double deployTime) {
@@ -38,10 +39,10 @@ public class Lancer extends Heros implements Attackable {
         this.lastAttackingFrameTime = System.currentTimeMillis();
 
         for (int i = 0; i < 8; i++) {
-            lancerFrames[i] = new Image("file:res/lancer/lancer-walk/lancer-walk" + i + ".png");
+            lancerFrames[i] = new Image("/lancer/lancer-walk/lancer-walk" + i + ".png");
         }
         for (int i = 0; i < 6; i++) { // ปรับเป็น 6 เฟรม
-            lancerAttackingFrames[i] = new Image("file:res/lancer/lancer-attack/lancer-attack" + i + ".png");
+            lancerAttackingFrames[i] = new Image("/lancer/lancer-attack/lancer-attack" + i + ".png");
         }
     }
 
@@ -69,9 +70,14 @@ public class Lancer extends Heros implements Attackable {
             currentAttackingFrame = (currentAttackingFrame + 1) % 6; // ปรับเป็น 6 เฟรม
             lastAttackingFrameTime = currentTime;
         }
-        if (currentAttackingFrame == 2) { // คงเฟรมที่ 2 เป็นจุดโจมตีเหมือนเดิม
+        if (currentAttackingFrame == 5&& !isAttacking) { // คงเฟรมที่ 2 เป็นจุดโจมตีเหมือนเดิม
             attack(GameLogic.getInstance().getUnitInFiled());
+            isAttacking=true;
             System.out.println("attack");
+        }
+        
+        if(currentAttackingFrame ==0) {
+        	isAttacking = false;
         }
         System.out.println("frame =" + currentAttackingFrame);
         gc.drawImage(lancerAttackingFrames[currentAttackingFrame], this.getPos(), 147, 200, 300);

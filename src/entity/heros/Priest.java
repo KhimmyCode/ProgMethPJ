@@ -37,10 +37,10 @@ public class Priest extends Heros implements Buffable {
         this.isBuffing = false;
 
         for (int i = 0; i < 8; i++) {
-            priestFrames[i] = new Image("file:res/priest/priest-walk/priest-walk" + i + ".png");
+            priestFrames[i] = new Image("/priest/priest-walk/priest-walk" + i + ".png");
         }
         for (int i = 0; i < 6; i++) {
-            priestBuffFrames[i] = new Image("file:res/priest/priest-heal/priest-heal" + i + ".png");
+            priestBuffFrames[i] = new Image("/priest/priest-heal/priest-heal" + i + ".png");
         }
     }
 

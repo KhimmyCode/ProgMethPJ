@@ -1,5 +1,6 @@
 package application;
 
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -19,6 +20,7 @@ public class SceneManager {
     public static void initialize(Stage stage) {
         primaryStage = stage;
         primaryStage.setTitle("Game Project");
+        
 
         // Load all scenes
         scenes.put("start", new StartScene().getScene());
@@ -32,6 +34,10 @@ public class SceneManager {
         if (scenes.containsKey(sceneName)) {
             primaryStage.setScene(scenes.get(sceneName));
             primaryStage.show();
+            primaryStage.setOnCloseRequest(event -> {
+            	Platform.exit();
+            	GameLogic.getInstance().setEnd(true);
+            });
         }
     }
 

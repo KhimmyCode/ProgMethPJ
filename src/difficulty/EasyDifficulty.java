@@ -25,33 +25,48 @@ public class EasyDifficulty extends BaseDifficulty {
 //	        Slime slime = new Slime();
 //	        enemies.add(slime);
 //	    }
-	    for (int i = 0; i < 1; ++i) {
-	    	Werebear wb = new Werebear();
-	        enemies.add(wb);
-	    }
-	    for (int i = 0; i < 1; ++i) {
-	    	Slime slime = new Slime();
+	    for (int i = 0; i < 30; ++i) {
+//	    	Werebear wb = new Werebear();
+//	        enemies.add(wb);
+	        Slime slime = new Slime();
 	        enemies.add(slime);
-	    }
-	    for (int i = 0; i < 1; ++i) {
-	    	Orc o = new Orc();
+	        Slime slime1 = new Slime();
+	        enemies.add(slime1);
+	        Orc o = new Orc();
 	        enemies.add(o);
 	    }
+	    
 
 	    // ปล่อย enemies ทีละตัว
-	    for (Enemies tar : enemies) {
-	        System.out.println(tar); // debug
-	        if(tar instanceof Slime) {
-	        	Slime slime = (Slime) tar ;
-	    		GameLogic.getInstance().addUnitToEnemyTeam(slime);
-	        } else if(tar instanceof Werebear) {
-	        	Werebear wb = (Werebear) tar ;
-	    		GameLogic.getInstance().addUnitToEnemyTeam(wb);
-	        } else if(tar instanceof Orc) {
-	        	Orc o = (Orc) tar ;
-	    		GameLogic.getInstance().addUnitToEnemyTeam(o);
-	        }
-	    }
+	    Thread sp = new Thread(()->{
+	    	for (Enemies tar : enemies) {
+		        System.out.println(tar); // debug
+		        if(GameLogic.getInstance().isEnd()) {
+		        	System.out.println("end");
+		        	break;
+		        }
+		        if(tar instanceof Slime) {
+		        	Slime slime = (Slime) tar ;
+		    		GameLogic.getInstance().addUnitToEnemyTeam(slime);
+		        } else if(tar instanceof Werebear) {
+		        	Werebear wb = (Werebear) tar ;
+		    		GameLogic.getInstance().addUnitToEnemyTeam(wb);
+		        } else if(tar instanceof Orc) {
+		        	Orc o = (Orc) tar ;
+		    		GameLogic.getInstance().addUnitToEnemyTeam(o);
+		        }
+		        try {
+					Thread.sleep(1000*10);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		    }
+	    });
+	    
+	    sp.setDaemon(true);
+	    
+	    sp.start();
 
 	    System.out.println(enemies.size()); // debug
 	    return enemies;

@@ -116,25 +116,24 @@ public class GameScene {
 		// Title
 		BorderPane header = new BorderPane();
 		Button exitButton = new Button("Back to Menu");
-		exitButton.setOnAction(e -> {SceneManager.setScene("level");
-		GameLogic.getInstance().setEnd(true) ;
-		});
+		BaseDifficulty difficulty;
 		Text title = new Text("Level " + level);
 		title.setStyle("-fx-font-size: 24px;");
 		header.setLeft(title);
 		header.setRight(exitButton);
+		Text crystalText = new Text();
+		header.setCenter(crystalText);
+		header.setStyle("-fx-background-color: #7EC4C1;");
 
 		// Canvas for game rendering
 		canvas = new FieldCanvas(800, 400);
 		gc = canvas.getGraphicsContext2D();
 
 		// Crystal manager
-		Text crystalText = new Text();
 		crystalManager = new CrystalManager(100, crystalText);
 		crystalManager.startCrystalCount();
 
 		// Set Castle and enemy count based on difficulty
-		BaseDifficulty difficulty;
 		switch (level) {
 		case 1:
 			difficulty = new EasyDifficulty();
@@ -151,6 +150,10 @@ public class GameScene {
 		default:
 			throw new IllegalArgumentException("Invalid level: " + level);
 		}
+		exitButton.setOnAction(e -> {SceneManager.setScene("level");
+		GameLogic.getInstance().setEnd(true) ;
+		
+		});
 
 		// สร้าง Castle
 //        castle = new Castle("Player Castle", difficulty, true, 400, 300);
@@ -201,7 +204,7 @@ public class GameScene {
         
 
         // Add everything to root
-        root.getChildren().addAll(header, crystalText, canvas, buttonPanel);
+        root.getChildren().addAll(header, canvas, buttonPanel);
 		scene = new Scene(root, 800, 600);
 
 		difficulty.spawnEnemies().forEach(enemy -> {

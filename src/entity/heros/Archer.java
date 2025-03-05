@@ -35,10 +35,10 @@ public class Archer extends Heros implements Attackable {
         this.isAttacking = false;
 
         for (int i = 0; i < 8; i++) {
-            archerFrames[i] = new Image("file:res/archer/archer-walk/archer-walk" + i + ".png");
+            archerFrames[i] = new Image("/archer/archer-walk/archer-walk" + i + ".png");
         }
         for (int i = 0; i < 12; i++) {
-            archerAttackingFrames[i] = new Image("file:res/archer/archer-attack/archer-attack" + i + ".png");
+            archerAttackingFrames[i] = new Image("/archer/archer-attack/archer-attack" + i + ".png");
         }
     }
 
@@ -67,7 +67,7 @@ public class Archer extends Heros implements Attackable {
             currentAttackingFrame = (currentAttackingFrame + 1) % 12; // โจมตี 12 เฟรม
             lastAttackingFrameTime = currentTime;
         }
-        if (currentAttackingFrame == 5 && !isAttacking) { // โจมตีที่เฟรม 5 (เปลี่ยนเฟรม)
+        if (currentAttackingFrame == 9 && !isAttacking) { // โจมตีที่เฟรม 5 (เปลี่ยนเฟรม)
             attack(GameLogic.getInstance().getUnitInFiled());
             System.out.println("attack");
             isAttacking = true;

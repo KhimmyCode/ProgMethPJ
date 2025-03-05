@@ -8,8 +8,13 @@ import entity.interfaces.Enemies;
 public abstract class BaseDifficulty {
     protected int baseHealth;
     protected int enemyCount;
+    protected Thread t;
 
-    public int getBaseHealth() {
+    public Thread getT() {
+		return t;
+	}
+
+	public int getBaseHealth() {
         return baseHealth;
     }
 

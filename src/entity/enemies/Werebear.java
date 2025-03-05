@@ -8,12 +8,18 @@ import entity.interfaces.Heros;
 import entity.interfaces.Unit;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import logic.GameLogic;
 
 public class Werebear extends Enemies implements Attackable {
     private Image[] werebearFrames;
+    private Image[] werebearAttackingFrames;
+    private int currentAttackingFrame;
+    private long lastAttackingFrameTime;
     private int currentFrame;
     private long lastFrameTime;
     private boolean taking;
+    private boolean isAttacking;
+    
 
     public Werebear(String name, int health, int attackPower, int speed, double range, boolean isAlley, int accuracy,
             int evasion, double cooldown) {
@@ -23,12 +29,17 @@ public class Werebear extends Enemies implements Attackable {
     public Werebear() {
         super("WereBear", 150, 25, 2, 1, false, 100, 20, 1);
         this.werebearFrames = new Image[6];
+        this.werebearAttackingFrames= new Image[12];
         this.currentFrame = 0;
         this.lastFrameTime = System.currentTimeMillis();
         this.setTaking(false);
+        isAttacking = false;
 
         for (int i = 0; i < 6; i++) {
-            werebearFrames[i] = new Image("file:res/werebear/werebear-walk/werebear-walk" + i + ".png");
+            werebearFrames[i] = new Image("/werebear/werebear-walk/werebear-walk" + i + ".png");
+        }
+        for (int i = 0; i < 12; i++) {
+        	werebearAttackingFrames[i] = new Image("werebear/werebear-attack/werebear-attack" + i + ".png");
         }
     }
 
@@ -47,6 +58,26 @@ public class Werebear extends Enemies implements Attackable {
 
     public void render(GraphicsContext gc) {
         gc.drawImage(werebearFrames[currentFrame], this.getPos(), 147, 200, 300);
+    }
+    
+    public void renderAttacking(GraphicsContext gc) {
+    	long currentTime = System.currentTimeMillis();
+        if (currentTime - lastAttackingFrameTime > 200) { // ลดความเร็วในการเปลี่ยนเฟรมโจมตี
+            currentAttackingFrame = (currentAttackingFrame + 1) % 12; // โจมตี 12 เฟรม
+            lastAttackingFrameTime = currentTime;
+        }
+        if (currentAttackingFrame == 9&&!isAttacking ) { // โจมตีที่เฟรม 5 (เปลี่ยนเฟรม)
+            attack(GameLogic.getInstance().getUnitInFiled());
+            isAttacking=true;
+            System.out.println("attack");
+            
+        }
+        if(currentAttackingFrame ==0) {
+        	isAttacking = false;
+        }
+//        System.out.println("frame =" + currentAttackingFrame);
+        gc.drawImage(werebearAttackingFrames[currentAttackingFrame], this.getPos(), 147, 200, 300);
+    	
     }
 
     @Override

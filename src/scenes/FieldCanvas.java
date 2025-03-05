@@ -19,127 +19,127 @@ import javafx.scene.paint.Color;
 import logic.GameLogic;
 
 public class FieldCanvas extends Canvas {
-	
-    public FieldCanvas(double width, double height) {
-        super(width, height);
-        updateCanvas(getGraphicsContext2D());
-    }
-	
-    
+
+	public FieldCanvas(double width, double height) {
+		super(width, height);
+		updateCanvas(getGraphicsContext2D());
+	}
+
 	public void updateCanvas(GraphicsContext gc) {
-	    Thread t = new Thread(() -> {
-	        while (!GameLogic.isEnd()) {
-	            try {
-	                Platform.runLater(() -> {
-	                    // Clear the canvas
-	                    gc.clearRect(0, 0, getWidth(), getHeight());
+		Thread t = new Thread(() -> {
+			while (!GameLogic.isEnd()) {
+				try {
+//	            	System.out.println("updating...");
+					Platform.runLater(() -> {
+						// Clear the canvas
+						gc.clearRect(0, 0, getWidth(), getHeight());
 
-	                    // Draw background placeholder
-	                    Image background = new Image("background/level.png");
-	                    gc.drawImage(background, 0, 0,800,400);
+						// Draw background placeholder
+						Image background = new Image("background/level.png");
+						gc.drawImage(background, 0, 0, 800, 400);
 
-	                    // Draw left base
-	                    
-	                    Image ci = new Image("background/castle.png");
-	                    Image ji = new Image("background/cage.png");
-	                    
-	                    
-	                    
-	                    gc.drawImage(ci,0,200, 185.3*0.8, 152.6*0.8);
-	                    gc.drawImage(ji, 700, 170,209*0.5,309*0.5);
+						// Draw left base
 
-	                    // Draw and update our team's units
-	                    Knight k = null;
-	                    Archer a = null;
-	                    Lancer l = null;
-	                    Priest p = null;
-	                    Wizard w = null;
-	                    Slime s = null ;
-	                    Orc o = null ;
-	                    Werebear wb = null ;
+						Image ci = new Image("background/castle.png");
+						Image ji = new Image("background/cage.png");
 
-	                    for (Unit u : GameLogic.getInstance().getOurTeamUnits()) {
-	                        if (u instanceof Knight) {
-	                            	k = (Knight) u;
-	                            if (k.isEnemyInRange(GameLogic.getInstance().getUnitInFiled())) {
-	                                k.renderAttacking(gc);
-	                            } else {
-	                                k.walk();
-	                                k.renderWalk(gc);
-	                            }
-	                        } else if (u instanceof Archer) {
-	                            	a = (Archer) u;
-	                            if (a.isEnemyInRange(GameLogic.getInstance().getUnitInFiled())) {
-	                                a.renderAttacking(gc);
-	                            } else {
-	                                a.walk();
-	                                a.renderWalk(gc);
-	                            }
-	                        } else if (u instanceof Lancer) {
-	                        		l = (Lancer) u;
-	                            if (l.isEnemyInRange(GameLogic.getInstance().getUnitInFiled())) {
-	                                l.renderAttacking(gc);
-	                            } else {
-	                                l.walk();
-	                                l.renderWalk(gc);
-	                            }
-	                        } else if (u instanceof Priest) {
-	                        	p = (Priest) u;
-	                            if (p.isAllyInRange(GameLogic.getInstance().getOurTeamUnits())) {
-	                                p.renderBuff(gc);
-	                            } else {
-	                                p.walk();
-	                                p.renderWalk(gc);
-	                            }
-	                        } else if (u instanceof Wizard) {
-	                            w = (Wizard) u;
-	                            if (w.isEnemyInRange(GameLogic.getInstance().getUnitInFiled())) {
-	                                w.renderAttacking(gc);
-	                            } else {
-	                                w.walk();
-	                                w.renderWalk(gc);
-	                            }
-	                        }
-	                    }
+						gc.drawImage(ci, 0, 200, 185.3 * 0.8, 152.6 * 0.8);
+						gc.drawImage(ji, 700, 170, 209 * 0.5, 309 * 0.5);
 
-	                    // Draw and update enemy team's units
-	                    for (Unit e : GameLogic.getInstance().getEnemyTeamUnits()) {
-//	                    	if(e instanceof Slime) {
-//	                            s = (Slime) e;
-//		                        s.walk();
-//		                        s.render(gc);
-//	                    	}else if(e instanceof Orc) {
-//	                            o = (Orc) e;
-//		                        o.walk();
-//		                        o.render(gc);                    		
-//	                    	}else if(e instanceof Werebear) {
-//	                    		wb = (Werebear) e;
-//	                    		wb.walk();
-//	                    		wb.render(gc);
-//	                    	}
-	                    	if(e instanceof Werebear) {
-	                            wb = (Werebear) e;
-		                        wb.walk();
-		                        wb.render(gc);
-	                    	}else if(e instanceof Orc) {
-	                            o = (Orc) e;
-		                        o.walk();
-		                        o.render(gc);                    		
-	                    	}else if(e instanceof Slime) {
-	                    		s = (Slime) e;
-	                    		s.walk();
-	                    		s.render(gc);
-	                    	}
-	                    }
+						// Draw and update our team's units
+						Knight k = null;
+						Archer a = null;
+						Lancer l = null;
+						Priest p = null;
+						Wizard w = null;
+						Slime s = null;
+						Orc o = null;
+						Werebear wb = null;
 
-	                });
+						for (Unit u : GameLogic.getInstance().getOurTeamUnits()) {
+							if (u instanceof Knight) {
+								k = (Knight) u;
+								if (k.isEnemyInRange(GameLogic.getInstance().getUnitInFiled())) {
+									k.renderAttacking(gc);
+								} else {
+									k.walk();
+									k.renderWalk(gc);
+								}
+							} else if (u instanceof Archer) {
+								a = (Archer) u;
+								if (a.isEnemyInRange(GameLogic.getInstance().getUnitInFiled())) {
+									a.renderAttacking(gc);
+								} else {
+									a.walk();
+									a.renderWalk(gc);
+								}
+							} else if (u instanceof Lancer) {
+								l = (Lancer) u;
+								if (l.isEnemyInRange(GameLogic.getInstance().getUnitInFiled())) {
+									l.renderAttacking(gc);
+								} else {
+									l.walk();
+									l.renderWalk(gc);
+								}
+							} else if (u instanceof Priest) {
+								p = (Priest) u;
+								if (p.isAllyInRange(GameLogic.getInstance().getOurTeamUnits())) {
+									p.renderBuff(gc);
+								} else {
+									p.walk();
+									p.renderWalk(gc);
+								}
+							} else if (u instanceof Wizard) {
+								w = (Wizard) u;
+								if (w.isEnemyInRange(GameLogic.getInstance().getUnitInFiled())) {
+									w.renderAttacking(gc);
+								} else {
+									w.walk();
+									w.renderWalk(gc);
+								}
+							}
+						}
 
-	                Thread.sleep(50);
-	            } catch (InterruptedException e) {
-	                e.printStackTrace();
-	            }
-	        }
-	    });
-	    t.start();
+						// Draw and update enemy team's units
+						for (Unit e : GameLogic.getInstance().getEnemyTeamUnits()) {
+//	                    	
+							if (e instanceof Werebear) {
+								wb = (Werebear) e;
+								if (wb.isEnemyInRange(GameLogic.getInstance().getUnitInFiled())) {
+									wb.renderAttacking(gc);
+								} else {
+									wb.walk();
+									wb.render(gc);
+								}
+							} else if (e instanceof Orc) {
+								o = (Orc) e;
+								if(o.isEnemyInRange(GameLogic.getInstance().getUnitInFiled())){
+									o.renderAttacking(gc);
+								}
+								else {
+									o.walk();
+									o.render(gc);
+								}
+							} else if (e instanceof Slime) {
+								s = (Slime) e;
+								if(s.isEnemyInRange(GameLogic.getInstance().getUnitInFiled())) {
+									s.renderAttacking(gc);
+								}
+								else {
+									s.walk();
+									s.render(gc);
+								}
+							}
+						}
+
+					});
+
+					Thread.sleep(50);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		t.start();
 	}
 }
