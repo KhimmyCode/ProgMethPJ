@@ -76,7 +76,7 @@ public class Archer extends Heros implements Attackable {
             isAttacking = false;
         }
         System.out.println("frame =" + currentAttackingFrame);
-        gc.drawImage(archerAttackingFrames[currentAttackingFrame], this.getPos(), 0, 200, 300);
+        gc.drawImage(archerAttackingFrames[currentAttackingFrame], this.getPos(), 147, 200, 300);
     }
 
     @Override

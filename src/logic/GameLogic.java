@@ -23,7 +23,7 @@ public class GameLogic {
 		ourTeamUnits = new ArrayList<>();
 		enemyTeamUnits = new ArrayList<>();
 		unitInFiled = new ArrayList<>();
-		
+		  
 		isEnd=false;
 	}
 	
@@ -139,6 +139,7 @@ public class GameLogic {
 	public void resetGameState() {
 	    ourTeamUnits.clear(); // ล้างทีมของเรา
 	    enemyTeamUnits.clear(); // ล้างทีมศัตรู
+	    unitInFiled.clear();
 	    isEnd = false; // รีเซ็ตสถานะเกม
 	}
 

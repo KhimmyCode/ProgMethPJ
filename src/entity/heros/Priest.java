@@ -75,7 +75,7 @@ public class Priest extends Heros implements Buffable {
         if (currentBuffFrame == 0) {
             isBuffing = false;
         }
-        gc.drawImage(priestBuffFrames[currentBuffFrame], this.getPos(), 0, 200, 300);
+        gc.drawImage(priestBuffFrames[currentBuffFrame], this.getPos(), 147, 200, 300);
     }
 
     @Override

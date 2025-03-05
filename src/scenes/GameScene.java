@@ -116,7 +116,9 @@ public class GameScene {
 		// Title
 		BorderPane header = new BorderPane();
 		Button exitButton = new Button("Back to Menu");
-		exitButton.setOnAction(e -> SceneManager.setScene("level"));
+		exitButton.setOnAction(e -> {SceneManager.setScene("level");
+		GameLogic.getInstance().setEnd(true) ;
+		});
 		Text title = new Text("Level " + level);
 		title.setStyle("-fx-font-size: 24px;");
 		header.setLeft(title);

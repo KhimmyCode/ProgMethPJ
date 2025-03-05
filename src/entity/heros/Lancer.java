@@ -29,7 +29,7 @@ public class Lancer extends Heros implements Attackable {
 
     public Lancer() {
         // Name, hp, atk, spd, range, team, acc, eva, cool, cost, deploytime
-        this("Lancer", 200, 20, 2, 1, true, 150, 15, 3, 200, 15);
+        this("Lancer", 200, 20, 2, 20, true, 150, 15, 3, 200, 15);
         this.lancerFrames = new Image[8];
         this.lancerAttackingFrames = new Image[6]; // ปรับเป็น 6 เฟรม
         this.currentFrame = 0;
@@ -74,7 +74,7 @@ public class Lancer extends Heros implements Attackable {
             System.out.println("attack");
         }
         System.out.println("frame =" + currentAttackingFrame);
-        gc.drawImage(lancerAttackingFrames[currentAttackingFrame], this.getPos(), 0, 200, 300);
+        gc.drawImage(lancerAttackingFrames[currentAttackingFrame], this.getPos(), 147, 200, 300);
     }
 
     @Override

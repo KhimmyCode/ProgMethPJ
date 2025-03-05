@@ -73,7 +73,7 @@ public class Wizard extends Heros implements Attackable {
         if (currentAttackingFrame == 0) {
             isAttacking = false;
         }
-        gc.drawImage(wizardAttackingFrames[currentAttackingFrame], this.getPos(), 0, 200, 300);
+        gc.drawImage(wizardAttackingFrames[currentAttackingFrame], this.getPos(), 147, 200, 300);
     }
 
     @Override
