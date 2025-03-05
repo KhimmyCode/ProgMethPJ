@@ -57,7 +57,7 @@ public class Slime extends Enemies implements Attackable, Regenable {
 	public void render(GraphicsContext gc) {
 //		System.out.println("Rendering Knight at position: (" + this.getPos() + ")");
 
-		gc.drawImage(slimeFrames[currentFrame], this.getPos(), 0, 200, 300);
+		gc.drawImage(slimeFrames[currentFrame], this.getPos(), 147, 200, 300);
 	}
 
 	@Override

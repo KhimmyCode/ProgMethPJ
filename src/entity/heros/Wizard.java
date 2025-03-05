@@ -52,7 +52,7 @@ public class Wizard extends Heros implements Attackable, Buffable {
 	public void render(GraphicsContext gc) {
 //		System.out.println("Rendering Knight at position: (" + this.getPos() + ")");
 
-		gc.drawImage(wizardFrames[currentFrame], this.getPos(), 0, 200, 300);
+		gc.drawImage(wizardFrames[currentFrame], this.getPos(), 147, 200, 300);
 	}
 
 

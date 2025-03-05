@@ -44,7 +44,7 @@ public class Archer extends Heros implements Attackable {
 	public void render(GraphicsContext gc) {
 //		System.out.println("Rendering Knight at position: (" + this.getPos() + ")");
 
-		gc.drawImage(archerFrames[currentFrame], this.getPos(), 0, 200, 300);
+		gc.drawImage(archerFrames[currentFrame], this.getPos(), 147, 200, 300);
 	}
 
 
