@@ -2,77 +2,111 @@ package entity.heros;
 
 import java.util.ArrayList;
 
+import entity.enemies.Orc;
+import entity.enemies.Slime;
+import entity.enemies.Werebear;
 import entity.interfaces.Attackable;
 import entity.interfaces.Enemies;
 import entity.interfaces.Heros;
 import entity.interfaces.Unit;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import logic.GameLogic;
 
 public class Lancer extends Heros implements Attackable {
-	
-	private Image[] lancerFrames;
-	private int currentFrame;
-	private long lastFrameTime;
+    
+    private Image[] lancerFrames;
+    private int currentFrame;
+    private long lastFrameTime;
+    private Image[] lancerAttackingFrames;
+    private int currentAttackingFrame;
+    private long lastAttackingFrameTime;
 
-	public Lancer(String name, int health, int attackPower, int speed, double range, boolean isAlley, int accuracy,
-			int evasion, double cooldown, int cost, double deployTime) {
-		super(name, health, attackPower, speed, range, isAlley, accuracy, evasion, cooldown, cost, deployTime);
-	}
+    public Lancer(String name, int health, int attackPower, int speed, double range, boolean isAlley, int accuracy,
+            int evasion, double cooldown, int cost, double deployTime) {
+        super(name, health, attackPower, speed, range, isAlley, accuracy, evasion, cooldown, cost, deployTime);
+    }
 
-	public Lancer() {
-		this("Lancer", 200, 20, 2, 1, true, 150, 15, 3, 200, 15);
-		this.lancerFrames = new Image[8];
-		this.currentFrame = 0;
-		this.lastFrameTime = System.currentTimeMillis();
+    public Lancer() {
+        // Name, hp, atk, spd, range, team, acc, eva, cool, cost, deploytime
+        this("Lancer", 200, 20, 2, 1, true, 150, 15, 3, 200, 15);
+        this.lancerFrames = new Image[8];
+        this.lancerAttackingFrames = new Image[6]; // ปรับเป็น 6 เฟรม
+        this.currentFrame = 0;
+        this.currentAttackingFrame = 0;
+        this.lastFrameTime = System.currentTimeMillis();
+        this.lastAttackingFrameTime = System.currentTimeMillis();
 
         for (int i = 0; i < 8; i++) {
-            lancerFrames[i] = new Image("/lancer/lancer-walk/lancer-walk" + i + ".png");
+            lancerFrames[i] = new Image("file:res/lancer/lancer-walk/lancer-walk" + i + ".png");
         }
-	}
-	
-	@Override
-	public void walk() {
-		this.setPos(this.getPos() + this.getSpeed());
+        for (int i = 0; i < 6; i++) { // ปรับเป็น 6 เฟรม
+            lancerAttackingFrames[i] = new Image("file:res/lancer/lancer-attack/lancer-attack" + i + ".png");
+        }
+    }
 
-		long currentTime = System.currentTimeMillis();
-		if (currentTime - lastFrameTime > 100) {
-			currentFrame = (currentFrame + 1) % 8;
-			lastFrameTime = currentTime;
-		}
+    @Override
+    public void walk() {
+        System.out.println("Lancer in " + this.getPos());
+        this.setPos(this.getPos() + this.getSpeed());
 
-	}
-	
-	public void render(GraphicsContext gc) {
-//		System.out.println("Rendering Knight at position: (" + this.getPos() + ")");
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - lastFrameTime > 100) {
+            currentFrame = (currentFrame + 1) % 8;
+            lastFrameTime = currentTime;
+        }
+    }
 
-		gc.drawImage(lancerFrames[currentFrame], this.getPos(), 0, 200, 300);
-	}
+    public void renderWalk(GraphicsContext gc) {
+        gc.drawImage(lancerFrames[currentFrame], this.getPos(), 0, 200, 300);
+    }
 
-	@Override
-	public void attack(ArrayList<Unit> unitList) {
-		for (Object e : unitList) {
-		if (e instanceof Enemies) {
-			Enemies enemy = (Enemies) e;
+    public void renderAttacking(GraphicsContext gc) {
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - lastAttackingFrameTime > 200) {
+            currentAttackingFrame = (currentAttackingFrame + 1) % 6; // ปรับเป็น 6 เฟรม
+            lastAttackingFrameTime = currentTime;
+        }
+        if (currentAttackingFrame == 2) { // คงเฟรมที่ 2 เป็นจุดโจมตีเหมือนเดิม
+            attack(GameLogic.getInstance().getUnitInFiled());
+            System.out.println("attack");
+        }
+        System.out.println("frame =" + currentAttackingFrame);
+        gc.drawImage(lancerAttackingFrames[currentAttackingFrame], this.getPos(), 0, 200, 300);
+    }
 
-			int hitChance = this.getAccuracy() - enemy.getEvasion();
-			double successRate = hitChance / 100.0;
+    @Override
+    public void attack(ArrayList<Unit> unitList) {
+        for (Object e : unitList) {
+            if (e instanceof Enemies && this.getPos() + this.getRange() >= ((Enemies) e).getPos()) {
+                Enemies enemy = (Enemies) e;
 
-			if (Math.random() < successRate) {
+                if (enemy instanceof Slime) {
+                    Slime s = (Slime) enemy;
+                    s.setTaking(true);
+                } else if (enemy instanceof Orc) {
+                    Orc o = (Orc) enemy;
+                    o.setTaking(true);
+                } else if (enemy instanceof Werebear) {
+                    Werebear wb = (Werebear) enemy;
+                    wb.setTaking(true);
+                }
 
-				int takeDamage = enemy.getHealth() - this.getAttackPower();
-				if (takeDamage < 0) {
-					enemy.setHealth(0);
-				} else {
-					enemy.setHealth(takeDamage);
-				}
-				System.out.println(this.getName() + " Attack " + enemy.getName() + " remain hp = " + takeDamage);
-			} else {
-				System.out.println(this.getName() + " Attack Miss!");
-			}
-		}
-	}
-		
-	}
+                int hitChance = this.getAccuracy() - enemy.getEvasion();
+                double successRate = hitChance / 100.0;
 
+                if (Math.random() < successRate) {
+                    int takeDamage = enemy.getHealth() - this.getAttackPower();
+                    if (takeDamage < 0) {
+                        enemy.setHealth(0);
+                    } else {
+                        enemy.setHealth(takeDamage);
+                    }
+                    System.out.println(this.getName() + " Attack " + enemy.getName() + " remain hp = " + takeDamage);
+                } else {
+                    System.out.println(this.getName() + " Attack Miss!");
+                }
+            }
+        }
+    }
 }

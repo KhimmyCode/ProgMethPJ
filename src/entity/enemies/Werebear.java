@@ -59,9 +59,9 @@ public class Werebear extends Enemies implements Attackable, Buffable {
 
 
 	@Override
-	public void buff(ArrayList<Object> unitList) {
+	public void buff(ArrayList<Unit> unitList) {
 
-		for (Object unit : unitList) {
+		for (Unit unit : unitList) {
 			if (unit instanceof Enemies) {
 				Enemies enemy = (Enemies) unit;
 				enemy.setAttackPower(enemy.getAttackPower() + this.getBuffPower());
