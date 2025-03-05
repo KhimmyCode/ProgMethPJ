@@ -85,16 +85,16 @@ public class Archer extends Heros implements Attackable {
             if (e instanceof Enemies && this.getPos() + this.getRange() >= ((Enemies) e).getPos()) {
                 Enemies enemy = (Enemies) e;
 
-                if (enemy instanceof Slime) {
-                    Slime s = (Slime) enemy;
-                    s.setTaking(true);
-                } else if (enemy instanceof Orc) {
-                    Orc o = (Orc) enemy;
-                    o.setTaking(true);
-                } else if (enemy instanceof Werebear) {
-                    Werebear wb = (Werebear) enemy;
-                    wb.setTaking(true);
-                }
+//                if (enemy instanceof Slime) {
+//                    Slime s = (Slime) enemy;
+//                    s.setTaking(true);
+//                } else if (enemy instanceof Orc) {
+//                    Orc o = (Orc) enemy;
+//                    o.setTaking(true);
+//                } else if (enemy instanceof Werebear) {
+//                    Werebear wb = (Werebear) enemy;
+//                    wb.setTaking(true);
+//                }
 
                 int hitChance = this.getAccuracy() - enemy.getEvasion();
                 double successRate = hitChance / 100.0;
