@@ -57,9 +57,11 @@ public class Lancer extends Heros implements Attackable {
         }
     }
 
+
     public void renderWalk(GraphicsContext gc) {
-        gc.drawImage(lancerFrames[currentFrame], this.getPos(), 0, 200, 300);
+        gc.drawImage(lancerFrames[currentFrame], this.getPos(), 147, 200, 300);
     }
+
 
     public void renderAttacking(GraphicsContext gc) {
         long currentTime = System.currentTimeMillis();

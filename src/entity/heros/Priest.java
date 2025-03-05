@@ -55,9 +55,11 @@ public class Priest extends Heros implements Buffable {
         }
     }
 
+
     public void renderWalk(GraphicsContext gc) {
-        gc.drawImage(priestFrames[currentFrame], this.getPos(), 0, 200, 300);
+        gc.drawImage(priestFrames[currentFrame], this.getPos(), 147, 200, 300);
     }
+
 
     public void renderBuff(GraphicsContext gc) {
         long currentTime = System.currentTimeMillis();

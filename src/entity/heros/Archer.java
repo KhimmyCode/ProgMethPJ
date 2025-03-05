@@ -54,9 +54,12 @@ public class Archer extends Heros implements Attackable {
         }
     }
 
+
     public void renderWalk(GraphicsContext gc) {
-        gc.drawImage(archerFrames[currentFrame], this.getPos(), 0, 200, 300);
+        gc.drawImage(archerFrames[currentFrame], this.getPos(), 147, 200, 300);
     }
+
+
 
     public void renderAttacking(GraphicsContext gc) {
         long currentTime = System.currentTimeMillis();

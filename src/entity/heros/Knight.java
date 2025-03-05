@@ -54,7 +54,7 @@ public class Knight extends Heros implements Attackable {
 
 	public void renderWalk(GraphicsContext gc) {
 		
-				gc.drawImage(knightFrames[currentFrame], this.getPos(), 0, 200, 300);
+				gc.drawImage(knightFrames[currentFrame], this.getPos(), 147, 200, 300);
 	}
 	
 	public void renderAttacking(GraphicsContext gc) {
@@ -68,7 +68,7 @@ public class Knight extends Heros implements Attackable {
 			System.out.println("attack");
 		}
 		System.out.println("frame ="+currentAttackingFrame);
-		gc.drawImage(knightAttackingFrames[currentAttackingFrame], this.getPos(), 0, 200, 300);
+		gc.drawImage(knightAttackingFrames[currentAttackingFrame], this.getPos(), 147, 200, 300);
 	}
 
 	@Override

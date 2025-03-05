@@ -14,6 +14,7 @@ import entity.interfaces.Unit;
 import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import logic.GameLogic;
 
@@ -34,16 +35,18 @@ public class FieldCanvas extends Canvas {
 	                    gc.clearRect(0, 0, getWidth(), getHeight());
 
 	                    // Draw background placeholder
-	                    gc.setFill(Color.LIGHTGREEN);  // Replace with an image later
-	                    gc.fillRect(0, 0, getWidth(), getHeight());
+	                    Image background = new Image("background/level.png");
+	                    gc.drawImage(background, 0, 0,800,400);
 
 	                    // Draw left base
-	                    gc.setFill(Color.BLUE);
-	                    gc.fillRect(20, getHeight() / 2 - 50, 50, 100);
-
-	                    // Draw right base
-	                    gc.setFill(Color.RED);
-	                    gc.fillRect(getWidth() - 70, getHeight() / 2 - 50, 50, 100);
+	                    
+	                    Image ci = new Image("background/castle.png");
+	                    Image ji = new Image("background/cage.png");
+	                    
+	                    
+	                    
+	                    gc.drawImage(ci,0,200, 185.3*0.8, 152.6*0.8);
+	                    gc.drawImage(ji, 700, 170,209*0.5,309*0.5);
 
 	                    // Draw and update our team's units
 	                    Knight k = null;

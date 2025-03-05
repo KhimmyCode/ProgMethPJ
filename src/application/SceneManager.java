@@ -7,6 +7,7 @@ import logic.GameLogic;
 import scenes.GameScene;
 import scenes.LevelSelectScene;
 import scenes.StartScene;
+import scenes.WinScene;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -22,8 +23,9 @@ public class SceneManager {
         // Load all scenes
         scenes.put("start", new StartScene().getScene());
         scenes.put("level", new LevelSelectScene().getScene());
+//        scenes.put("win", new WinScene().getScene());
 
-        // เราจะไม่สร้าง GameScene ทั้ง 3 ระดับนี้ที่นี่แล้ว แต่จะสร้างเมื่อเข้าไปในแต่ละ Level
+       
     }
 
     public static void setScene(String sceneName) {
