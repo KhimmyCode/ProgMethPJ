@@ -1,5 +1,6 @@
 package scenes;
 
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -25,7 +26,7 @@ public class LevelSelectScene {
         image.setFitHeight(600);
         
         // Title Text
-        Text title = new Text(170, 150, "Select a Level");
+        Text title = new Text(155, 165, "Select a Level");
         SceneManager s = new SceneManager();
         Font pixelFont65 = s.loadFont("/fonts/pixel2.ttf", 65);
         title.setFont(pixelFont65);
@@ -41,18 +42,21 @@ public class LevelSelectScene {
 
         // Create Buttons
         Button easyButton = createButton("Easy", btnImage, pixelFont, 250, 250, 1);
-        Button mediumButton = createButton("Medium", btnImage, pixelFont, 250, 350, 2);
-        Button hardButton = createButton("Hard", btnImage, pixelFont, 250, 450, 3);
+        Button mediumButton = createButton("Medium", btnImage, pixelFont, 250, 325, 2);
+        Button hardButton = createButton("Hard", btnImage, pixelFont, 250, 400, 3);
+        Button exitButton = createButton("Exit", btnImage, pixelFont, 250, 475,0);
+        exitButton.setOnAction(e -> Platform.exit()); // Override action to close the program
+
 
         // Add elements to root
-        root.getChildren().addAll(image, title, easyButton, mediumButton, hardButton);
+        root.getChildren().addAll(image, title, easyButton, mediumButton, hardButton,exitButton);
         scene = new Scene(root, 800, 600);
     }
 
     private Button createButton(String text, Image img, Font font, double x, double y, int level) {
         ImageView btnImg = new ImageView(img);
-        btnImg.setFitWidth(292);
-        btnImg.setFitHeight(90);
+        btnImg.setFitWidth(250);
+        btnImg.setFitHeight(60);
 
         Text buttonText = new Text(text);
         buttonText.setFont(font);

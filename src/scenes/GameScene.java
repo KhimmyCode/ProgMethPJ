@@ -23,6 +23,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import logic.CrystalManager;
@@ -50,24 +53,26 @@ public class GameScene {
 
 	// สร้างปุ่มฮีโร่
 	private Button createHeroButton(Heros hero, String imagePath) {
-		Image img = new Image(imagePath);
-		ImageView imgView = new ImageView(img);
-		Image b = new Image("background/border.png");
-		ImageView bimg = new ImageView(b);
-		imgView.setFitWidth(80);
-		imgView.setFitHeight(80);
-		bimg.setFitHeight(100);
-		bimg.setFitWidth(100);
-		StackPane btnContent = new StackPane(bimg, imgView);
+        Image img = new Image(imagePath);
+        ImageView imgView = new ImageView(img);
+        Image b = new Image("background/border.png");
+        ImageView bimg = new ImageView(b);
+        imgView.setFitWidth(85);
+        imgView.setFitHeight(85);
+        bimg.setFitHeight(120);
+        bimg.setFitWidth(120);
+        Rectangle bgRect = new Rectangle(80, 80);
+        bgRect.setFill(Color.SADDLEBROWN); // Change color as neede
+        StackPane btnContent = new StackPane(bgRect,imgView,bimg );
 
-		Button button = new Button();
-		button.setGraphic(btnContent);
-		button.setStyle("-fx-padding: 0;");
-		button.setPrefSize(100, 100);
-		button.setOnAction(e -> handleUnitSpawn(hero, button));
+        Button button = new Button();
+        button.setGraphic(btnContent);
+        button.setStyle("-fx-background-color: transparent; -fx-border-width: 0; -fx-padding: 0;");
+        button.setPrefSize(100, 100);
+        button.setOnAction(e -> handleUnitSpawn(hero, button));
 
-		return button;
-	}
+        return button;
+    }
 
 	// จัดการสปาวน์ยูนิต
 	private void handleUnitSpawn(Heros hero, Button button) {
@@ -109,8 +114,13 @@ public class GameScene {
 		Pane root = new VBox();
 
 		// Title
+		BorderPane header = new BorderPane();
+		Button exitButton = new Button("Back to Menu");
+		exitButton.setOnAction(e -> SceneManager.setScene("level"));
 		Text title = new Text("Level " + level);
 		title.setStyle("-fx-font-size: 24px;");
+		header.setLeft(title);
+		header.setRight(exitButton);
 
 		// Canvas for game rendering
 		canvas = new FieldCanvas(800, 400);
@@ -149,6 +159,7 @@ public class GameScene {
 //        castleView.setLayoutX(castle.getX());
 //        castleView.setLayoutY(castle.getY());
 //        root.getChildren().add(castleView);
+		
 
 		// Button panel
 		HBox buttonPanel = new HBox(10);
@@ -161,18 +172,34 @@ public class GameScene {
 		buttonPanel.getChildren().addAll(knightButton, archerButton, priestButton, wizardButton, lancerButton);
 
 		// Upgrade Crystal button
-		Button upgradeCrystalButton = new Button("Upgrade Crystal");
-		upgradeCrystalButton.setOnAction(e -> crystalManager.upgradeCrystal());
-		upgradeCrystalButton.setPrefSize(100, 100);
-		buttonPanel.getChildren().add(upgradeCrystalButton);
+		Button upgradeCrystalButton = new Button();
+        upgradeCrystalButton.setOnAction(e -> crystalManager.upgradeCrystal());
+        upgradeCrystalButton.setPrefSize(100, 100);
+        upgradeCrystalButton.setStyle("-fx-background-color: transparent; -fx-border-width: 0; -fx-padding: 0;");
+        Image b = new Image("background/border.png");
+        ImageView bimg = new ImageView(b);
+        bimg.setFitHeight(120);
+        bimg.setFitWidth(120);
+        Image c = new Image("background/coin.jpg");
+        ImageView cimg= new ImageView(c);
+        cimg.setFitHeight(75);
+        cimg.setFitWidth(75);
+        StackPane s = new StackPane(cimg,bimg);
+        upgradeCrystalButton.setGraphic(s);
+        
+        
+        buttonPanel.getChildren().addAll(upgradeCrystalButton);
+        buttonPanel.setStyle("-fx-background-image: url('background/panelbg.jpg'); " +
+                "-fx-background-size: cover; " +
+                "-fx-background-repeat: no-repeat;");
+        buttonPanel.setPrefHeight(300);
 
-		// Exit button
-		Button exitButton = new Button("Exit");
-		exitButton.setOnAction(e -> SceneManager.setScene("level"));
 
-		// Add everything to root
-		root.getChildren().addAll(title, crystalText, canvas, buttonPanel, exitButton);
+        // Exit button
+        
 
+        // Add everything to root
+        root.getChildren().addAll(header, crystalText, canvas, buttonPanel);
 		scene = new Scene(root, 800, 600);
 
 		difficulty.spawnEnemies().forEach(enemy -> {
