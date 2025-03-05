@@ -1,6 +1,7 @@
 package scenes;
 
 import entity.heros.Knight;
+
 import entity.heros.Archer;
 import entity.heros.Priest;
 import entity.heros.Wizard;
@@ -8,6 +9,7 @@ import entity.heros.Lancer;
 import entity.heros.Castle;
 import entity.interfaces.Enemies;
 import entity.interfaces.Heros;
+import entity.interfaces.Unit;
 import difficulty.BaseDifficulty;
 import difficulty.EasyDifficulty;
 import difficulty.MediumDifficulty;
@@ -24,6 +26,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import logic.CrystalManager;
+import logic.GameLogic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,112 +34,113 @@ import java.util.List;
 import application.SceneManager;
 
 public class GameScene {
-    private Scene scene;
-    private FieldCanvas canvas;
-    private GraphicsContext gc;
-    private CrystalManager crystalManager;
-    private Castle castle; // ตัวแปร Castle
-    private int enemyCount; // จำนวนศัตรูในด่านนี้
+	private Scene scene;
+	private FieldCanvas canvas;
+	private GraphicsContext gc;
+	private CrystalManager crystalManager;
+	private static GameScene instance;
+	private Castle castle; // ตัวแปร Castle
+	private int enemyCount; // จำนวนศัตรูในด่านนี้
 
-    private Knight knight = new Knight();
-    private Archer archer = new Archer();
-    private Priest priest = new Priest();
-    private Wizard wizard = new Wizard();
-    private Lancer lancer = new Lancer();
+	private Knight knight = new Knight();
+	private Archer archer = new Archer();
+	private Priest priest = new Priest();
+	private Wizard wizard = new Wizard();
+	private Lancer lancer = new Lancer();
 
-    // สร้างปุ่มฮีโร่
-    private Button createHeroButton(Heros hero, String imagePath) {
-        Image img = new Image(imagePath);
-        ImageView imgView = new ImageView(img);
-        Image b = new Image("background/border.png");
-        ImageView bimg = new ImageView(b);
-        imgView.setFitWidth(80);
-        imgView.setFitHeight(80);
-        bimg.setFitHeight(100);
-        bimg.setFitWidth(100);
-        StackPane btnContent = new StackPane(bimg, imgView);
+	// สร้างปุ่มฮีโร่
+	private Button createHeroButton(Heros hero, String imagePath) {
+		Image img = new Image(imagePath);
+		ImageView imgView = new ImageView(img);
+		Image b = new Image("background/border.png");
+		ImageView bimg = new ImageView(b);
+		imgView.setFitWidth(80);
+		imgView.setFitHeight(80);
+		bimg.setFitHeight(100);
+		bimg.setFitWidth(100);
+		StackPane btnContent = new StackPane(bimg, imgView);
 
-        Button button = new Button();
-        button.setGraphic(btnContent);
-        button.setStyle("-fx-padding: 0;");
-        button.setPrefSize(100, 100);
-        button.setOnAction(e -> handleUnitSpawn(hero, button));
+		Button button = new Button();
+		button.setGraphic(btnContent);
+		button.setStyle("-fx-padding: 0;");
+		button.setPrefSize(100, 100);
+		button.setOnAction(e -> handleUnitSpawn(hero, button));
 
-        return button;
-    }
+		return button;
+	}
 
-    // จัดการสปาวน์ยูนิต
-    private void handleUnitSpawn(Heros hero, Button button) {
-        if (crystalManager.getCrystalCount() >= hero.getCost()) {
-            if (hero instanceof Knight) {
-                crystalManager.spawnKnight();
-            } else if (hero instanceof Archer) {
-                crystalManager.spawnArcher();
-            } else if (hero instanceof Priest) {
-                crystalManager.spawnPriest();
-            } else if (hero instanceof Wizard) {
-                crystalManager.spawnWizard();
-            } else if (hero instanceof Lancer) {
-                crystalManager.spawnLancer();
-            }
-            hero.setDeployTime(hero.getInitialDeployTime());
-            button.setDisable(true);
-            System.out.println("Add " + hero.getClass().getSimpleName());
+	// จัดการสปาวน์ยูนิต
+	private void handleUnitSpawn(Heros hero, Button button) {
+		if (crystalManager.getCrystalCount() >= hero.getCost()) {
+			if (hero instanceof Knight) {
+				crystalManager.spawnKnight();
+			} else if (hero instanceof Archer) {
+				crystalManager.spawnArcher();
+			} else if (hero instanceof Priest) {
+				crystalManager.spawnPriest();
+			} else if (hero instanceof Wizard) {
+				crystalManager.spawnWizard();
+			} else if (hero instanceof Lancer) {
+				crystalManager.spawnLancer();
+			}
+			hero.setDeployTime(hero.getInitialDeployTime());
+			button.setDisable(true);
+			System.out.println("Add " + hero.getClass().getSimpleName());
 
-            new Thread(() -> {
-                double deployTime = hero.getDeployTime();
-                while (deployTime > 0) {
-                    try {
-                        Thread.sleep(1000);
-                        deployTime--;
-                    } catch (InterruptedException ex) {
-                        ex.printStackTrace();
-                    }
-                }
-                Platform.runLater(() -> button.setDisable(false));
-            }).start();
-        } else {
-            System.out.println("Not enough crystals for " + hero.getClass().getSimpleName());
-        }
-    }
+			new Thread(() -> {
+				double deployTime = hero.getDeployTime();
+				while (deployTime > 0) {
+					try {
+						Thread.sleep(1000);
+						deployTime--;
+					} catch (InterruptedException ex) {
+						ex.printStackTrace();
+					}
+				}
+				Platform.runLater(() -> button.setDisable(false));
+			}).start();
+		} else {
+			System.out.println("Not enough crystals for " + hero.getClass().getSimpleName());
+		}
+	}
 
-    // ฟังก์ชันสร้าง Castle และตั้งค่า Enemy Count ตามระดับความยาก
-    public GameScene(int level) {
-        Pane root = new VBox();
+	// ฟังก์ชันสร้าง Castle และตั้งค่า Enemy Count ตามระดับความยาก
+	public GameScene(int level) {
+		Pane root = new VBox();
 
-        // Title
-        Text title = new Text("Level " + level);
-        title.setStyle("-fx-font-size: 24px;");
+		// Title
+		Text title = new Text("Level " + level);
+		title.setStyle("-fx-font-size: 24px;");
 
-        // Canvas for game rendering
-        canvas = new FieldCanvas(800, 400);
-        gc = canvas.getGraphicsContext2D();
+		// Canvas for game rendering
+		canvas = new FieldCanvas(800, 400);
+		gc = canvas.getGraphicsContext2D();
 
-        // Crystal manager
-        Text crystalText = new Text();
-        crystalManager = new CrystalManager(100, crystalText);
-        crystalManager.startCrystalCount();
+		// Crystal manager
+		Text crystalText = new Text();
+		crystalManager = new CrystalManager(100, crystalText);
+		crystalManager.startCrystalCount();
 
-        // Set Castle and enemy count based on difficulty
-        BaseDifficulty difficulty;
-        switch (level) {
-            case 1:
-                difficulty = new EasyDifficulty();
-                difficulty.applyDifficultySettings();
-                break;
-            case 2:
-                difficulty = new MediumDifficulty();
-                difficulty.applyDifficultySettings();
-                break;
-            case 3:
-                difficulty = new HardDifficulty();
-                difficulty.applyDifficultySettings();
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid level: " + level);
-        }
+		// Set Castle and enemy count based on difficulty
+		BaseDifficulty difficulty;
+		switch (level) {
+		case 1:
+			difficulty = new EasyDifficulty();
+			difficulty.applyDifficultySettings();
+			break;
+		case 2:
+			difficulty = new MediumDifficulty();
+			difficulty.applyDifficultySettings();
+			break;
+		case 3:
+			difficulty = new HardDifficulty();
+			difficulty.applyDifficultySettings();
+			break;
+		default:
+			throw new IllegalArgumentException("Invalid level: " + level);
+		}
 
-        // สร้าง Castle
+		// สร้าง Castle
 //        castle = new Castle("Player Castle", difficulty, true, 400, 300);
 //        enemyCount = difficulty.getEnemyCount(); // ตั้งจำนวนศัตรูในด่าน
 //
@@ -146,37 +150,41 @@ public class GameScene {
 //        castleView.setLayoutY(castle.getY());
 //        root.getChildren().add(castleView);
 
-        // Button panel
-        HBox buttonPanel = new HBox(10);
-        Button knightButton = createHeroButton(knight, "knight/knightbtn.png");
-        Button archerButton = createHeroButton(archer, "archer/archerbtn.png");
-        Button priestButton = createHeroButton(priest, "priest/priestbtn.png");
-        Button wizardButton = createHeroButton(wizard, "wizard/wizardbtn.png");
-        Button lancerButton = createHeroButton(lancer, "lancer/lancerbtn.png");
+		// Button panel
+		HBox buttonPanel = new HBox(10);
+		Button knightButton = createHeroButton(knight, "knight/knightbtn.png");
+		Button archerButton = createHeroButton(archer, "archer/archerbtn.png");
+		Button priestButton = createHeroButton(priest, "priest/priestbtn.png");
+		Button wizardButton = createHeroButton(wizard, "wizard/wizardbtn.png");
+		Button lancerButton = createHeroButton(lancer, "lancer/lancerbtn.png");
 
-        buttonPanel.getChildren().addAll(knightButton, archerButton, priestButton, wizardButton, lancerButton);
+		buttonPanel.getChildren().addAll(knightButton, archerButton, priestButton, wizardButton, lancerButton);
 
-        // Upgrade Crystal button
-        Button upgradeCrystalButton = new Button("Upgrade Crystal");
-        upgradeCrystalButton.setOnAction(e -> crystalManager.upgradeCrystal());
-        upgradeCrystalButton.setPrefSize(100, 100);
-        buttonPanel.getChildren().add(upgradeCrystalButton);
+		// Upgrade Crystal button
+		Button upgradeCrystalButton = new Button("Upgrade Crystal");
+		upgradeCrystalButton.setOnAction(e -> crystalManager.upgradeCrystal());
+		upgradeCrystalButton.setPrefSize(100, 100);
+		buttonPanel.getChildren().add(upgradeCrystalButton);
 
-        // Exit button
-        Button exitButton = new Button("Exit");
-        exitButton.setOnAction(e -> SceneManager.setScene("level"));
+		// Exit button
+		Button exitButton = new Button("Exit");
+		exitButton.setOnAction(e -> SceneManager.setScene("level"));
 
-        // Add everything to root
-        root.getChildren().addAll(title, crystalText, canvas, buttonPanel, exitButton);
+		// Add everything to root
+		root.getChildren().addAll(title, crystalText, canvas, buttonPanel, exitButton);
 
-        scene = new Scene(root, 800, 600);
-        
-        difficulty.spawnEnemies() ;
-    }
+		scene = new Scene(root, 800, 600);
+
+		difficulty.spawnEnemies().forEach(enemy -> {
+			System.out.println("Spawned enemy: " + enemy.getName());
+
+		});
+
+	}
+
+	public Scene getScene() {
+		return scene;
+	}
 
 
-
-    public Scene getScene() {
-        return scene;
-    }
 }

@@ -6,6 +6,7 @@ import entity.interfaces.Attackable;
 import entity.interfaces.Buffable;
 import entity.interfaces.Enemies;
 import entity.interfaces.Heros;
+import entity.interfaces.Unit;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -66,9 +67,9 @@ public class Wizard extends Heros implements Attackable, Buffable {
 
 	}
 
-	@Override
-	public void attack(ArrayList<Object> unitList) {
-		for (Object e : unitList) {
+		@Override
+	public void attack(ArrayList<Unit> unitList) {
+			for (Object e : unitList) {
 			if (e instanceof Enemies) {
 				Enemies enemy = (Enemies) e;
 
@@ -90,9 +91,8 @@ public class Wizard extends Heros implements Attackable, Buffable {
 			}
 		}
 
+		
 	}
-	
-	
 	//Getters & Setters
 
 	public int getBuffPower() {
@@ -103,6 +103,8 @@ public class Wizard extends Heros implements Attackable, Buffable {
 		if(buffPower <0) buffPower = 0;
 		this.buffPower = buffPower;
 	}
+
+
 	
 	
 

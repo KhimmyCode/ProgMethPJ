@@ -22,4 +22,6 @@ public abstract class BaseDifficulty {
 
     public abstract List<Enemies> spawnEnemies() ;
     
+    
+    
 }

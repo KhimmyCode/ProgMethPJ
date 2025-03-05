@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import entity.interfaces.Attackable;
 import entity.interfaces.Enemies;
 import entity.interfaces.Heros;
+import entity.interfaces.Unit;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -47,31 +48,32 @@ public class Orc extends Enemies implements Attackable {
 		gc.drawImage(orcFrames[currentFrame], this.getPos(), 0, 200, 300);
 	}
 
-
 	@Override
-	public void attack(ArrayList<Object> unitList) {
+	public void attack(ArrayList<Unit> unitList) {
 		for(Object e : unitList ) {
-			if (e instanceof Heros) {
-				Heros hero = (Heros) e;
+		if (e instanceof Heros) {
+			Heros hero = (Heros) e;
 
-				int hitChance = this.getAccuracy() - hero.getEvasion();
-				double successRate = hitChance / 100.0;
+			int hitChance = this.getAccuracy() - hero.getEvasion();
+			double successRate = hitChance / 100.0;
 
-				if (Math.random() < successRate) {
-					int takeDamage = hero.getHealth() - this.getAttackPower();
-					if (takeDamage < 0) {
-						hero.setHealth(0);
-					} else {
-						hero.setHealth(takeDamage);
-					}
-					System.out.println(this.getName() + " Attack " + hero.getName() + " remain hp = " + takeDamage);
+			if (Math.random() < successRate) {
+				int takeDamage = hero.getHealth() - this.getAttackPower();
+				if (takeDamage < 0) {
+					hero.setHealth(0);
 				} else {
-					System.out.println(this.getName() + " Attack Miss!");
+					hero.setHealth(takeDamage);
 				}
+				System.out.println(this.getName() + " Attack " + hero.getName() + " remain hp = " + takeDamage);
+			} else {
+				System.out.println(this.getName() + " Attack Miss!");
 			}
 		}
+	}
 
+	
 		
 	}
+
 
 }

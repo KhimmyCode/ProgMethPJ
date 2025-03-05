@@ -13,6 +13,7 @@ public class GameLogic {
 	private static Scene scene;
 	private static Canvas field;
 	private static boolean isEnd;
+	private ArrayList<Unit> unitInFiled ;
 	
 
 	private ArrayList<Unit> ourTeamUnits;
@@ -21,8 +22,23 @@ public class GameLogic {
 	private GameLogic() {
 		ourTeamUnits = new ArrayList<>();
 		enemyTeamUnits = new ArrayList<>();
+		unitInFiled = new ArrayList<>();
 		
 		isEnd=false;
+	}
+	
+	public void addUnitToField(Unit unit) {
+		getUnitInFiled().add(unit) ;
+	}
+
+	public Unit getUnitAtPosition(double x) {
+		for (Unit unit : getUnitInFiled()) {
+			if (unit.getPos() == x) {
+				System.out.println(unit.getName() + "is in " + x);
+				return unit;
+			}
+		}
+		return null;
 	}
 	
 	
@@ -87,11 +103,15 @@ public class GameLogic {
 
 	public void addUnitToOurTeam(Unit unit) {
 		ourTeamUnits.add(unit);
+		unitInFiled.add(unit);
 	}
 
 	public void addUnitToEnemyTeam(Unit unit) {
 		enemyTeamUnits.add(unit);
+		unitInFiled.add(unit);
 	}
+	
+	
 
 	public ArrayList<Unit> findAllTargetInRange(Unit unit, double range) {
 		ArrayList<Unit> targets = new ArrayList<>();
@@ -122,7 +142,9 @@ public class GameLogic {
 	    isEnd = false; // รีเซ็ตสถานะเกม
 	}
 
-
+	public ArrayList<Unit> getUnitInFiled() {
+		return unitInFiled;
+	}
 	
 	
 }

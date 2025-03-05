@@ -11,6 +11,7 @@ import entity.heros.Priest;
 import entity.heros.Wizard;
 import entity.interfaces.Heros;
 import logic.GameLogic;
+import scenes.GameScene;
 
 public class CrystalManager {
 	private int crystalCount;

@@ -63,4 +63,6 @@ public class EasyDifficulty extends BaseDifficulty {
 		System.out.println("Difficulty set to Easy.");
 	}
 	
+	
+	
 }

@@ -1,14 +1,17 @@
 package entity.enemies;
 
 import java.lang.reflect.Array;
+
 import java.util.ArrayList;
 
 import entity.interfaces.Attackable;
 import entity.interfaces.Enemies;
 import entity.interfaces.Heros;
 import entity.interfaces.Regenable;
+import entity.interfaces.Unit;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import scenes.GameScene;
 
 public class Slime extends Enemies implements Attackable, Regenable {
 	private int regenrate = 2;
@@ -36,13 +39,15 @@ public class Slime extends Enemies implements Attackable, Regenable {
 	
 	@Override
 	public void walk() {
+		
+		if(!this.isTaking()) {
 		this.setPos(this.getPos() - this.getSpeed());
 
 		long currentTime = System.currentTimeMillis();
 		if (currentTime - lastFrameTime > 100) {
 			currentFrame = (currentFrame + 1) % 6;
 			lastFrameTime = currentTime;
-		}
+		}}
 
 	}
 	
@@ -61,28 +66,29 @@ public class Slime extends Enemies implements Attackable, Regenable {
 	}
 
 	@Override
-	public void attack(ArrayList<Object> unitList) {
+	public void attack(ArrayList<Unit> unitList) {
 		for (Object e : unitList) {
-			if (e instanceof Heros) {
-				Heros hero = (Heros) e;
+		if (e instanceof Heros) {
+			Heros hero = (Heros) e;
 
-				int hitChance = this.getAccuracy() - hero.getEvasion();
-				double successRate = hitChance / 100.0;
+			int hitChance = this.getAccuracy() - hero.getEvasion();
+			double successRate = hitChance / 100.0;
 
-				if (Math.random() < successRate) {
-					int takeDamage = hero.getHealth() - this.getAttackPower();
-					if (takeDamage < 0) {
-						hero.setHealth(0);
-					} else {
-						hero.setHealth(takeDamage);
-					}
-					System.out.println(this.getName() + " Attack " + hero.getName() + " remain hp = " + takeDamage);
+			if (Math.random() < successRate) {
+				int takeDamage = hero.getHealth() - this.getAttackPower();
+				if (takeDamage < 0) {
+					hero.setHealth(0);
 				} else {
-					System.out.println(this.getName() + " Attack Miss!");
+					hero.setHealth(takeDamage);
 				}
+				System.out.println(this.getName() + " Attack " + hero.getName() + " remain hp = " + takeDamage);
+			} else {
+				System.out.println(this.getName() + " Attack Miss!");
 			}
 		}
-
 	}
+	}
+
+
 
 }

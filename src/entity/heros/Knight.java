@@ -5,31 +5,41 @@ import java.util.ArrayList;
 import entity.interfaces.Attackable;
 import entity.interfaces.Enemies;
 import entity.interfaces.Heros;
+import entity.interfaces.Unit;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import logic.GameLogic;
 
 public class Knight extends Heros implements Attackable {
 
 	private Image[] knightFrames;
 	private int currentFrame;
 	private long lastFrameTime;
+	private Image[] knightAttackingFrames ;
+	private int currentAttackingFrame;
+	private long lastAttackingFrameTime;
 
 	public Knight() {
 		// Name, hp , atk , spd , range , team , acc , eva , cool , cost , deploytime
 		super("Knight", 100, 10, 1, 1, true, 100, 15, 1, 80, 5);
 		this.knightFrames = new Image[8];
+		this.knightAttackingFrames = new Image[7];
 		this.currentFrame = 0;
 		this.lastFrameTime = System.currentTimeMillis();
 
         for (int i = 0; i < 8; i++) {
             knightFrames[i] = new Image("file:res/knight/knight-walk/knight-walk" + i + ".png");
         }
+        for (int i = 0; i < 7; i++) {
+            knightAttackingFrames[i] = new Image("file:res/knight/knight-attack/knight-attack" + i + ".png");
+        }
 	}
 
 	@Override
 	public void walk() {
+		System.out.println( "Knight in " + this.getPos());
 		this.setPos(this.getPos() + this.getSpeed());
-
+		
 		long currentTime = System.currentTimeMillis();
 		if (currentTime - lastFrameTime > 100) {
 			currentFrame = (currentFrame + 1) % 8;
@@ -37,19 +47,28 @@ public class Knight extends Heros implements Attackable {
 		}
 
 	}
+	
 
-	public void render(GraphicsContext gc) {
-//		System.out.println("Rendering Knight at position: (" + this.getPos() + ")");
-
-		gc.drawImage(knightFrames[currentFrame], this.getPos(), 0, 200, 300);
+	public void renderWalk(GraphicsContext gc) {
+				gc.drawImage(knightFrames[currentFrame], this.getPos(), 0, 200, 300);
+	}
+	
+	public void renderAttacking(GraphicsContext gc) {
+		gc.drawImage(knightAttackingFrames[currentAttackingFrame], this.getPos(), 0, 200, 300);
 	}
 
 	@Override
-	public void attack(ArrayList<Object> unitList) {
+	public void attack(ArrayList<Unit> unitList) {
+		long currentTime = System.currentTimeMillis();
+		if (currentTime - lastFrameTime > 100) {
+			currentAttackingFrame = (currentAttackingFrame + 1) % 7;
+			lastAttackingFrameTime = currentTime;
+		}
+		
 		for (Object e : unitList) {
 			if (e instanceof Enemies) {
 				Enemies enemy = (Enemies) e;
-
+				((Enemies) e).setTaking(true);
 				int hitChance = this.getAccuracy() - enemy.getEvasion();
 				double successRate = hitChance / 100.0;
 
@@ -67,7 +86,9 @@ public class Knight extends Heros implements Attackable {
 				}
 			}
 		}
-
+		
 	}
+	
+
 
 }

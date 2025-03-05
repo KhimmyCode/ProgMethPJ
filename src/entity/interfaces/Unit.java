@@ -13,6 +13,7 @@ public abstract class Unit {
 	private double pos;
 	private double cooldown;
 	private double initialDeployTime;
+	private boolean taking = false;
 	private Action status;
 	// pos -> this field tell us that where the unit located : if unit is alley ->
 	// start at 0 , else start at 100
@@ -161,6 +162,16 @@ public abstract class Unit {
 	public void setInitialDeployTime(double initialDeployTime) {
 		this.initialDeployTime = initialDeployTime;
 	}
+
+	public boolean isTaking() {
+		return taking;
+	}
+
+	public void setTaking(boolean taking) {
+		this.taking = taking;
+	}
+	
+
 	
 	
 	

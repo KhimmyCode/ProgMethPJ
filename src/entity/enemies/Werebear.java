@@ -6,6 +6,7 @@ import entity.interfaces.Attackable;
 import entity.interfaces.Buffable;
 import entity.interfaces.Enemies;
 import entity.interfaces.Heros;
+import entity.interfaces.Unit;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -64,32 +65,56 @@ public class Werebear extends Enemies implements Attackable, Buffable {
 
 	}
 
+//	@Override
+//	public void attack(ArrayList<Object> unitList) {
+//		// TODO Auto-generated method stub
+//		for (Object e : unitList) { // ไล่แต่ละตัวใน ArrayList--------|
+//			if (e instanceof Heros) {
+//				Heros hero = (Heros) e;
+//
+//				int hitChance = this.getAccuracy() - hero.getEvasion();
+//				double successRate = hitChance / 100.0;
+//
+//				if (Math.random() < successRate) {
+//					int takeDamage = hero.getHealth() - this.getAttackPower();
+//					if (takeDamage < 0) {
+//						hero.setHealth(0);
+//					} else {
+//						hero.setHealth(takeDamage);
+//					}
+//					System.out.println(this.getName() + " Attack " + hero.getName() + " remain hp = " + takeDamage);
+//				} else {
+//					System.out.println(this.getName() + " Attack Miss!");
+//				}
+//			}
+//		}
+//
+//	}
 	@Override
-	public void attack(ArrayList<Object> unitList) {
-		// TODO Auto-generated method stub
+	public void attack(ArrayList<Unit> unitList) {
 		for (Object e : unitList) { // ไล่แต่ละตัวใน ArrayList--------|
-			if (e instanceof Heros) {
-				Heros hero = (Heros) e;
+		if (e instanceof Heros) {
+			Heros hero = (Heros) e;
 
-				int hitChance = this.getAccuracy() - hero.getEvasion();
-				double successRate = hitChance / 100.0;
+			int hitChance = this.getAccuracy() - hero.getEvasion();
+			double successRate = hitChance / 100.0;
 
-				if (Math.random() < successRate) {
-					int takeDamage = hero.getHealth() - this.getAttackPower();
-					if (takeDamage < 0) {
-						hero.setHealth(0);
-					} else {
-						hero.setHealth(takeDamage);
-					}
-					System.out.println(this.getName() + " Attack " + hero.getName() + " remain hp = " + takeDamage);
+			if (Math.random() < successRate) {
+				int takeDamage = hero.getHealth() - this.getAttackPower();
+				if (takeDamage < 0) {
+					hero.setHealth(0);
 				} else {
-					System.out.println(this.getName() + " Attack Miss!");
+					hero.setHealth(takeDamage);
 				}
+				System.out.println(this.getName() + " Attack " + hero.getName() + " remain hp = " + takeDamage);
+			} else {
+				System.out.println(this.getName() + " Attack Miss!");
 			}
 		}
-
 	}
 
+		
+	}
 	// Getters Setters
 	public int getBuffPower() {
 		return buffPower;
@@ -100,4 +125,6 @@ public class Werebear extends Enemies implements Attackable, Buffable {
 			buffPower = 0;
 		this.buffPower = buffPower;
 	}
+
+
 }

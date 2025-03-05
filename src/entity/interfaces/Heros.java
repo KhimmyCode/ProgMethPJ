@@ -1,5 +1,7 @@
 package entity.interfaces;
 
+import java.util.ArrayList;
+
 public abstract class Heros extends Unit {
 
 	private int cost;
@@ -19,6 +21,18 @@ public abstract class Heros extends Unit {
 //		if(this.getPos() + this.getRange() ) {
 //			
 //		}
+	}
+	
+	public boolean isEnemyInRange(ArrayList<Unit> unitList) {
+	    for (Object e : unitList) {
+	        if (e instanceof Enemies) {
+	            Enemies enemy = (Enemies) e;
+	            if (this.getPos() - enemy.getPos() == this.getRange()) {
+	                return true;
+	            }
+	        }
+	    }
+	    return false;
 	}
 
 	public int getCost() {
