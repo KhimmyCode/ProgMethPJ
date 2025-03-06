@@ -23,11 +23,11 @@ public class Knight extends Heros implements Attackable {
 	private int currentAttackingFrame;
 	private long lastAttackingFrameTime;
 	private boolean isAttacking;
-	
+
 	public Knight(String name, int health, int attackPower, int speed, double range, boolean isAlley, int accuracy,
-            int evasion, double cooldown, int cost, double deployTime) {
-        super(name, health, attackPower, speed, range, isAlley, accuracy, evasion, cooldown, cost, deployTime);
-    }
+			int evasion, double cooldown, int cost, double deployTime) {
+		super(name, health, attackPower, speed, range, isAlley, accuracy, evasion, cooldown, cost, deployTime);
+	}
 
 	public Knight() {
 		// Name, hp , atk , spd , range , team , acc , eva , cool , cost , deploytime
@@ -38,10 +38,12 @@ public class Knight extends Heros implements Attackable {
 		this.lastFrameTime = System.currentTimeMillis();
 
 		for (int i = 0; i < 8; i++) {
-			knightFrames[i] = new Image(ClassLoader.getSystemResource("knight/knight-walk/knight-walk" + i + ".png").toString());
+			knightFrames[i] = new Image(
+					ClassLoader.getSystemResource("knight/knight-walk/knight-walk" + i + ".png").toString());
 		}
 		for (int i = 0; i < 7; i++) {
-			knightAttackingFrames[i] = new Image(ClassLoader.getSystemResource("knight/knight-attack/knight-attack" + i + ".png").toString());
+			knightAttackingFrames[i] = new Image(
+					ClassLoader.getSystemResource("knight/knight-attack/knight-attack" + i + ".png").toString());
 		}
 	}
 
@@ -71,7 +73,6 @@ public class Knight extends Heros implements Attackable {
 		if (currentAttackingFrame == 5 && !isAttacking) {
 			attack(GameLogic.getInstance().getUnitInFiled());
 			isAttacking = true;
-			System.out.println("attack");
 		}
 		if (currentAttackingFrame == 0) {
 			isAttacking = false;
@@ -99,20 +100,16 @@ public class Knight extends Heros implements Attackable {
 						enemy.setHealth(takeDamage);
 					}
 				}
-			
 
-			}
-			else if(e instanceof Jail&&this.getPos()+this.getRange()>=500) {
+			} else if (e instanceof Jail && this.getPos() + this.getRange() >= 500) {
 				Jail jail = (Jail) e;
-				
+
 				int takeDamage = jail.getHealth() - this.getAttackPower();
 				if (takeDamage < 0) {
 					jail.setHealth(0);
 				} else {
 					jail.setHealth(takeDamage);
 				}
-				System.out.println("Jail taking "+this.getAttackPower()+"damage"+jail.getHealth()+"hp left");
-				
 			}
 		}
 

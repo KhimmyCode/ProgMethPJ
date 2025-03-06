@@ -74,7 +74,6 @@ public class Archer extends Heros implements Attackable {
 		}
 		if (currentAttackingFrame == 9 && !isAttacking) {
 			attack(GameLogic.getInstance().getUnitInFiled());
-			System.out.println("attack");
 			isAttacking = true;
 		}
 		if (currentAttackingFrame == 0) {
@@ -112,7 +111,6 @@ public class Archer extends Heros implements Attackable {
 				} else {
 					jail.setHealth(takeDamage);
 				}
-				System.out.println("Jail taking " + this.getAttackPower() + "damage");
 				break;
 			}
 		}

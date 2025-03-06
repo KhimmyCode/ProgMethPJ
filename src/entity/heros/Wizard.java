@@ -71,7 +71,6 @@ public class Wizard extends Heros implements Attackable {
 		}
 		if (currentAttackingFrame == 3 && !isAttacking) {
 			attack(GameLogic.getInstance().getUnitInFiled());
-			System.out.println("Wizard attack");
 			isAttacking = true;
 		}
 		if (currentAttackingFrame == 0) {
@@ -106,7 +105,6 @@ public class Wizard extends Heros implements Attackable {
 				} else {
 					jail.setHealth(takeDamage);
 				}
-				System.out.println("Jail taking " + this.getAttackPower() + "damage");
 
 			}
 		}

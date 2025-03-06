@@ -75,13 +75,11 @@ public class Lancer extends Heros implements Attackable {
         if (currentAttackingFrame == 5&& !isAttacking) {
             attack(GameLogic.getInstance().getUnitInFiled());
             isAttacking=true;
-            System.out.println("attack");
         }
         
         if(currentAttackingFrame ==0) {
         	isAttacking = false;
         }
-        System.out.println("frame =" + currentAttackingFrame);
         gc.drawImage(lancerAttackingFrames[currentAttackingFrame], this.getPos(), 147, 200, 300);
     }
 
@@ -113,9 +111,7 @@ public class Lancer extends Heros implements Attackable {
 					jail.setHealth(0);
 				} else {
 					jail.setHealth(takeDamage);
-				}
-				System.out.println("Jail taking "+this.getAttackPower()+"damage"+ " remain hp = " + takeDamage);
-				
+				}				
 			}
         }
     }

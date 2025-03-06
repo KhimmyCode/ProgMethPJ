@@ -107,7 +107,6 @@ public class Orc extends Enemies implements Attackable {
 				} else {
 					castle.setHealth(takeDamage);
 				}
-				System.out.println("Castle taking " + this.getAttackPower() + "damage");
 
 			}
 		}

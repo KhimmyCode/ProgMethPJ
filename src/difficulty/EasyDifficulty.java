@@ -32,7 +32,7 @@ public class EasyDifficulty extends BaseDifficulty {
 
 		Thread sp = new Thread(() -> {
 			for (Enemies tar : enemies) {
-				System.out.println(tar);
+//				System.out.println(tar);
 				if (GameLogic.getInstance().isEnd()) {
 					System.out.println("end");
 					break;

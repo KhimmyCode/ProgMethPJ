@@ -43,7 +43,6 @@ public class HardDifficulty extends BaseDifficulty {
 	    
 	    Thread sp = new Thread(()->{
 	    	for (Enemies tar : enemies) {
-		        System.out.println(tar);
 		        if(GameLogic.getInstance().isEnd()) break;
 		        if(tar instanceof Slime) {
 		        	Slime slime = (Slime) tar ;
@@ -67,7 +66,6 @@ public class HardDifficulty extends BaseDifficulty {
 	    sp.setDaemon(true);
 	    
 	    sp.start();
-		System.out.println(enemies.size());
 		return enemies;
 		
 	}

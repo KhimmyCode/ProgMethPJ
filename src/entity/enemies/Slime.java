@@ -23,7 +23,7 @@ public class Slime extends Enemies implements Attackable, Regenable {
 	private long lastAttackingFrameTime;
 	private int currentFrame;
 	private long lastFrameTime;
-	private boolean taking ;
+	private boolean taking;
 	private boolean isAttacking;
 
 	public Slime(String name, int health, int attackPower, int speed, double range, boolean isAlley, int accuracy,
@@ -39,31 +39,34 @@ public class Slime extends Enemies implements Attackable, Regenable {
 		this.currentFrame = 0;
 		this.lastFrameTime = System.currentTimeMillis();
 		this.setTaking(false);
-		isAttacking= false;
-		
-        for (int i = 0; i < 6; i++) {
-            slimeFrames[i] = new Image(ClassLoader.getSystemResource("slime/slime-walk/slime-walk" + i + ".png").toString());
-            
-        }
-        for(int i=0;i<6;i++) {
-        	slimeAttackingFrames[i] = new Image(ClassLoader.getSystemResource("slime/slime-attack/slime-attack"+i+".png").toString());
-        }
+		isAttacking = false;
+
+		for (int i = 0; i < 6; i++) {
+			slimeFrames[i] = new Image(
+					ClassLoader.getSystemResource("slime/slime-walk/slime-walk" + i + ".png").toString());
+
+		}
+		for (int i = 0; i < 6; i++) {
+			slimeAttackingFrames[i] = new Image(
+					ClassLoader.getSystemResource("slime/slime-attack/slime-attack" + i + ".png").toString());
+		}
 
 	}
-	
+
 	@Override
 	public void walk() {
-		if(!this.isTaking()) {
-		this.setPos(this.getPos() - this.getSpeed());
+		if (!this.isTaking()) {
+			this.setPos(this.getPos() - this.getSpeed());
 
-		long currentTime = System.currentTimeMillis();
-		if (currentTime - lastFrameTime > 100) {
-			currentFrame = (currentFrame + 1) % 6;
-			lastFrameTime = currentTime;
-		}}
+			long currentTime = System.currentTimeMillis();
+			if (currentTime - lastFrameTime > 100) {
+				currentFrame = (currentFrame + 1) % 6;
+				lastFrameTime = currentTime;
+			}
+		}
 
 	}
-	
+
 	public void render(GraphicsContext gc) {
 		gc.drawImage(slimeFrames[currentFrame], this.getPos(), 147, 200, 300);
 	}
@@ -75,56 +78,54 @@ public class Slime extends Enemies implements Attackable, Regenable {
 		}
 
 	}
-	
+
 	public void renderAttacking(GraphicsContext gc) {
 		long currentTime = System.currentTimeMillis();
-        if (currentTime - lastAttackingFrameTime > 200) {
-            currentAttackingFrame = (currentAttackingFrame + 1) % 6;
-            lastAttackingFrameTime = currentTime;
-        }
-        if (currentAttackingFrame == 4&&!isAttacking ) {
-            attack(GameLogic.getInstance().getUnitInFiled());
-            isAttacking=true;
-            System.out.println("attack");
-            
-        }if(currentAttackingFrame ==0) {
-        	isAttacking = false;
-        }
-        
-        gc.drawImage(slimeAttackingFrames[currentAttackingFrame], this.getPos(), 147, 200, 300);
+		if (currentTime - lastAttackingFrameTime > 200) {
+			currentAttackingFrame = (currentAttackingFrame + 1) % 6;
+			lastAttackingFrameTime = currentTime;
+		}
+		if (currentAttackingFrame == 4 && !isAttacking) {
+			attack(GameLogic.getInstance().getUnitInFiled());
+			isAttacking = true;
+
+		}
+		if (currentAttackingFrame == 0) {
+			isAttacking = false;
+		}
+
+		gc.drawImage(slimeAttackingFrames[currentAttackingFrame], this.getPos(), 147, 200, 300);
 	}
 
 	@Override
 	public void attack(ArrayList<Unit> unitList) {
 		for (Object e : unitList) {
-		if (e instanceof Heros&&this.getPos() - this.getRange() <= ((Heros) e).getPos()+50) {
-			Heros hero = (Heros) e;
+			if (e instanceof Heros && this.getPos() - this.getRange() <= ((Heros) e).getPos() + 50) {
+				Heros hero = (Heros) e;
 
-			int hitChance = this.getAccuracy() - hero.getEvasion();
-			double successRate = hitChance / 100.0;
+				int hitChance = this.getAccuracy() - hero.getEvasion();
+				double successRate = hitChance / 100.0;
 
-			if (Math.random() < successRate) {
-				int takeDamage = hero.getHealth() - this.getAttackPower();
-				if (takeDamage < 0) {
-					hero.setHealth(0);
-				} else {
-					hero.setHealth(takeDamage);
+				if (Math.random() < successRate) {
+					int takeDamage = hero.getHealth() - this.getAttackPower();
+					if (takeDamage < 0) {
+						hero.setHealth(0);
+					} else {
+						hero.setHealth(takeDamage);
+					}
 				}
+			} else if (e instanceof Castle && this.getPos() - this.getRange() <= 0) {
+				Castle castle = (Castle) e;
+
+				int takeDamage = castle.getHealth() - this.getAttackPower();
+				if (takeDamage < 0) {
+					castle.setHealth(0);
+				} else {
+					castle.setHealth(takeDamage);
+				}
+
 			}
 		}
-		else if(e instanceof Castle&&this.getPos()-this.getRange()<=0) {
-			Castle castle = (Castle) e;
-			
-			int takeDamage = castle.getHealth() - this.getAttackPower();
-			if (takeDamage < 0) {
-				castle.setHealth(0);
-			} else {
-				castle.setHealth(takeDamage);
-			}
-			System.out.println("Castle taking "+this.getAttackPower()+"damage");
-			
-		}
-	}
 	}
 
 	public boolean isTaking() {
@@ -134,7 +135,5 @@ public class Slime extends Enemies implements Attackable, Regenable {
 	public void setTaking(boolean taking) {
 		this.taking = taking;
 	}
-
-
 
 }

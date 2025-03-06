@@ -37,7 +37,6 @@ public class FieldCanvas extends Canvas {
 				ArrayList<Unit> toremoveHero = new ArrayList<Unit>();
 
 				try {
-//	            	System.out.println("updating...");
 					Platform.runLater(() -> {
 						// Clear the canvas
 						gc.clearRect(0, 0, getWidth(), getHeight());
@@ -88,7 +87,7 @@ public class FieldCanvas extends Canvas {
 							SceneManager.setScene("win");
 						}
 						else if(GameLogic.getInstance().getOurTeamUnits().get(0).getStatus()==Action.DEATH) {
-							System.out.println("we lost NOoo");
+							System.out.println("we lost Noo..");
 							GameLogic.setEnd(true) ;
 							SceneManager.setScene("lost");
 						}
@@ -127,11 +126,9 @@ public class FieldCanvas extends Canvas {
 						        }
 						    } else if (u instanceof Priest) {
 						        p = (Priest) u;
-//						        System.out.println(GameLogic.getInstance().getUnitInFiled());
 						        if (p.getStatus() == Action.DEATH) {
 						            toremove.add(u);
 						        }else if (p.isAllyInRange(GameLogic.getInstance().getUnitInFiled())) {
-//						        	System.out.println("found ally");
 						            p.renderBuff(gc);
 						        }else {
 						            p.walk();
@@ -181,9 +178,7 @@ public class FieldCanvas extends Canvas {
 							} else if (e instanceof Slime) {
 								s = (Slime) e;
 								if(s.getStatus()==Action.DEATH) {
-									toremove.add(e);
-									System.out.println(toremove.toString());
-									
+									toremove.add(e);									
 								}
 								else if(s.isEnemyInRange(GameLogic.getInstance().getUnitInFiled())||e.getPos()-e.getRange()<=castlepos) {
 									s.renderAttacking(gc);
