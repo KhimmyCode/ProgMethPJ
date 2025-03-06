@@ -1,26 +1,24 @@
 package entity.heros;
 
 import entity.interfaces.Based;
+import entity.interfaces.Unit;
 import javafx.scene.image.Image;
 
-public class Castle extends Based {
-    private Image newCastle;
-    private Image brokenCastle;
-    private Image currentFrame;
+public class Castle extends Unit {
 
-    public Castle(int health) {
-        super(health);
+
+    public Castle(String name,int health) {
+    	super(name, health, 0, 0, 0, false,0,0, 0);
         
     }
+
+	@Override
+	public void walk() {
+		// TODO Auto-generated method stub
+		
+	}
     
-    public boolean checkDead(){
-    	if(this.getHealthBased() <= 0) {
-    		this.currentFrame = brokenCastle;
-    		return true;
-    	}else 
-    		return false;
-    	
-    }
+   
     
     //หาภาพ newCastle , brokenCastle 
 }

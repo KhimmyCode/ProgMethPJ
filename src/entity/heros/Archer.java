@@ -1,7 +1,9 @@
 package entity.heros;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
+import entity.enemies.Jail;
 import entity.enemies.Orc;
 import entity.enemies.Slime;
 import entity.enemies.Werebear;
@@ -81,7 +83,11 @@ public class Archer extends Heros implements Attackable {
 
     @Override
     public void attack(ArrayList<Unit> unitList) {
-        for (Object e : unitList) {
+    	 unitList.sort(Comparator.comparingInt(u -> u.getPos()));
+        
+    	
+    	
+    	for (Object e : unitList) {
             if (e instanceof Enemies && this.getPos() + this.getRange() >= ((Enemies) e).getPos()) {
                 Enemies enemy = (Enemies) e;
 
@@ -101,6 +107,18 @@ public class Archer extends Heros implements Attackable {
                 }
                 break; // โจมตีแค่ศัตรูตัวเดียวในระยะ
             }
+            else if(e instanceof Jail&&this.getPos()+this.getRange()>=650) {
+				Jail jail = (Jail) e;
+				
+				int takeDamage = jail.getHealth() - this.getAttackPower();
+				if (takeDamage < 0) {
+					jail.setHealth(0);
+				} else {
+					jail.setHealth(takeDamage);
+				}
+				System.out.println("Jail taking "+this.getAttackPower()+"damage");
+				break;
+			}
         }
     }
 }

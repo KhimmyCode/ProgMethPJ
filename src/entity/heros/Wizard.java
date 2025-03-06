@@ -2,6 +2,7 @@ package entity.heros;
 
 import java.util.ArrayList;
 
+import entity.enemies.Jail;
 import entity.interfaces.Attackable;
 import entity.interfaces.Enemies;
 import entity.interfaces.Heros;
@@ -97,6 +98,18 @@ public class Wizard extends Heros implements Attackable {
                     System.out.println(this.getName() + " Attack Miss!");
                 }
             }
+            else if(e instanceof Jail&&this.getPos()+this.getRange()>=500) {
+				Jail jail = (Jail) e;
+				
+				int takeDamage = jail.getHealth() - this.getAttackPower();
+				if (takeDamage < 0) {
+					jail.setHealth(0);
+				} else {
+					jail.setHealth(takeDamage);
+				}
+				System.out.println("Jail taking "+this.getAttackPower()+"damage");
+				
+			}
         }
     }
 

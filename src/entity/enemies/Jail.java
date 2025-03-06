@@ -1,26 +1,29 @@
 package entity.enemies;
 
 import entity.interfaces.Based;
+import entity.interfaces.Unit;
 import javafx.scene.image.Image;
 
-public class Jail extends Based {
-	private Image newJail;
-	private Image brokenJail;
-	private Image currentFrame;
+public class Jail extends Unit {
+	
 
 	
-	public Jail(String name, int health, boolean isAlley) {
-		super(health);
-		this.currentFrame = newJail;
+	
+
+	
+	public Jail(String name, int health) {
+		super(name, health, 0, 0, 0, false,0,0, 0);
+		this.setPos(650);
+		
 	}
 
 	
-	public boolean checkDead() {
-		if (this.getHealthBased() <= 0) {
-			this.currentFrame = brokenJail;
-			return true;
-		} else
-			return false;
+	
+
+	@Override
+	public void walk() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

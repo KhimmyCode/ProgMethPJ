@@ -32,6 +32,7 @@ public abstract class Unit {
 		this.setEvasion(evasion);
 		this.setCooldown(cooldown);
 		this.setStatus(Action.WALK);
+		
 	}
 
 	public abstract void walk();

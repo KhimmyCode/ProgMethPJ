@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import logic.GameLogic;
 import scenes.GameScene;
 import scenes.LevelSelectScene;
+import scenes.LostScene;
 import scenes.StartScene;
 import scenes.WinScene;
 
@@ -25,7 +26,8 @@ public class SceneManager {
         // Load all scenes
         scenes.put("start", new StartScene().getScene());
         scenes.put("level", new LevelSelectScene().getScene());
-//        scenes.put("win", new WinScene().getScene());
+        scenes.put("win", new WinScene().getScene());
+        scenes.put("lost", new LostScene().getScene());
 
        
     }
@@ -50,7 +52,7 @@ public class SceneManager {
         primaryStage.show();
     }
     
-    public  Font loadFont(String path, double size) {
+    public   Font loadFont(String path, double size) {
         try (InputStream is = getClass().getResourceAsStream(path)) {
             if (is != null) {
                 return Font.loadFont(is, size);

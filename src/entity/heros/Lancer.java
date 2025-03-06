@@ -2,6 +2,7 @@ package entity.heros;
 
 import java.util.ArrayList;
 
+import entity.enemies.Jail;
 import entity.enemies.Orc;
 import entity.enemies.Slime;
 import entity.enemies.Werebear;
@@ -101,11 +102,23 @@ public class Lancer extends Heros implements Attackable {
                     } else {
                         enemy.setHealth(takeDamage);
                     }
-                    System.out.println(this.getName() + " Attack " + enemy.getName() + " remain hp = " + takeDamage);
+                    System.out.println(this.getName() + " Attack " + enemy.getName() );
                 } else {
                     System.out.println(this.getName() + " Attack Miss!");
                 }
             }
+            else if(e instanceof Jail&&this.getPos()+this.getRange()>=600) {
+				Jail jail = (Jail) e;
+				
+				int takeDamage = jail.getHealth() - this.getAttackPower();
+				if (takeDamage < 0) {
+					jail.setHealth(0);
+				} else {
+					jail.setHealth(takeDamage);
+				}
+				System.out.println("Jail taking "+this.getAttackPower()+"damage"+ " remain hp = " + takeDamage);
+				
+			}
         }
     }
 }

@@ -31,8 +31,7 @@ public class MediumDifficulty extends BaseDifficulty {
 	        enemies.add(slime);
 	        Orc o = new Orc();
 	        enemies.add(o);
-	        Slime slime1 = new Slime();
-	        enemies.add(slime1);
+	        
 	        Orc o1 = new Orc();
 	        enemies.add(o1);
 	        Werebear wb = new Werebear();

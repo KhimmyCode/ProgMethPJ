@@ -26,7 +26,7 @@ public class LevelSelectScene {
         image.setFitHeight(600);
         
         // Title Text
-        Text title = new Text(155, 165, "Select a Level");
+        Text title = new Text(150, 165, "Select a Level");
         SceneManager s = new SceneManager();
         Font pixelFont65 = s.loadFont("/fonts/pixel2.ttf", 65);
         title.setFont(pixelFont65);
@@ -41,11 +41,11 @@ public class LevelSelectScene {
         Font pixelFont = s.loadFont("/fonts/pixel2.ttf", 35);
 
         // Create Buttons
-        Button easyButton = createButton("Easy", btnImage, pixelFont, 250, 250, 1);
-        Button mediumButton = createButton("Medium", btnImage, pixelFont, 250, 325, 2);
-        Button hardButton = createButton("Hard", btnImage, pixelFont, 250, 400, 3);
-        Button exitButton = createButton("Exit", btnImage, pixelFont, 250, 475,0);
-        exitButton.setOnAction(e -> Platform.exit()); // Override action to close the program
+        Button easyButton = createButton("Easy", btnImage, pixelFont, 270, 240, 1);
+        Button mediumButton = createButton("Medium", btnImage, pixelFont, 270, 315, 2);
+        Button hardButton = createButton("Hard", btnImage, pixelFont, 270, 390, 3);
+        Button exitButton = createButton("Exit", btnImage, pixelFont, 270, 465,0);
+        exitButton.setOnAction(e -> Platform.exit()); 
 
 
         // Add elements to root

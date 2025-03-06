@@ -27,7 +27,7 @@ public class Priest extends Heros implements Buffable {
     }
 
     public Priest() {
-        this("Priest", 50, 0, 2, 1, 3, true, 0, 0, 3, 100, 10);
+        this("Priest", 50, 0, 2, 1, 10, true, 0, 0, 3, 100, 10);
         this.priestFrames = new Image[8];
         this.priestBuffFrames = new Image[6];
         this.currentFrame = 0;
@@ -67,7 +67,7 @@ public class Priest extends Heros implements Buffable {
             currentBuffFrame = (currentBuffFrame + 1) % 6;
             lastBuffFrameTime = currentTime;
         }
-        if (currentBuffFrame == 3 && !isBuffing) {
+        if (currentBuffFrame == 4 && !isBuffing) {
             buff(GameLogic.getInstance().getOurTeamUnits());
             System.out.println("Priest buff");
             isBuffing = true;
@@ -101,8 +101,8 @@ public class Priest extends Heros implements Buffable {
     public boolean isAllyInRange(ArrayList<Unit> unitList) {
         for (Unit e : unitList) {
             if (e instanceof Heros && e != this) { // ตรวจสอบว่าไม่ใช่ Priest ตัวเอง
-                double distance = Math.abs(this.getPos() - ((Heros) e).getPos());
-                if (distance <= this.getRange()) { // ตรวจสอบระยะ
+//                System.out.println("knight pos ="+e.getPos()+"p range ="+this.getRange()+"p pos"+getPos());
+                if (this.getRange()+this.getPos()+80>=e.getPos()) { // ตรวจสอบระยะ
                     return true;
                 }
             }

@@ -1,7 +1,7 @@
 package scenes;
 
 import entity.heros.Knight;
-
+import entity.enemies.Jail;
 import entity.heros.Archer;
 import entity.heros.Priest;
 import entity.heros.Wizard;
@@ -27,6 +27,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import logic.CrystalManager;
 import logic.GameLogic;
@@ -116,7 +117,23 @@ public class GameScene {
 
 		// Title
 		BorderPane header = new BorderPane();
-		Button exitButton = new Button("Back to Menu");
+		Image btn = new Image("/background/levelbutton.jpg");
+		ImageView btnImg = new ImageView(btn);
+        btnImg.setFitWidth(250*0.8);
+        btnImg.setFitHeight(60*0.8);
+        SceneManager smanager = new SceneManager();
+        Font pixelFont = smanager.loadFont("/fonts/pixel2.ttf", 20);
+
+        Text buttonText = new Text("Back to Menu");
+        buttonText.setFont(pixelFont);
+        buttonText.setFill(Color.YELLOW);
+        buttonText.setStroke(Color.BLACK);
+        buttonText.setStrokeWidth(0.8);
+        StackPane btnContent = new StackPane(btnImg, buttonText);
+        Button exitButton = new Button();
+        exitButton.setGraphic(btnContent);
+        exitButton.setStyle("-fx-background-color: transparent;");
+
 		Text title = new Text("Level " + level);
 		title.setStyle("-fx-font-size: 24px;");
 		header.setLeft(title);
@@ -126,11 +143,11 @@ public class GameScene {
 		header.setStyle("-fx-background-color: #7EC4C1;");
 
 		// Canvas for game rendering
-		canvas = new FieldCanvas(800, 400,this);
+		canvas = new FieldCanvas(800, 400 ,this);
 		gc = canvas.getGraphicsContext2D();
 
 		// Crystal manager
-		crystalManager = new CrystalManager(100, crystalText);
+		crystalManager = new CrystalManager(150, crystalText);
 		crystalManager.startCrystalCount();
 
 		// Set Castle and enemy count based on difficulty
@@ -207,10 +224,17 @@ public class GameScene {
         root.getChildren().addAll(header, canvas, buttonPanel);
 		scene = new Scene(root, 800, 600);
 
+		Jail j = new Jail("jail",difficulty.getBaseHealth());
+		GameLogic.getInstance().addUnitToEnemyTeam(j);
+		Castle castle = new Castle("castle",100);
+		GameLogic.getInstance().addUnitToOurTeam(castle);
+		
+		
 		difficulty.spawnEnemies().forEach(enemy -> {
 			System.out.println("Spawned enemy: " + enemy.getName());
 
 		});
+		
 
 	}
 

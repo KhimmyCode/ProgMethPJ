@@ -2,6 +2,7 @@ package entity.enemies;
 
 import java.util.ArrayList;
 
+import entity.heros.Castle;
 import entity.interfaces.Attackable;
 import entity.interfaces.Enemies;
 import entity.interfaces.Heros;
@@ -101,6 +102,18 @@ public class Werebear extends Enemies implements Attackable {
                     System.out.println(this.getName() + " Attack Miss!");
                 }
             }
+            else if(e instanceof Castle&&this.getPos()-this.getRange()<=0) {
+				Castle castle = (Castle) e;
+				
+				int takeDamage = castle.getHealth() - this.getAttackPower();
+				if (takeDamage < 0) {
+					castle.setHealth(0);
+				} else {
+					castle.setHealth(takeDamage);
+				}
+				System.out.println("Castle taking "+this.getAttackPower()+"damage");
+				
+			}
         }
     }
 

@@ -15,7 +15,7 @@ public class HardDifficulty extends BaseDifficulty {
 	Enemies werebear ;
 
     public HardDifficulty() {
-        this.baseHealth = 100;
+        this.baseHealth = 300;
         this.enemyCount = 100; // ศัตรูจำนวนมาก
     }
 

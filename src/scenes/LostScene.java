@@ -11,22 +11,23 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public class WinScene {
+public class LostScene {
 	private Scene scene;
 
-	public WinScene() {
+	public LostScene() {
 		Pane root = new Pane();
 		Image bg = new Image("background/startscene.jpg");
 		ImageView bgimg = new ImageView(bg);
 		bgimg.setFitWidth(800);
 		bgimg.setFitHeight(600);
-		Text title = new Text(180, 180, "You Win!!");
+		Text title = new Text(180, 180, "You Lose!!");
 		SceneManager s = new SceneManager();
 		Font pixelFont = s.loadFont("/fonts/pixel2.ttf", 88);
 		title.setFont(pixelFont);
 		title.setFill(Color.WHITE);
 		title.setStroke(Color.BLACK);
 		title.setStrokeWidth(2);
+		
 		
 		Image btnImage = new Image("/background/levelbutton.jpg");
 		ImageView btnImg = new ImageView(btnImage);

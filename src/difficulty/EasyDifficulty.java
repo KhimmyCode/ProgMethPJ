@@ -12,7 +12,7 @@ public class EasyDifficulty extends BaseDifficulty {
 	Enemies slime;
 
 	public EasyDifficulty() {
-		this.baseHealth = 200;
+		this.baseHealth = 100;
 		this.enemyCount = 50;
 
 		
@@ -56,7 +56,7 @@ public class EasyDifficulty extends BaseDifficulty {
 		    		GameLogic.getInstance().addUnitToEnemyTeam(o);
 		        }
 		        try {
-					Thread.sleep(1000*10);
+					Thread.sleep(1000*8);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

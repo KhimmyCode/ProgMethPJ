@@ -12,6 +12,7 @@ public abstract class Heros extends Unit {
 		this.setCost(cost);
 		this.setDeployTime(deployTime);
 		this.setInitialDeployTime(deployTime);
+		this.setPos(0);
 	}
 
 	@Override
