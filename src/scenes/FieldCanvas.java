@@ -66,61 +66,59 @@ public class FieldCanvas extends Canvas {
 						
 
 						for (Unit u : GameLogic.getInstance().getOurTeamUnits()) {
-							if (u instanceof Knight) {
-								k = (Knight) u;
-								if(k.getStatus()==Action.DEATH) {
-									toremove.add(u);
-									
-								}
-								else if (k.isEnemyInRange(GameLogic.getInstance().getUnitInFiled())) {
-									k.renderAttacking(gc);
-								} else {
-									k.walk();
-									k.renderWalk(gc);
-								}
-							} else if (u instanceof Archer) {
-								a = (Archer) u;
-								if(u.getStatus()==Action.DEATH) {
-									toremove.add(u);
-									
-								}
-								else if (a.isEnemyInRange(GameLogic.getInstance().getUnitInFiled())) {
-									
-									a.renderAttacking(gc);
-								} else {
-									a.walk();
-									a.renderWalk(gc);
-								}
-							} else if (u instanceof Lancer) {
-								l = (Lancer) u;
-								if(u.getStatus()==Action.DEATH) {
-									toremove.add(u);
-									
-								}
-								else if (l.isEnemyInRange(GameLogic.getInstance().getUnitInFiled())) {
-									l.renderAttacking(gc);
-								} else {
-									l.walk();
-									l.renderWalk(gc);
-								}
-							} else if (u instanceof Priest) {
-								p = (Priest) u;
-								if (p.isAllyInRange(GameLogic.getInstance().getOurTeamUnits())) {
-									p.renderBuff(gc);
-								} else {
-									p.walk();
-									p.renderWalk(gc);
-								}
-							} else if (u instanceof Wizard) {
-								w = (Wizard) u;
-								if (w.isEnemyInRange(GameLogic.getInstance().getUnitInFiled())) {
-									w.renderAttacking(gc);
-								} else {
-									w.walk();
-									w.renderWalk(gc);
-								}
-							}
+						    if (u instanceof Knight) {
+						        k = (Knight) u;
+						        if (k.getStatus() == Action.DEATH) {
+						            toremove.add(u);
+						        } else if (k.isEnemyInRange(GameLogic.getInstance().getUnitInFiled())) {
+						            k.renderAttacking(gc);
+						        } else {
+						            k.walk();
+						            k.renderWalk(gc);
+						        }
+						    } else if (u instanceof Archer) {
+						        a = (Archer) u;
+						        if (u.getStatus() == Action.DEATH) {
+						            toremove.add(u);
+						        } else if (a.isEnemyInRange(GameLogic.getInstance().getUnitInFiled())) {
+						            a.renderAttacking(gc);
+						        } else {
+						            a.walk();
+						            a.renderWalk(gc);
+						        }
+						    } else if (u instanceof Lancer) {
+						        l = (Lancer) u;
+						        if (u.getStatus() == Action.DEATH) {
+						            toremove.add(u);
+						        } else if (l.isEnemyInRange(GameLogic.getInstance().getUnitInFiled())) {
+						            l.renderAttacking(gc);
+						        } else {
+						            l.walk();
+						            l.renderWalk(gc);
+						        }
+						    } else if (u instanceof Priest) {
+						        p = (Priest) u;
+						        if (p.getStatus() == Action.DEATH) {
+						            toremove.add(u);
+						        } else if (p.isAllyInRange(GameLogic.getInstance().getOurTeamUnits())) {
+						            p.renderBuff(gc);
+						        } else {
+						            p.walk();
+						            p.renderWalk(gc);
+						        }
+						    } else if (u instanceof Wizard) {
+						        w = (Wizard) u;
+						        if (w.getStatus() == Action.DEATH) {
+						            toremove.add(u);
+						        } else if (w.isEnemyInRange(GameLogic.getInstance().getUnitInFiled())) {
+						            w.renderAttacking(gc);
+						        } else {
+						            w.walk();
+						            w.renderWalk(gc);
+						        }
+						    }
 						}
+
 
 						// Draw and update enemy team's units
 						for (Unit e : GameLogic.getInstance().getEnemyTeamUnits()) {
