@@ -27,7 +27,7 @@ public class SceneManager {
 
     public static void initialize(Stage stage) {
         primaryStage = stage;
-        primaryStage.setTitle("Game Project");
+        primaryStage.setTitle("KingDom TowerDefense");
         
         media = medialevel;
         // Load all scenes
