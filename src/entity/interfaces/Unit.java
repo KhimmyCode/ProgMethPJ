@@ -65,7 +65,7 @@ public abstract class Unit {
 			this.health = 0;
 		else
 			this.health = health;
-		if (this.health == 0) {
+		if (this.health <= 0) {
 			this.Dead();
 		}
 	}

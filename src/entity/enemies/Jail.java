@@ -10,7 +10,7 @@ public class Jail extends Based {
 
 	
 	public Jail(String name, int health, boolean isAlley) {
-		super(name, health, isAlley);
+		super(health);
 		this.currentFrame = newJail;
 	}
 

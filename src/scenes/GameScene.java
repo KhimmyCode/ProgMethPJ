@@ -44,6 +44,7 @@ public class GameScene {
 	private static GameScene instance;
 	private Castle castle; // ตัวแปร Castle
 	private int enemyCount; // จำนวนศัตรูในด่านนี้
+	private BaseDifficulty difficulty;
 
 	private Knight knight = new Knight();
 	private Archer archer = new Archer();
@@ -116,7 +117,6 @@ public class GameScene {
 		// Title
 		BorderPane header = new BorderPane();
 		Button exitButton = new Button("Back to Menu");
-		BaseDifficulty difficulty;
 		Text title = new Text("Level " + level);
 		title.setStyle("-fx-font-size: 24px;");
 		header.setLeft(title);
@@ -126,7 +126,7 @@ public class GameScene {
 		header.setStyle("-fx-background-color: #7EC4C1;");
 
 		// Canvas for game rendering
-		canvas = new FieldCanvas(800, 400);
+		canvas = new FieldCanvas(800, 400,this);
 		gc = canvas.getGraphicsContext2D();
 
 		// Crystal manager
@@ -212,6 +212,14 @@ public class GameScene {
 
 		});
 
+	}
+
+	public BaseDifficulty getDifficulty() {
+		return difficulty;
+	}
+
+	public void setDifficulty(BaseDifficulty difficulty) {
+		this.difficulty = difficulty;
 	}
 
 	public Scene getScene() {

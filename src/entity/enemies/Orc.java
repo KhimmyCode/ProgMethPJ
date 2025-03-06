@@ -85,7 +85,7 @@ public class Orc extends Enemies implements Attackable {
 	@Override
 	public void attack(ArrayList<Unit> unitList) {
 		for(Object e : unitList ) {
-		if (e instanceof Heros) {
+		if (e instanceof Heros&&this.getPos() - this.getRange() <= ((Heros) e).getPos()+50) {
 			Heros hero = (Heros) e;
 
 			int hitChance = this.getAccuracy() - hero.getEvasion();

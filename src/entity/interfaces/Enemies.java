@@ -29,4 +29,11 @@ public abstract class Enemies extends Unit{
 	    return false;
 	}
 	
+	
+	public boolean isDead() {
+		if(getHealth()<=0) {
+			return true;
+		}
+		return  false;
+	}
 }

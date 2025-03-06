@@ -5,6 +5,8 @@ import entity.interfaces.Unit;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.VBox;
+import entity.*;
+import entity.enemies.Jail;
 
 public class GameLogic {
 	
@@ -13,6 +15,7 @@ public class GameLogic {
 	private static Scene scene;
 	private static Canvas field;
 	private static boolean isEnd;
+	
 	private ArrayList<Unit> unitInFiled ;
 	
 
@@ -140,6 +143,7 @@ public class GameLogic {
 	    ourTeamUnits.clear(); // ล้างทีมของเรา
 	    enemyTeamUnits.clear(); // ล้างทีมศัตรู
 	    unitInFiled.clear();
+	   
 	    isEnd = false; // รีเซ็ตสถานะเกม
 	}
 

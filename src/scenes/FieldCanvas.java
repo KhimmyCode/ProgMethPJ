@@ -2,6 +2,7 @@ package scenes;
 
 import java.util.ArrayList;
 
+import entity.enemies.Jail;
 import entity.enemies.Orc;
 import entity.enemies.Slime;
 import entity.enemies.Werebear;
@@ -10,6 +11,7 @@ import entity.heros.Knight;
 import entity.heros.Lancer;
 import entity.heros.Priest;
 import entity.heros.Wizard;
+import entity.interfaces.Action;
 import entity.interfaces.Unit;
 import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
@@ -19,15 +21,19 @@ import javafx.scene.paint.Color;
 import logic.GameLogic;
 
 public class FieldCanvas extends Canvas {
-
-	public FieldCanvas(double width, double height) {
+	GameScene gameScene;
+	public FieldCanvas(double width, double height,GameScene gameScene) {
 		super(width, height);
 		updateCanvas(getGraphicsContext2D());
+		this.gameScene=gameScene;
 	}
 
 	public void updateCanvas(GraphicsContext gc) {
 		Thread t = new Thread(() -> {
 			while (!GameLogic.isEnd()) {
+				ArrayList<Unit> toremove = new ArrayList<Unit>();
+				ArrayList<Unit> toremoveHero = new ArrayList<Unit>();
+
 				try {
 //	            	System.out.println("updating...");
 					Platform.runLater(() -> {
@@ -45,6 +51,8 @@ public class FieldCanvas extends Canvas {
 
 						gc.drawImage(ci, 0, 200, 185.3 * 0.8, 152.6 * 0.8);
 						gc.drawImage(ji, 700, 170, 209 * 0.5, 309 * 0.5);
+						
+						
 
 						// Draw and update our team's units
 						Knight k = null;
@@ -55,11 +63,16 @@ public class FieldCanvas extends Canvas {
 						Slime s = null;
 						Orc o = null;
 						Werebear wb = null;
+						
 
 						for (Unit u : GameLogic.getInstance().getOurTeamUnits()) {
 							if (u instanceof Knight) {
 								k = (Knight) u;
-								if (k.isEnemyInRange(GameLogic.getInstance().getUnitInFiled())) {
+								if(k.getStatus()==Action.DEATH) {
+									toremove.add(u);
+									
+								}
+								else if (k.isEnemyInRange(GameLogic.getInstance().getUnitInFiled())) {
 									k.renderAttacking(gc);
 								} else {
 									k.walk();
@@ -67,7 +80,12 @@ public class FieldCanvas extends Canvas {
 								}
 							} else if (u instanceof Archer) {
 								a = (Archer) u;
-								if (a.isEnemyInRange(GameLogic.getInstance().getUnitInFiled())) {
+								if(u.getStatus()==Action.DEATH) {
+									toremove.add(u);
+									
+								}
+								else if (a.isEnemyInRange(GameLogic.getInstance().getUnitInFiled())) {
+									
 									a.renderAttacking(gc);
 								} else {
 									a.walk();
@@ -75,7 +93,11 @@ public class FieldCanvas extends Canvas {
 								}
 							} else if (u instanceof Lancer) {
 								l = (Lancer) u;
-								if (l.isEnemyInRange(GameLogic.getInstance().getUnitInFiled())) {
+								if(u.getStatus()==Action.DEATH) {
+									toremove.add(u);
+									
+								}
+								else if (l.isEnemyInRange(GameLogic.getInstance().getUnitInFiled())) {
 									l.renderAttacking(gc);
 								} else {
 									l.walk();
@@ -105,7 +127,10 @@ public class FieldCanvas extends Canvas {
 //	                    	
 							if (e instanceof Werebear) {
 								wb = (Werebear) e;
-								if (wb.isEnemyInRange(GameLogic.getInstance().getUnitInFiled())) {
+								if(wb.getStatus()==Action.DEATH) {
+									toremove.add(e);
+								}
+								else if (wb.isEnemyInRange(GameLogic.getInstance().getUnitInFiled())) {
 									wb.renderAttacking(gc);
 								} else {
 									wb.walk();
@@ -113,7 +138,11 @@ public class FieldCanvas extends Canvas {
 								}
 							} else if (e instanceof Orc) {
 								o = (Orc) e;
-								if(o.isEnemyInRange(GameLogic.getInstance().getUnitInFiled())){
+								if(o.getStatus()==Action.DEATH) {
+									toremove.add(e);
+									
+								}
+								else if(o.isEnemyInRange(GameLogic.getInstance().getUnitInFiled())){
 									o.renderAttacking(gc);
 								}
 								else {
@@ -122,7 +151,12 @@ public class FieldCanvas extends Canvas {
 								}
 							} else if (e instanceof Slime) {
 								s = (Slime) e;
-								if(s.isEnemyInRange(GameLogic.getInstance().getUnitInFiled())) {
+								if(s.getStatus()==Action.DEATH) {
+									toremove.add(e);
+									System.out.println(toremove.toString());
+									
+								}
+								else if(s.isEnemyInRange(GameLogic.getInstance().getUnitInFiled())) {
 									s.renderAttacking(gc);
 								}
 								else {
@@ -131,8 +165,24 @@ public class FieldCanvas extends Canvas {
 								}
 							}
 						}
+						
+						for(Unit r: toremove) {
+							GameLogic i = GameLogic.getInstance();
+							i.getEnemyTeamUnits().remove(r);
+							i.getUnitInFiled().remove(r);
+//							System.out.println("removing uunit");
+							
+						}
+						for(Unit r:toremoveHero) {
+							GameLogic i = GameLogic.getInstance();
+							i.getOurTeamUnits().remove(r);
+							i.getUnitInFiled().remove(r);
+						}
 
 					});
+					
+					
+					
 
 					Thread.sleep(50);
 				} catch (InterruptedException e) {

@@ -8,9 +8,8 @@ public class Castle extends Based {
     private Image brokenCastle;
     private Image currentFrame;
 
-    public Castle(String name, int health, boolean isAlley) {
-        super(name, health, isAlley); 
-        this.currentFrame = newCastle; //เดี๋ยวค่อยมาแก้
+    public Castle(int health) {
+        super(health);
         
     }
     

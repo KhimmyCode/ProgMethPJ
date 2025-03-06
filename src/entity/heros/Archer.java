@@ -44,7 +44,7 @@ public class Archer extends Heros implements Attackable {
 
     @Override
     public void walk() {
-        System.out.println("Archer in " + this.getPos());
+//        System.out.println("Archer in " + this.getPos());
         this.setPos(this.getPos() + this.getSpeed());
 
         long currentTime = System.currentTimeMillis();
@@ -75,7 +75,7 @@ public class Archer extends Heros implements Attackable {
         if (currentAttackingFrame == 0){
             isAttacking = false;
         }
-        System.out.println("frame =" + currentAttackingFrame);
+//        System.out.println("frame =" + currentAttackingFrame);
         gc.drawImage(archerAttackingFrames[currentAttackingFrame], this.getPos(), 147, 200, 300);
     }
 
@@ -84,17 +84,6 @@ public class Archer extends Heros implements Attackable {
         for (Object e : unitList) {
             if (e instanceof Enemies && this.getPos() + this.getRange() >= ((Enemies) e).getPos()) {
                 Enemies enemy = (Enemies) e;
-
-//                if (enemy instanceof Slime) {
-//                    Slime s = (Slime) enemy;
-//                    s.setTaking(true);
-//                } else if (enemy instanceof Orc) {
-//                    Orc o = (Orc) enemy;
-//                    o.setTaking(true);
-//                } else if (enemy instanceof Werebear) {
-//                    Werebear wb = (Werebear) enemy;
-//                    wb.setTaking(true);
-//                }
 
                 int hitChance = this.getAccuracy() - enemy.getEvasion();
                 double successRate = hitChance / 100.0;
