@@ -15,6 +15,7 @@ import difficulty.EasyDifficulty;
 import difficulty.MediumDifficulty;
 import difficulty.HardDifficulty;
 import javafx.application.Platform;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -29,6 +30,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import logic.CrystalManager;
 import logic.GameLogic;
 
@@ -65,7 +67,20 @@ public class GameScene {
         bimg.setFitWidth(120);
         Rectangle bgRect = new Rectangle(80, 80);
         bgRect.setFill(Color.SADDLEBROWN); // Change color as neede
-        StackPane btnContent = new StackPane(bgRect,imgView,bimg );
+        
+        
+        Text text = new Text(String.valueOf(hero.getCost()));
+        text.setFill(Color.YELLOW); // Set the color of the text (white here)
+        text.setStyle(" -fx-font-weight: bold; -fx-stroke: black; -fx-stroke-width: 1;");
+        SceneManager smanager = new SceneManager();
+        Font pixelFont = smanager.loadFont("/fonts/pixel2.ttf", 25);
+        text.setFont(pixelFont);
+
+        text.setTextAlignment(TextAlignment.CENTER);
+        
+        StackPane btnContent = new StackPane(bgRect,imgView,bimg ,text);
+        btnContent.setAlignment(text, Pos.BASELINE_CENTER); 
+        
 
         Button button = new Button();
         button.setGraphic(btnContent);

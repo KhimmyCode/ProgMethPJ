@@ -27,7 +27,7 @@ public class StartScene {
         
 
         // Create BackgroundImage object
-        Image bgImage = new Image("file:res/background/startscene.jpg"); // Make sure the image is in resources
+        Image bgImage = new Image("/background/startscene.jpg"); // Make sure the image is in resources
         ImageView image= new ImageView(bgImage);
         image.setFitWidth(800);
         image.setFitHeight(600);

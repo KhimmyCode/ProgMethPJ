@@ -7,16 +7,26 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+
+
 import application.SceneManager;
+
 
 public class LevelSelectScene {
     private Scene scene;
-
+    
+  
+    
     public LevelSelectScene() {
+    	
+    	
         Pane root = new Pane();
         
         // Background Image
@@ -53,7 +63,9 @@ public class LevelSelectScene {
         scene = new Scene(root, 800, 600);
     }
 
-    private Button createButton(String text, Image img, Font font, double x, double y, int level) {
+
+
+	private Button createButton(String text, Image img, Font font, double x, double y, int level) {
         ImageView btnImg = new ImageView(img);
         btnImg.setFitWidth(250);
         btnImg.setFitHeight(60);
@@ -70,8 +82,12 @@ public class LevelSelectScene {
         button.setLayoutX(x);
         button.setLayoutY(y);
         button.setStyle("-fx-background-color: transparent;"); // Remove default button styling
-
-        button.setOnAction(e -> SceneManager.loadGameScene(level));
+        
+        
+        button.setOnAction(e -> {
+        	
+        	SceneManager.loadGameScene(level);
+        });
 
         return button;
     }
@@ -79,4 +95,6 @@ public class LevelSelectScene {
     public Scene getScene() {
         return scene;
     }
+    
+    
 }

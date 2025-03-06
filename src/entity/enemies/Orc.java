@@ -36,7 +36,7 @@ public class Orc extends Enemies implements Attackable {
 		isAttacking = false;
 		
         for (int i = 0; i < 6; i++) {
-            orcFrames[i] = new Image("file:res/orc/orc-walk/orc-walk" + i + ".png");
+            orcFrames[i] = new Image("/orc/orc-walk/orc-walk" + i + ".png");
         }
         for(int i =0 ;i<6;i++) {
         	orcAttackingFrames[i] = new Image("/orc/orc-attack/orc-attack"+i+".png");
