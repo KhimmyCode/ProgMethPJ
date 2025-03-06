@@ -15,7 +15,7 @@ public class MediumDifficulty extends BaseDifficulty {
 
     public MediumDifficulty() {
         this.baseHealth = 150;
-        this.enemyCount = 75; // ศัตรูจำนวนปานกลาง
+        this.enemyCount = 75;
     }
 
 	@Override
@@ -38,11 +38,8 @@ public class MediumDifficulty extends BaseDifficulty {
 	        enemies.add(wb);
 	    }
 	    
-
-	    // ปล่อย enemies ทีละตัว
 	    Thread sp = new Thread(()->{
 	    	for (Enemies tar : enemies) {
-		        System.out.println(tar); // debug
 		        if(GameLogic.getInstance().isEnd()) break;
 		        if(tar instanceof Slime) {
 		        	Slime slime = (Slime) tar ;

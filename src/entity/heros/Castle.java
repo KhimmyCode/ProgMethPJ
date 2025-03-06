@@ -13,9 +13,6 @@ public class Castle extends Unit {
     }
 
 	@Override
-	public void walk() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void walk() {}
     
 }

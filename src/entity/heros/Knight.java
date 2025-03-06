@@ -23,6 +23,11 @@ public class Knight extends Heros implements Attackable {
 	private int currentAttackingFrame;
 	private long lastAttackingFrameTime;
 	private boolean isAttacking;
+	
+	public Knight(String name, int health, int attackPower, int speed, double range, boolean isAlley, int accuracy,
+            int evasion, double cooldown, int cost, double deployTime) {
+        super(name, health, attackPower, speed, range, isAlley, accuracy, evasion, cooldown, cost, deployTime);
+    }
 
 	public Knight() {
 		// Name, hp , atk , spd , range , team , acc , eva , cool , cost , deploytime
@@ -93,8 +98,6 @@ public class Knight extends Heros implements Attackable {
 					} else {
 						enemy.setHealth(takeDamage);
 					}
-				} else {
-
 				}
 			
 

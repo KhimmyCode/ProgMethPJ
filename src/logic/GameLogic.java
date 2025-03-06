@@ -37,7 +37,6 @@ public class GameLogic {
 	public Unit getUnitAtPosition(double x) {
 		for (Unit unit : getUnitInFiled()) {
 			if (unit.getPos() == x) {
-				System.out.println(unit.getName() + "is in " + x);
 				return unit;
 			}
 		}
@@ -121,7 +120,7 @@ public class GameLogic {
 
 		
 		if(unit.isAlley()) {
-			for (Unit u : enemyTeamUnits) {     //maybe change this condition if right is pos = 0
+			for (Unit u : enemyTeamUnits) {
 				if (u.getPos()-unit.getPos() <= unit.getRange()) {
 					targets.add(u);
 				}
@@ -140,11 +139,11 @@ public class GameLogic {
 		return targets;
 	}
 	public void resetGameState() {
-	    ourTeamUnits.clear(); // ล้างทีมของเรา
-	    enemyTeamUnits.clear(); // ล้างทีมศัตรู
+	    ourTeamUnits.clear();
+	    enemyTeamUnits.clear();
 	    unitInFiled.clear();
 	   
-	    isEnd = false; // รีเซ็ตสถานะเกม
+	    isEnd = false;
 	}
 
 	public ArrayList<Unit> getUnitInFiled() {

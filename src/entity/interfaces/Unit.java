@@ -14,10 +14,6 @@ public abstract class Unit {
 	private double cooldown;
 	private double initialDeployTime;
 	private Action status;
-	// pos -> this field tell us that where the unit located : if unit is alley ->
-	// start at 0 , else start at 100
-	// alley walk from o to 100 , enemy walk from 100 to 0 ; they will found each
-	// other at the same position(logic will think later)
 
 	public Unit(String name, int health, int attackPower, int speed, double range, boolean isAlley, int accuracy,
 			int evasion, double cooldown) {

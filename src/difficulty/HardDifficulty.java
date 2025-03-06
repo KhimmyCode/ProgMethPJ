@@ -16,7 +16,7 @@ public class HardDifficulty extends BaseDifficulty {
 
     public HardDifficulty() {
         this.baseHealth = 300;
-        this.enemyCount = 100; // ศัตรูจำนวนมาก
+        this.enemyCount = 100;
     }
 
 	@Override
@@ -41,11 +41,9 @@ public class HardDifficulty extends BaseDifficulty {
 	        enemies.add(wb);
 	    }
 	    
-
-	    // ปล่อย enemies ทีละตัว
 	    Thread sp = new Thread(()->{
 	    	for (Enemies tar : enemies) {
-		        System.out.println(tar); // debug
+		        System.out.println(tar);
 		        if(GameLogic.getInstance().isEnd()) break;
 		        if(tar instanceof Slime) {
 		        	Slime slime = (Slime) tar ;

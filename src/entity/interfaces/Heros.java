@@ -16,13 +16,7 @@ public abstract class Heros extends Unit {
 	}
 
 	@Override
-	public void walk() {
-		//YOU MUST ADD THIS COMMAND
-//		this.setPos(this.getPos() + this.getSpeed()); //Maybe
-//		if(this.getPos() + this.getRange() ) {
-//			
-//		}
-	}
+	public abstract void walk() ;
 	
 	public boolean isEnemyInRange(ArrayList<Unit> unitList) {
 	    for (Object e : unitList) {

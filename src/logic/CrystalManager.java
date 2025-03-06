@@ -109,7 +109,6 @@ public class CrystalManager {
 			while (!GameLogic.isEnd()) {
 				try {
 					Thread.sleep(upgradeRate);
-//					Thread.sleep(1);
 					crystalCount += 1;
 					updateCrystalText();
 				} catch (InterruptedException e) {

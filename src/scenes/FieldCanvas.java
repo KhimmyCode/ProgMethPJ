@@ -47,7 +47,6 @@ public class FieldCanvas extends Canvas {
 						gc.drawImage(background, 0, 0, 800, 400);
 
 						// Draw left base
-
 						Image ci = new Image(ClassLoader.getSystemResource("background/castle.png").toString());
 						
 						Image ji = new Image(ClassLoader.getSystemResource("background/cage.png").toString());
@@ -58,18 +57,15 @@ public class FieldCanvas extends Canvas {
 						gc.setFill(Color.RED);
 						SceneManager smanager = new SceneManager();
 						Font pixelFont = smanager.loadFont("/fonts/pixel2.ttf", 25);
-//						Font pixelFont = smanager.loadFont(ClassLoader.getSystemResource("/fonts/pixel2.ttf").toString(), 25);
 						
 						gc.setFont(pixelFont);
 						
 						
 						int castleHp = GameLogic.getInstance().getOurTeamUnits().get(0).getHealth();
 						int jailHp = GameLogic.getInstance().getEnemyTeamUnits().get(0).getHealth();
-						// แสดง HP ของ Castle (ฐานของเรา)
-						gc.fillText("HP: " +castleHp , 23, 190); // ตำแหน่ง X = 20, Y = 190
+						gc.fillText("HP: " +castleHp , 23, 190);
 
-						// แสดง HP ของ Jail (ฐานศัตรู)
-						gc.fillText("HP: " + jailHp, 690, 170); // ตำแหน่ง X = 710, Y = 160
+						gc.fillText("HP: " + jailHp, 690, 170);
 						
 						
 						
@@ -203,7 +199,6 @@ public class FieldCanvas extends Canvas {
 							GameLogic i = GameLogic.getInstance();
 							i.getEnemyTeamUnits().remove(r);
 							i.getUnitInFiled().remove(r);
-//							System.out.println("removing uunit");
 							
 						}
 						for(Unit r:toremoveHero) {

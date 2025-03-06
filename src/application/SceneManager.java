@@ -17,112 +17,111 @@ import java.io.InputStream;
 import java.util.HashMap;
 
 public class SceneManager {
-    private static Stage primaryStage;
-    private static HashMap<String, Scene> scenes = new HashMap<>();
-    private static MediaPlayer media;
-    private static MediaPlayer medialevel = new MediaPlayer(new Media(ClassLoader.getSystemResource("audio/menu.mp3").toString()));
-    private static MediaPlayer mediagame = new MediaPlayer(new Media(ClassLoader.getSystemResource("audio/game.mp3").toString()));
-    private static MediaPlayer mediawin = new MediaPlayer(new Media(ClassLoader.getSystemResource("audio/win.mp3").toString()));
-    private static MediaPlayer medialost = new MediaPlayer(new Media(ClassLoader.getSystemResource("audio/lost.mp3").toString()));
+	private static Stage primaryStage;
+	private static HashMap<String, Scene> scenes = new HashMap<>();
+	private static MediaPlayer media;
+	private static MediaPlayer medialevel = new MediaPlayer(
+			new Media(ClassLoader.getSystemResource("audio/menu.mp3").toString()));
+	private static MediaPlayer mediagame = new MediaPlayer(
+			new Media(ClassLoader.getSystemResource("audio/game.mp3").toString()));
+	private static MediaPlayer mediawin = new MediaPlayer(
+			new Media(ClassLoader.getSystemResource("audio/win.mp3").toString()));
+	private static MediaPlayer medialost = new MediaPlayer(
+			new Media(ClassLoader.getSystemResource("audio/lost.mp3").toString()));
 
-    public static void initialize(Stage stage) {
-        primaryStage = stage;
-        primaryStage.setTitle("KingDom TowerDefense"); // ใช้ชื่อจาก remote
-        
-        media = medialevel;
-        System.out.println("Initializing Scene Manager..."); // เก็บ log
-        
-        // Load all scenes
-        scenes.put("start", new StartScene().getScene());
-        scenes.put("level", new LevelSelectScene().getScene());
-        scenes.put("win", new WinScene().getScene());
-        scenes.put("lost", new LostScene().getScene());
-        
-        System.out.println("Scenes loaded."); // เก็บ log
-    }
+	public static void initialize(Stage stage) {
+		primaryStage = stage;
+		primaryStage.setTitle("KingDom TowerDefense");
 
-    public static void setScene(String sceneName) {
-        if (scenes.containsKey(sceneName)) {
-            if (media != null) { // Null check จาก remote
-                media.stop();
-            }
+		media = medialevel;
+		System.out.println("Initializing Scene Manager...");
 
-            System.out.println("Audio Path for " + sceneName + ": " + ClassLoader.getSystemResource("audio/" + getAudioFileName(sceneName)));
+		scenes.put("start", new StartScene().getScene());
+		scenes.put("level", new LevelSelectScene().getScene());
+		scenes.put("win", new WinScene().getScene());
+		scenes.put("lost", new LostScene().getScene());
 
-            if (sceneName.equals("level")) { // ใช้ .equals() จาก HEAD
-                media = medialevel;
-            } else if (sceneName.equals("lost")) {
-                media = medialost;
-            } else if (sceneName.equals("win")) {
-                media = mediawin;
-            }
+		System.out.println("Scenes loaded.");
+	}
 
-            media.setVolume(0.08);
-            media.setCycleCount(MediaPlayer.INDEFINITE);
-            
-            // Error handling จาก HEAD
-            media.setOnError(() -> {
-                System.out.println("Error playing audio: " + media.getError().getMessage());
-            });
+	public static void setScene(String sceneName) {
+		if (scenes.containsKey(sceneName)) {
+			if (media != null) {
+				media.stop();
+			}
 
-            media.play();
-            System.out.println("Audio started playing for " + sceneName);
+			if (sceneName.equals("level")) {
+				media = medialevel;
+			} else if (sceneName.equals("lost")) {
+				media = medialost;
+			} else if (sceneName.equals("win")) {
+				media = mediawin;
+			}
 
-            primaryStage.setScene(scenes.get(sceneName));
-            primaryStage.show();
-            primaryStage.setOnCloseRequest(event -> {
-                Platform.exit();
-                GameLogic.getInstance().setEnd(true);
-            });
-        }
-    }
+			media.setVolume(0.08);
+			media.setCycleCount(MediaPlayer.INDEFINITE);
 
-    public static void loadGameScene(int level) {
-        if (media != null) { // Null check
-            media.stop();
-        }
-        media = mediagame;
-        System.out.println("Loading Game Scene, Level: " + level);
+			media.setOnError(() -> {
+				System.out.println("Error playing audio: " + media.getError().getMessage());
+			});
 
-        media.setVolume(0.08);
-        media.setCycleCount(MediaPlayer.INDEFINITE);
-        
-        // Error handling
-        media.setOnError(() -> {
-            System.out.println("Error playing audio: " + media.getError().getMessage());
-        });
+			media.play();
+			System.out.println("Audio started playing for " + sceneName);
 
-        media.play();
-        System.out.println("Audio started playing for game level " + level);
+			primaryStage.setScene(scenes.get(sceneName));
+			primaryStage.show();
+			primaryStage.setOnCloseRequest(event -> {
+				Platform.exit();
+				GameLogic.getInstance().setEnd(true);
+			});
+		}
+	}
 
-        GameLogic.getInstance().resetGameState();
-        GameScene gameScene = new GameScene(level);
-        scenes.put("game" + level, gameScene.getScene());
-        primaryStage.setScene(gameScene.getScene());
-        primaryStage.show();
-    }
+	public static void loadGameScene(int level) {
+		if (media != null) {
+			media.stop();
+		}
+		media = mediagame;
+		System.out.println("Loading Game Scene, Level: " + level);
 
-    private static String getAudioFileName(String sceneName) { // เก็บจาก HEAD
-        switch (sceneName) {
-            case "level":
-                return "menu.mp3";
-            case "lost":
-                return "lost.mp3";
-            case "win":
-                return "win.mp3";
-            default:
-                return "game.mp3"; // fallback
-        }
-    }
+		media.setVolume(0.08);
+		media.setCycleCount(MediaPlayer.INDEFINITE);
 
-    public Font loadFont(String path, double size) {
-        try (InputStream is = getClass().getResourceAsStream(path)) {
-            if (is != null) {
-                return Font.loadFont(is, size);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return Font.font("Arial", size); // Fallback font
-    }
+		media.setOnError(() -> {
+			System.out.println("Error playing audio: " + media.getError().getMessage());
+		});
+
+		media.play();
+		System.out.println("Audio started playing for game level " + level);
+
+		GameLogic.getInstance().resetGameState();
+		GameScene gameScene = new GameScene(level);
+		scenes.put("game" + level, gameScene.getScene());
+		primaryStage.setScene(gameScene.getScene());
+		primaryStage.show();
+	}
+
+	private static String getAudioFileName(String sceneName) {
+		switch (sceneName) {
+		case "level":
+			return "menu.mp3";
+		case "lost":
+			return "lost.mp3";
+		case "win":
+			return "win.mp3";
+		default:
+			return "game.mp3";
+		}
+	}
+
+	public Font loadFont(String path, double size) {
+		try (InputStream is = getClass().getResourceAsStream(path)) {
+			if (is != null) {
+				return Font.loadFont(is, size);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Font.font("Arial", size);
+	}
 }

@@ -53,8 +53,6 @@ public class Slime extends Enemies implements Attackable, Regenable {
 	
 	@Override
 	public void walk() {
-//		System.out.println("Slime in " + this.getPos());
-		
 		if(!this.isTaking()) {
 		this.setPos(this.getPos() - this.getSpeed());
 
@@ -67,8 +65,6 @@ public class Slime extends Enemies implements Attackable, Regenable {
 	}
 	
 	public void render(GraphicsContext gc) {
-//		System.out.println("Rendering Knight at position: (" + this.getPos() + ")");
-
 		gc.drawImage(slimeFrames[currentFrame], this.getPos(), 147, 200, 300);
 	}
 
@@ -82,11 +78,11 @@ public class Slime extends Enemies implements Attackable, Regenable {
 	
 	public void renderAttacking(GraphicsContext gc) {
 		long currentTime = System.currentTimeMillis();
-        if (currentTime - lastAttackingFrameTime > 200) { // ลดความเร็วในการเปลี่ยนเฟรมโจมตี
-            currentAttackingFrame = (currentAttackingFrame + 1) % 6; // โจมตี 12 เฟรม
+        if (currentTime - lastAttackingFrameTime > 200) {
+            currentAttackingFrame = (currentAttackingFrame + 1) % 6;
             lastAttackingFrameTime = currentTime;
         }
-        if (currentAttackingFrame == 4&&!isAttacking ) { // โจมตีที่เฟรม 5 (เปลี่ยนเฟรม)
+        if (currentAttackingFrame == 4&&!isAttacking ) {
             attack(GameLogic.getInstance().getUnitInFiled());
             isAttacking=true;
             System.out.println("attack");
@@ -114,9 +110,6 @@ public class Slime extends Enemies implements Attackable, Regenable {
 				} else {
 					hero.setHealth(takeDamage);
 				}
-//				System.out.println(this.getName() + " Attack " + hero.getName() + " remain hp = " + takeDamage);
-			} else {
-//				System.out.println(this.getName() + " Attack Miss!");
 			}
 		}
 		else if(e instanceof Castle&&this.getPos()-this.getRange()<=0) {

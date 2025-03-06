@@ -65,11 +65,11 @@ public class Werebear extends Enemies implements Attackable {
     
     public void renderAttacking(GraphicsContext gc) {
     	long currentTime = System.currentTimeMillis();
-        if (currentTime - lastAttackingFrameTime > 200) { // ลดความเร็วในการเปลี่ยนเฟรมโจมตี
-            currentAttackingFrame = (currentAttackingFrame + 1) % 12; // โจมตี 12 เฟรม
+        if (currentTime - lastAttackingFrameTime > 200) {
+            currentAttackingFrame = (currentAttackingFrame + 1) % 12;
             lastAttackingFrameTime = currentTime;
         }
-        if (currentAttackingFrame == 9&&!isAttacking ) { // โจมตีที่เฟรม 5 (เปลี่ยนเฟรม)
+        if (currentAttackingFrame == 9&&!isAttacking ) {
             attack(GameLogic.getInstance().getUnitInFiled());
             isAttacking=true;
             System.out.println("attack");
@@ -78,7 +78,6 @@ public class Werebear extends Enemies implements Attackable {
         if(currentAttackingFrame ==0) {
         	isAttacking = false;
         }
-//        System.out.println("frame =" + currentAttackingFrame);
         gc.drawImage(werebearAttackingFrames[currentAttackingFrame], this.getPos(), 147, 200, 300);
     	
     }
@@ -99,9 +98,6 @@ public class Werebear extends Enemies implements Attackable {
                     } else {
                         hero.setHealth(takeDamage);
                     }
-                    System.out.println(this.getName() + " Attack " + hero.getName() + " remain hp = " + takeDamage);
-                } else {
-                    System.out.println(this.getName() + " Attack Miss!");
                 }
             }
             else if(e instanceof Castle&&this.getPos()-this.getRange()<=0) {

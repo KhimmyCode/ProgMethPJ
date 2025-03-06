@@ -33,7 +33,7 @@ public class Lancer extends Heros implements Attackable {
         // Name, hp, atk, spd, range, team, acc, eva, cool, cost, deploytime
         this("Lancer", 200, 20, 2, 20, true, 150, 15, 3, 200, 15);
         this.lancerFrames = new Image[8];
-        this.lancerAttackingFrames = new Image[6]; // ปรับเป็น 6 เฟรม
+        this.lancerAttackingFrames = new Image[6];
         this.currentFrame = 0;
         this.currentAttackingFrame = 0;
         this.lastFrameTime = System.currentTimeMillis();
@@ -43,7 +43,7 @@ public class Lancer extends Heros implements Attackable {
             lancerFrames[i] =  new Image(ClassLoader.getSystemResource("lancer/lancer-walk/lancer-walk" + i + ".png").toString());
            
         }
-        for (int i = 0; i < 6; i++) { // ปรับเป็น 6 เฟรม
+        for (int i = 0; i < 6; i++) {
             lancerAttackingFrames[i] =  new Image(ClassLoader.getSystemResource("lancer/lancer-attack/lancer-attack" + i + ".png").toString());
            
         }
@@ -69,10 +69,10 @@ public class Lancer extends Heros implements Attackable {
     public void renderAttacking(GraphicsContext gc) {
         long currentTime = System.currentTimeMillis();
         if (currentTime - lastAttackingFrameTime > 200) {
-            currentAttackingFrame = (currentAttackingFrame + 1) % 6; // ปรับเป็น 6 เฟรม
+            currentAttackingFrame = (currentAttackingFrame + 1) % 6;
             lastAttackingFrameTime = currentTime;
         }
-        if (currentAttackingFrame == 5&& !isAttacking) { // คงเฟรมที่ 2 เป็นจุดโจมตีเหมือนเดิม
+        if (currentAttackingFrame == 5&& !isAttacking) {
             attack(GameLogic.getInstance().getUnitInFiled());
             isAttacking=true;
             System.out.println("attack");
@@ -103,9 +103,6 @@ public class Lancer extends Heros implements Attackable {
                     } else {
                         enemy.setHealth(takeDamage);
                     }
-                    System.out.println(this.getName() + " Attack " + enemy.getName() );
-                } else {
-                    System.out.println(this.getName() + " Attack Miss!");
                 }
             }
             else if(e instanceof Jail&&this.getPos()+this.getRange()>=600) {

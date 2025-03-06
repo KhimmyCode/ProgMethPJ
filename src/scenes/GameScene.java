@@ -189,17 +189,7 @@ public class GameScene {
 		
 		});
 
-		// สร้าง Castle
-//        castle = new Castle("Player Castle", difficulty, true, 400, 300);
-//        enemyCount = difficulty.getEnemyCount(); // ตั้งจำนวนศัตรูในด่าน
-//
-//        // แสดง Castle ในฉาก
-//        ImageView castleView = new ImageView(castle.getCurrentFrame());
-//        castleView.setLayoutX(castle.getX());
-//        castleView.setLayoutY(castle.getY());
-//        root.getChildren().add(castleView);
-		
-
+	
 		// Button panel
 		HBox buttonPanel = new HBox(10);
 		Button knightButton = createHeroButton(knight, "knight/knightbtn.png");

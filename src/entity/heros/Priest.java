@@ -104,7 +104,7 @@ public class Priest extends Heros implements Buffable {
 
     public boolean isAllyInRange(ArrayList<Unit> unitList) {
         for (Unit e : unitList) {
-            if (e instanceof Heros && e != this) { // ตรวจสอบว่าไม่ใช่ Priest ตัวเอง
+            if (e instanceof Heros && e != this) {
                 if (this.getRange()+this.getPos()+100>=e.getPos()&&e.getPos()>=this.getPos()&&! (e instanceof Priest)) { // ตรวจสอบระยะ
                     return true;
                 }
