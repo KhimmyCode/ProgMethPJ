@@ -156,7 +156,7 @@ public class FieldCanvas extends Canvas {
 								if(wb.getStatus()==Action.DEATH) {
 									toremove.add(e);
 								}
-								else if (wb.isEnemyInRange(GameLogic.getInstance().getUnitInFiled())||e.getPos()-e.getRange()<=castlepos) {
+								else if (wb.isHeroInRange(GameLogic.getInstance().getUnitInFiled())||e.getPos()-e.getRange()<=castlepos) {
 									wb.renderAttacking(gc);
 								} else {
 									wb.walk();
@@ -168,7 +168,7 @@ public class FieldCanvas extends Canvas {
 									toremove.add(e);
 									
 								}
-								else if(o.isEnemyInRange(GameLogic.getInstance().getUnitInFiled())||e.getPos()-e.getRange()<=castlepos){
+								else if(o.isHeroInRange(GameLogic.getInstance().getUnitInFiled())||e.getPos()-e.getRange()<=castlepos){
 									o.renderAttacking(gc);
 								}
 								else {
@@ -180,7 +180,7 @@ public class FieldCanvas extends Canvas {
 								if(s.getStatus()==Action.DEATH) {
 									toremove.add(e);									
 								}
-								else if(s.isEnemyInRange(GameLogic.getInstance().getUnitInFiled())||e.getPos()-e.getRange()<=castlepos) {
+								else if(s.isHeroInRange(GameLogic.getInstance().getUnitInFiled())||e.getPos()-e.getRange()<=castlepos) {
 									s.renderAttacking(gc);
 								}
 								else {

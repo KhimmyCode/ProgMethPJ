@@ -13,7 +13,7 @@ public abstract class Enemies extends Unit {
 	@Override
 	public abstract void walk();
 
-	public boolean isEnemyInRange(ArrayList<Unit> unitList) {
+	public boolean isHeroInRange(ArrayList<Unit> unitList) {
 		for (Object e : unitList) {
 			if (e instanceof Heros) {
 				Heros hero = (Heros) e;
