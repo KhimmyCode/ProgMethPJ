@@ -43,13 +43,14 @@ public class FieldCanvas extends Canvas {
 						gc.clearRect(0, 0, getWidth(), getHeight());
 
 						// Draw background placeholder
-						Image background = new Image("background/level.png");
+						Image background = new Image(ClassLoader.getSystemResource("background/level.png").toString());
 						gc.drawImage(background, 0, 0, 800, 400);
 
 						// Draw left base
 
-						Image ci = new Image("background/castle.png");
-						Image ji = new Image("background/cage.png");
+						Image ci = new Image(ClassLoader.getSystemResource("background/castle.png").toString());
+						
+						Image ji = new Image(ClassLoader.getSystemResource("background/cage.png").toString());
 
 						gc.drawImage(ci, 0, 200, 185.3 * 0.8, 152.6 * 0.8);
 						gc.drawImage(ji, 700, 170, 209 * 0.5, 309 * 0.5);
@@ -57,6 +58,8 @@ public class FieldCanvas extends Canvas {
 						gc.setFill(Color.RED);
 						SceneManager smanager = new SceneManager();
 						Font pixelFont = smanager.loadFont("/fonts/pixel2.ttf", 25);
+//						Font pixelFont = smanager.loadFont(ClassLoader.getSystemResource("/fonts/pixel2.ttf").toString(), 25);
+						
 						gc.setFont(pixelFont);
 						
 						

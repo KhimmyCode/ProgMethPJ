@@ -8,7 +8,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         SceneManager.initialize(primaryStage);
-        SceneManager.setScene("start");  // Start with "Press to Start" scene
+        SceneManager.setScene("start");
     }
 
     public static void main(String[] args) {

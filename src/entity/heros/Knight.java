@@ -33,16 +33,15 @@ public class Knight extends Heros implements Attackable {
 		this.lastFrameTime = System.currentTimeMillis();
 
 		for (int i = 0; i < 8; i++) {
-			knightFrames[i] = new Image("/knight/knight-walk/knight-walk" + i + ".png");
+			knightFrames[i] = new Image(ClassLoader.getSystemResource("knight/knight-walk/knight-walk" + i + ".png").toString());
 		}
 		for (int i = 0; i < 7; i++) {
-			knightAttackingFrames[i] = new Image("/knight/knight-attack/knight-attack" + i + ".png");
+			knightAttackingFrames[i] = new Image(ClassLoader.getSystemResource("knight/knight-attack/knight-attack" + i + ".png").toString());
 		}
 	}
 
 	@Override
 	public void walk() {
-//		System.out.println( "Knight in " + this.getPos());
 		this.setPos(this.getPos() + this.getSpeed());
 
 		long currentTime = System.currentTimeMillis();
@@ -72,7 +71,6 @@ public class Knight extends Heros implements Attackable {
 		if (currentAttackingFrame == 0) {
 			isAttacking = false;
 		}
-//		System.out.println("frame ="+currentAttackingFrame);
 		gc.drawImage(knightAttackingFrames[currentAttackingFrame], this.getPos(), 147, 200, 300);
 	}
 
@@ -95,9 +93,8 @@ public class Knight extends Heros implements Attackable {
 					} else {
 						enemy.setHealth(takeDamage);
 					}
-//					System.out.println(this.getName() + " Attack " + enemy.getName() + " remain hp = " + takeDamage);
 				} else {
-//					System.out.println(this.getName() + " Attack Miss!");
+
 				}
 			
 

@@ -36,10 +36,12 @@ public class Wizard extends Heros implements Attackable {
         this.isAttacking = false;
 
         for (int i = 0; i < 8; i++) {
-            wizardFrames[i] = new Image("/wizard/wizard-walk/wizard-walk" + i + ".png");
+            wizardFrames[i] = new Image(ClassLoader.getSystemResource("wizard/wizard-walk/wizard-walk" + i + ".png").toString());
+            
         }
         for (int i = 0; i < 6; i++) {
-            wizardAttackingFrames[i] = new Image("/wizard/wizard-attack/wizard-attack" + i + ".png");
+            wizardAttackingFrames[i] = new Image(ClassLoader.getSystemResource("wizard/wizard-attack/wizard-attack" + i + ".png").toString());
+           
         }
     }
 

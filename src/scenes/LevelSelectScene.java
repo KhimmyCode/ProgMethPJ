@@ -30,7 +30,7 @@ public class LevelSelectScene {
         Pane root = new Pane();
         
         // Background Image
-        Image bgImage = new Image("/background/startscene.jpg");
+        Image bgImage = new Image(ClassLoader.getSystemResource("background/startscene.jpg").toString());
         ImageView image = new ImageView(bgImage);
         image.setFitWidth(800);
         image.setFitHeight(600);
@@ -39,16 +39,19 @@ public class LevelSelectScene {
         Text title = new Text(150, 165, "Select a Level");
         SceneManager s = new SceneManager();
         Font pixelFont65 = s.loadFont("/fonts/pixel2.ttf", 65);
+        
         title.setFont(pixelFont65);
         title.setFill(Color.WHITE);
         title.setStroke(Color.BLACK);
         title.setStrokeWidth(2);
 
         // Load button background image
-        Image btnImage = new Image("/background/levelbutton.jpg");
+        Image btnImage = new Image(ClassLoader.getSystemResource("background/levelbutton.jpg").toString());
+        
 
         // Load font
         Font pixelFont = s.loadFont("/fonts/pixel2.ttf", 35);
+        
 
         // Create Buttons
         Button easyButton = createButton("Easy", btnImage, pixelFont, 270, 240, 1);

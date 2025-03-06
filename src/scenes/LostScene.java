@@ -16,26 +16,29 @@ public class LostScene {
 
 	public LostScene() {
 		Pane root = new Pane();
-		Image bg = new Image("background/startscene.jpg");
+		Image bg = new Image(ClassLoader.getSystemResource("background/startscene.jpg").toString());
+		
 		ImageView bgimg = new ImageView(bg);
 		bgimg.setFitWidth(800);
 		bgimg.setFitHeight(600);
 		Text title = new Text(180, 180, "You Lose!!");
 		SceneManager s = new SceneManager();
-		Font pixelFont = s.loadFont("/fonts/pixel2.ttf", 88);
+		Font pixelFont = s.loadFont("fonts/pixel2.ttf", 88);
+		
 		title.setFont(pixelFont);
 		title.setFill(Color.WHITE);
 		title.setStroke(Color.BLACK);
 		title.setStrokeWidth(2);
 		
 		
-		Image btnImage = new Image("/background/levelbutton.jpg");
+		Image btnImage = new Image(ClassLoader.getSystemResource("background/levelbutton.jpg").toString());
 		ImageView btnImg = new ImageView(btnImage);
         btnImg.setFitWidth(250*1.4);
         btnImg.setFitHeight(60*1.4);
 
         Text buttonText = new Text("Back to Menu");
-        Font pixelFont2 = s.loadFont("/fonts/pixel2.ttf", 37);
+        Font pixelFont2 = s.loadFont("fonts/pixel2.ttf", 37);
+       
         buttonText.setFont(pixelFont2);
         buttonText.setFill(Color.WHITE);
         buttonText.setStroke(Color.BLACK);

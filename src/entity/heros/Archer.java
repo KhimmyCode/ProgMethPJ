@@ -37,16 +37,18 @@ public class Archer extends Heros implements Attackable {
         this.isAttacking = false;
 
         for (int i = 0; i < 8; i++) {
-            archerFrames[i] = new Image("/archer/archer-walk/archer-walk" + i + ".png");
+            archerFrames[i] = new Image(ClassLoader.getSystemResource("archer/archer-walk/archer-walk" + i + ".png").toString());
+            //ClassLoader.getSystemResource("").toString()
+//            ClassLoader.getSystemResource("/archer/archer-walk/archer-walk" + i + ".png").toString()
         }
         for (int i = 0; i < 12; i++) {
-            archerAttackingFrames[i] = new Image("/archer/archer-attack/archer-attack" + i + ".png");
+            archerAttackingFrames[i] = new Image(ClassLoader.getSystemResource("archer/archer-attack/archer-attack" + i + ".png").toString());
+//            new Image(ClassLoader.getSystemResource("/archer/archer-attack/archer-attack" + i + ".png").toString());
         }
     }
 
     @Override
     public void walk() {
-//        System.out.println("Archer in " + this.getPos());
         this.setPos(this.getPos() + this.getSpeed());
 
         long currentTime = System.currentTimeMillis();

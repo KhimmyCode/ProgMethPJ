@@ -40,16 +40,17 @@ public class Lancer extends Heros implements Attackable {
         this.lastAttackingFrameTime = System.currentTimeMillis();
 
         for (int i = 0; i < 8; i++) {
-            lancerFrames[i] = new Image("/lancer/lancer-walk/lancer-walk" + i + ".png");
+            lancerFrames[i] =  new Image(ClassLoader.getSystemResource("lancer/lancer-walk/lancer-walk" + i + ".png").toString());
+           
         }
         for (int i = 0; i < 6; i++) { // ปรับเป็น 6 เฟรม
-            lancerAttackingFrames[i] = new Image("/lancer/lancer-attack/lancer-attack" + i + ".png");
+            lancerAttackingFrames[i] =  new Image(ClassLoader.getSystemResource("lancer/lancer-attack/lancer-attack" + i + ".png").toString());
+           
         }
     }
 
     @Override
     public void walk() {
-        System.out.println("Lancer in " + this.getPos());
         this.setPos(this.getPos() + this.getSpeed());
 
         long currentTime = System.currentTimeMillis();

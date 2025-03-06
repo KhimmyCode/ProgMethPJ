@@ -37,10 +37,12 @@ public class Werebear extends Enemies implements Attackable {
         isAttacking = false;
 
         for (int i = 0; i < 6; i++) {
-            werebearFrames[i] = new Image("/werebear/werebear-walk/werebear-walk" + i + ".png");
+            werebearFrames[i] = new Image(ClassLoader.getSystemResource("werebear/werebear-walk/werebear-walk" + i + ".png").toString());
+            
         }
         for (int i = 0; i < 12; i++) {
-        	werebearAttackingFrames[i] = new Image("werebear/werebear-attack/werebear-attack" + i + ".png");
+        	werebearAttackingFrames[i] = new Image(ClassLoader.getSystemResource("werebear/werebear-attack/werebear-attack" + i + ".png").toString());
+        	
         }
     }
 

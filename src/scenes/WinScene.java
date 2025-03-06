@@ -16,7 +16,7 @@ public class WinScene {
 
 	public WinScene() {
 		Pane root = new Pane();
-		Image bg = new Image("background/startscene.jpg");
+		Image bg = new Image(ClassLoader.getSystemResource("background/startscene.jpg").toString());
 		ImageView bgimg = new ImageView(bg);
 		bgimg.setFitWidth(800);
 		bgimg.setFitHeight(600);
@@ -28,7 +28,7 @@ public class WinScene {
 		title.setStroke(Color.BLACK);
 		title.setStrokeWidth(2);
 		
-		Image btnImage = new Image("/background/levelbutton.jpg");
+		Image btnImage = new Image(ClassLoader.getSystemResource("background/levelbutton.jpg").toString());
 		ImageView btnImg = new ImageView(btnImage);
         btnImg.setFitWidth(250*1.4);
         btnImg.setFitHeight(60*1.4);

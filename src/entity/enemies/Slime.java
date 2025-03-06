@@ -42,10 +42,11 @@ public class Slime extends Enemies implements Attackable, Regenable {
 		isAttacking= false;
 		
         for (int i = 0; i < 6; i++) {
-            slimeFrames[i] = new Image("/slime/slime-walk/slime-walk" + i + ".png");
+            slimeFrames[i] = new Image(ClassLoader.getSystemResource("slime/slime-walk/slime-walk" + i + ".png").toString());
+            
         }
         for(int i=0;i<6;i++) {
-        	slimeAttackingFrames[i] = new Image("/slime/slime-attack/slime-attack"+i+".png");
+        	slimeAttackingFrames[i] = new Image(ClassLoader.getSystemResource("slime/slime-attack/slime-attack"+i+".png").toString());
         }
 
 	}

@@ -37,10 +37,12 @@ public class Priest extends Heros implements Buffable {
         this.isBuffing = false;
 
         for (int i = 0; i < 8; i++) {
-            priestFrames[i] = new Image("/priest/priest-walk/priest-walk" + i + ".png");
+            priestFrames[i] = new Image(ClassLoader.getSystemResource("priest/priest-walk/priest-walk" + i + ".png").toString());
+            
         }
         for (int i = 0; i < 6; i++) {
-            priestBuffFrames[i] = new Image("/priest/priest-heal/priest-heal" + i + ".png");
+            priestBuffFrames[i] = new Image(ClassLoader.getSystemResource("priest/priest-heal/priest-heal" + i + ".png").toString());
+            
         }
     }
 
@@ -69,7 +71,6 @@ public class Priest extends Heros implements Buffable {
         }
         if (currentBuffFrame == 4 && !isBuffing) {
             buff(GameLogic.getInstance().getOurTeamUnits());
-            System.out.println("Priest buff");
             isBuffing = true;
         }
         if (currentBuffFrame == 0) {
@@ -86,7 +87,6 @@ public class Priest extends Heros implements Buffable {
                 if(this.getRange()+this.getPos()+100>=e.getPos()&&e.getPos()>=this.getPos()&&! (e instanceof Priest)) {
                 	
                 	hero.setHealth(hero.getHealth() + this.getBuffHealth());
-                	System.out.println("this get heeal up to"+hero.getHealth());
                 }
             }
         }
@@ -105,7 +105,6 @@ public class Priest extends Heros implements Buffable {
     public boolean isAllyInRange(ArrayList<Unit> unitList) {
         for (Unit e : unitList) {
             if (e instanceof Heros && e != this) { // ตรวจสอบว่าไม่ใช่ Priest ตัวเอง
-//                System.out.println("knight pos ="+e.getPos()+"p range ="+this.getRange()+"p pos"+getPos());
                 if (this.getRange()+this.getPos()+100>=e.getPos()&&e.getPos()>=this.getPos()&&! (e instanceof Priest)) { // ตรวจสอบระยะ
                     return true;
                 }

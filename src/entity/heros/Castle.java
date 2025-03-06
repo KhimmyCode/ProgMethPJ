@@ -18,7 +18,4 @@ public class Castle extends Unit {
 		
 	}
     
-   
-    
-    //หาภาพ newCastle , brokenCastle 
 }

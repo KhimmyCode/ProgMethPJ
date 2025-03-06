@@ -36,16 +36,15 @@ public class Orc extends Enemies implements Attackable {
 		isAttacking = false;
 		
         for (int i = 0; i < 6; i++) {
-            orcFrames[i] = new Image("/orc/orc-walk/orc-walk" + i + ".png");
+            orcFrames[i] = new Image(ClassLoader.getSystemResource("orc/orc-walk/orc-walk" + i + ".png").toString());
         }
         for(int i =0 ;i<6;i++) {
-        	orcAttackingFrames[i] = new Image("/orc/orc-attack/orc-attack"+i+".png");
+        	orcAttackingFrames[i] = new Image(ClassLoader.getSystemResource("orc/orc-attack/orc-attack"+i+".png").toString());
         }
 	}
 	
 	@Override
 	public void walk() {
-//		System.out.println("Slime in " + this.getPos());
 		
 		if(!this.isTaking()) {
 		this.setPos(this.getPos() - this.getSpeed());
@@ -59,7 +58,6 @@ public class Orc extends Enemies implements Attackable {
 	}
 	
 	public void render(GraphicsContext gc) {
-//		System.out.println("Rendering Knight at position: (" + this.getPos() + ")");
 
 		gc.drawImage(orcFrames[currentFrame], this.getPos(), 147, 200, 300);
 	}
@@ -73,13 +71,11 @@ public class Orc extends Enemies implements Attackable {
         if (currentAttackingFrame == 4&&!isAttacking ) { // โจมตีที่เฟรม 5 (เปลี่ยนเฟรม)
             attack(GameLogic.getInstance().getUnitInFiled());
             isAttacking=true;
-            System.out.println("attack");
             
         }
         if(currentAttackingFrame ==0) {
         	isAttacking = false;
         }
-//        System.out.println("frame =" + currentAttackingFrame);
         gc.drawImage(orcAttackingFrames[currentAttackingFrame], this.getPos(), 147, 200, 300);
 	}
 

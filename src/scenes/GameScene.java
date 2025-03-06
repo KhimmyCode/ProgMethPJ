@@ -57,9 +57,10 @@ public class GameScene {
 
 	// สร้างปุ่มฮีโร่
 	private Button createHeroButton(Heros hero, String imagePath) {
-        Image img = new Image(imagePath);
+        Image img = new Image(ClassLoader.getSystemResource(imagePath).toString());
         ImageView imgView = new ImageView(img);
-        Image b = new Image("background/border.png");
+        Image b = new Image(ClassLoader.getSystemResource("background/border.png").toString());
+//        new Image(ClassLoader.getSystemResource("background/border.png").toString());
         ImageView bimg = new ImageView(b);
         imgView.setFitWidth(85);
         imgView.setFitHeight(85);
@@ -74,6 +75,7 @@ public class GameScene {
         text.setStyle(" -fx-font-weight: bold; -fx-stroke: black; -fx-stroke-width: 1;");
         SceneManager smanager = new SceneManager();
         Font pixelFont = smanager.loadFont("/fonts/pixel2.ttf", 25);
+        
         text.setFont(pixelFont);
 
         text.setTextAlignment(TextAlignment.CENTER);
@@ -132,7 +134,7 @@ public class GameScene {
 
 		// Title
 		BorderPane header = new BorderPane();
-		Image btn = new Image("/background/levelbutton.jpg");
+		Image btn = new Image(ClassLoader.getSystemResource("background/levelbutton.jpg").toString());
 		ImageView btnImg = new ImageView(btn);
         btnImg.setFitWidth(250*0.8);
         btnImg.setFitHeight(60*0.8);
@@ -213,11 +215,12 @@ public class GameScene {
         upgradeCrystalButton.setOnAction(e -> crystalManager.upgradeCrystal());
         upgradeCrystalButton.setPrefSize(100, 100);
         upgradeCrystalButton.setStyle("-fx-background-color: transparent; -fx-border-width: 0; -fx-padding: 0;");
-        Image b = new Image("background/border.png");
+        Image b = new Image(ClassLoader.getSystemResource("background/border.png").toString());
+        
         ImageView bimg = new ImageView(b);
         bimg.setFitHeight(120);
         bimg.setFitWidth(120);
-        Image c = new Image("background/coin.jpg");
+        Image c = new Image(ClassLoader.getSystemResource("background/coin.jpg").toString());
         ImageView cimg= new ImageView(c);
         cimg.setFitHeight(75);
         cimg.setFitWidth(75);
