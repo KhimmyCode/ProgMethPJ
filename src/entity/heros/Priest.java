@@ -83,7 +83,11 @@ public class Priest extends Heros implements Buffable {
         for (Unit e : unitList) {
             if (e instanceof Heros) {
                 Heros hero = (Heros) e;
-                hero.setHealth(hero.getHealth() + this.getBuffHealth());
+                if(this.getRange()+this.getPos()+100>=e.getPos()&&e.getPos()>=this.getPos()&&! (e instanceof Priest)) {
+                	
+                	hero.setHealth(hero.getHealth() + this.getBuffHealth());
+                	System.out.println("this get heeal up to"+hero.getHealth());
+                }
             }
         }
     }
@@ -102,7 +106,7 @@ public class Priest extends Heros implements Buffable {
         for (Unit e : unitList) {
             if (e instanceof Heros && e != this) { // ตรวจสอบว่าไม่ใช่ Priest ตัวเอง
 //                System.out.println("knight pos ="+e.getPos()+"p range ="+this.getRange()+"p pos"+getPos());
-                if (this.getRange()+this.getPos()+80>=e.getPos()) { // ตรวจสอบระยะ
+                if (this.getRange()+this.getPos()+100>=e.getPos()&&e.getPos()>=this.getPos()&&! (e instanceof Priest)) { // ตรวจสอบระยะ
                     return true;
                 }
             }

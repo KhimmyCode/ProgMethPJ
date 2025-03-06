@@ -162,7 +162,7 @@ public class GameScene {
 		gc = canvas.getGraphicsContext2D();
 
 		// Crystal manager
-		crystalManager = new CrystalManager(150, crystalText);
+		crystalManager = new CrystalManager(500, crystalText);
 		crystalManager.startCrystalCount();
 
 		// Set Castle and enemy count based on difficulty

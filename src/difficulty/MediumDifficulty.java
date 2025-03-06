@@ -55,7 +55,7 @@ public class MediumDifficulty extends BaseDifficulty {
 		    		GameLogic.getInstance().addUnitToEnemyTeam(o);
 		        }
 		        try {
-					Thread.sleep(1000*7);
+					Thread.sleep(1000*9);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
